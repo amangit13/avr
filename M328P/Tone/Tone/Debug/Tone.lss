@@ -1,0 +1,422 @@
+
+Tone.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000002  00800100  00000256  000002ca  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000256  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000002cc  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002fc  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  0000033c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000008a3  00000000  00000000  0000036c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000713  00000000  00000000  00000c0f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000323  00000000  00000000  00001322  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000058  00000000  00000000  00001648  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003e5  00000000  00000000  000016a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000193  00000000  00000000  00001a85  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000050  00000000  00000000  00001c18  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+   8:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+   c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  10:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  14:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  18:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  1c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  20:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  24:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  28:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  2c:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__vector_11>
+  30:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  34:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  38:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  3c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  40:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  44:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  48:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  4c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  50:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  54:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  58:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  5c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  60:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  64:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	e6 e5       	ldi	r30, 0x56	; 86
+  7c:	f2 e0       	ldi	r31, 0x02	; 2
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	a2 30       	cpi	r26, 0x02	; 2
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+  8a:	0e 94 7f 00 	call	0xfe	; 0xfe <main>
+  8e:	0c 94 29 01 	jmp	0x252	; 0x252 <_exit>
+
+00000092 <__bad_interrupt>:
+  92:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000096 <setupToneGenerator>:
+// setup CTC mode to generate tone. Must also call playSound to start the tone.
+void setupToneGenerator()
+{
+	
+	// setup port direction so that OC1A i.e., port PB1 can be toggled.
+	DDRB |= 1<<PORTB1;
+  96:	21 9a       	sbi	0x04, 1	; 4
+	
+	// toggle OC1A pin on compare match. non pwm
+	TCCR1A |= (1 <<COM1A0);
+  98:	e0 e8       	ldi	r30, 0x80	; 128
+  9a:	f0 e0       	ldi	r31, 0x00	; 0
+  9c:	80 81       	ld	r24, Z
+  9e:	80 64       	ori	r24, 0x40	; 64
+  a0:	80 83       	st	Z, r24
+	
+	// CTC mode clear timer on compare match. mode 4
+	// TCCR1A bit 0 & 1 are zero & TCCR1B bit 3 is 1.
+	TCCR1B |= (1<<WGM12);
+  a2:	e1 e8       	ldi	r30, 0x81	; 129
+  a4:	f0 e0       	ldi	r31, 0x00	; 0
+  a6:	80 81       	ld	r24, Z
+  a8:	88 60       	ori	r24, 0x08	; 8
+  aa:	80 83       	st	Z, r24
+	
+	// set compare value
+	TCNT1 = 0;
+  ac:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
+  b0:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
+
+	OCR1A = _tonegeneratorOC1A;
+  b4:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+  b8:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <__data_start+0x1>
+  bc:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <__TEXT_REGION_LENGTH__+0x7e0089>
+  c0:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7e0088>
+
+	// setup interrupt on compare match OCR1A
+	TIMSK1 |= 1<< OCIE1A;
+  c4:	ef e6       	ldi	r30, 0x6F	; 111
+  c6:	f0 e0       	ldi	r31, 0x00	; 0
+  c8:	80 81       	ld	r24, Z
+  ca:	82 60       	ori	r24, 0x02	; 2
+  cc:	80 83       	st	Z, r24
+	
+	sei();
+  ce:	78 94       	sei
+  d0:	08 95       	ret
+
+000000d2 <__vector_11>:
+
+	TCCR1B |= (1<<CS11);
+}
+
+ISR(TIMER1_COMPA_vect)
+{
+  d2:	1f 92       	push	r1
+  d4:	0f 92       	push	r0
+  d6:	0f b6       	in	r0, 0x3f	; 63
+  d8:	0f 92       	push	r0
+  da:	11 24       	eor	r1, r1
+  dc:	8f 93       	push	r24
+  de:	9f 93       	push	r25
+	// change OCRA to a new frequency. It is done in the interrupt to avoid comparing compa with a non zero timer counter.
+	OCR1A = _tonegeneratorOC1A;
+  e0:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+  e4:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <__data_start+0x1>
+  e8:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <__TEXT_REGION_LENGTH__+0x7e0089>
+  ec:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7e0088>
+	
+}
+  f0:	9f 91       	pop	r25
+  f2:	8f 91       	pop	r24
+  f4:	0f 90       	pop	r0
+  f6:	0f be       	out	0x3f, r0	; 63
+  f8:	0f 90       	pop	r0
+  fa:	1f 90       	pop	r1
+  fc:	18 95       	reti
+
+000000fe <main>:
+
+
+int main(void)
+{
+	
+	setupToneGenerator();
+  fe:	0e 94 4b 00 	call	0x96	; 0x96 <setupToneGenerator>
+	//TCCR1B |= (1<< CS11);
+}
+
+inline void setNote(uint16_t note)
+{
+	_tonegeneratorOC1A = note;
+ 102:	8d ed       	ldi	r24, 0xDD	; 221
+ 104:	9d e1       	ldi	r25, 0x1D	; 29
+ 106:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <__data_start+0x1>
+ 10a:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+
+// must call each time stop is called otherwise tone will not generate.
+inline void startSound()
+{
+
+	TCCR1B |= (1<<CS11);
+ 10e:	e1 e8       	ldi	r30, 0x81	; 129
+ 110:	f0 e0       	ldi	r31, 0x00	; 0
+ 112:	80 81       	ld	r24, Z
+ 114:	82 60       	ori	r24, 0x02	; 2
+ 116:	80 83       	st	Z, r24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 118:	2f ef       	ldi	r18, 0xFF	; 255
+ 11a:	83 ed       	ldi	r24, 0xD3	; 211
+ 11c:	90 e3       	ldi	r25, 0x30	; 48
+ 11e:	21 50       	subi	r18, 0x01	; 1
+ 120:	80 40       	sbci	r24, 0x00	; 0
+ 122:	90 40       	sbci	r25, 0x00	; 0
+ 124:	e1 f7       	brne	.-8      	; 0x11e <main+0x20>
+ 126:	00 c0       	rjmp	.+0      	; 0x128 <main+0x2a>
+ 128:	00 00       	nop
+	startSound();
+	
+	_delay_ms(1000);
+	
+	uint16_t freq = 100;
+	int8_t step = 30;
+ 12a:	0f 2e       	mov	r0, r31
+ 12c:	fe e1       	ldi	r31, 0x1E	; 30
+ 12e:	7f 2e       	mov	r7, r31
+ 130:	f0 2d       	mov	r31, r0
+	setNote(C3);
+	startSound();
+	
+	_delay_ms(1000);
+	
+	uint16_t freq = 100;
+ 132:	c4 e6       	ldi	r28, 0x64	; 100
+ 134:	d0 e0       	ldi	r29, 0x00	; 0
+	_tonegeneratorOC1A = note;
+}
+
+inline void setFreq(uint16_t freq)
+{
+	_tonegeneratorOC1A = 1000000/freq;	
+ 136:	0f 2e       	mov	r0, r31
+ 138:	f0 e4       	ldi	r31, 0x40	; 64
+ 13a:	8f 2e       	mov	r8, r31
+ 13c:	f2 e4       	ldi	r31, 0x42	; 66
+ 13e:	9f 2e       	mov	r9, r31
+ 140:	ff e0       	ldi	r31, 0x0F	; 15
+ 142:	af 2e       	mov	r10, r31
+ 144:	b1 2c       	mov	r11, r1
+ 146:	f0 2d       	mov	r31, r0
+}
+
+inline void stopSound()
+{
+	TCCR1B &= ~(1<< CS11);
+ 148:	0f 2e       	mov	r0, r31
+ 14a:	f1 e8       	ldi	r31, 0x81	; 129
+ 14c:	ef 2e       	mov	r14, r31
+ 14e:	f1 2c       	mov	r15, r1
+ 150:	f0 2d       	mov	r31, r0
+	TCNT1 = 0;
+ 152:	0f 2e       	mov	r0, r31
+ 154:	f4 e8       	ldi	r31, 0x84	; 132
+ 156:	cf 2e       	mov	r12, r31
+ 158:	d1 2c       	mov	r13, r1
+ 15a:	f0 2d       	mov	r31, r0
+ 15c:	07 2d       	mov	r16, r7
+ 15e:	07 2c       	mov	r0, r7
+ 160:	00 0c       	add	r0, r0
+ 162:	11 0b       	sbc	r17, r17
+ 164:	c0 0f       	add	r28, r16
+ 166:	d1 1f       	adc	r29, r17
+	_tonegeneratorOC1A = note;
+}
+
+inline void setFreq(uint16_t freq)
+{
+	_tonegeneratorOC1A = 1000000/freq;	
+ 168:	9e 01       	movw	r18, r28
+ 16a:	40 e0       	ldi	r20, 0x00	; 0
+ 16c:	50 e0       	ldi	r21, 0x00	; 0
+ 16e:	c5 01       	movw	r24, r10
+ 170:	b4 01       	movw	r22, r8
+ 172:	0e 94 e8 00 	call	0x1d0	; 0x1d0 <__divmodsi4>
+ 176:	30 93 01 01 	sts	0x0101, r19	; 0x800101 <__data_start+0x1>
+ 17a:	20 93 00 01 	sts	0x0100, r18	; 0x800100 <__data_start>
+ 17e:	ef ef       	ldi	r30, 0xFF	; 255
+ 180:	f6 e7       	ldi	r31, 0x76	; 118
+ 182:	21 e0       	ldi	r18, 0x01	; 1
+ 184:	e1 50       	subi	r30, 0x01	; 1
+ 186:	f0 40       	sbci	r31, 0x00	; 0
+ 188:	20 40       	sbci	r18, 0x00	; 0
+ 18a:	e1 f7       	brne	.-8      	; 0x184 <main+0x86>
+ 18c:	00 c0       	rjmp	.+0      	; 0x18e <main+0x90>
+ 18e:	00 00       	nop
+    while (1)
+    {
+		freq += step;
+		setFreq(freq);
+		_delay_ms(30);
+		if (freq >= 2000 || freq <= 100)
+ 190:	ce 01       	movw	r24, r28
+ 192:	85 56       	subi	r24, 0x65	; 101
+ 194:	91 09       	sbc	r25, r1
+ 196:	8b 36       	cpi	r24, 0x6B	; 107
+ 198:	97 40       	sbci	r25, 0x07	; 7
+ 19a:	20 f3       	brcs	.-56     	; 0x164 <main+0x66>
+		{
+			step *= -1;
+ 19c:	71 94       	neg	r7
+			freq += step;
+ 19e:	c7 0d       	add	r28, r7
+ 1a0:	d1 1d       	adc	r29, r1
+ 1a2:	77 fc       	sbrc	r7, 7
+ 1a4:	da 95       	dec	r29
+}
+
+inline void stopSound()
+{
+	TCCR1B &= ~(1<< CS11);
+ 1a6:	f7 01       	movw	r30, r14
+ 1a8:	80 81       	ld	r24, Z
+ 1aa:	8d 7f       	andi	r24, 0xFD	; 253
+ 1ac:	80 83       	st	Z, r24
+	TCNT1 = 0;
+ 1ae:	f6 01       	movw	r30, r12
+ 1b0:	11 82       	std	Z+1, r1	; 0x01
+ 1b2:	10 82       	st	Z, r1
+ 1b4:	ff ef       	ldi	r31, 0xFF	; 255
+ 1b6:	27 e8       	ldi	r18, 0x87	; 135
+ 1b8:	83 e1       	ldi	r24, 0x13	; 19
+ 1ba:	f1 50       	subi	r31, 0x01	; 1
+ 1bc:	20 40       	sbci	r18, 0x00	; 0
+ 1be:	80 40       	sbci	r24, 0x00	; 0
+ 1c0:	e1 f7       	brne	.-8      	; 0x1ba <main+0xbc>
+ 1c2:	00 c0       	rjmp	.+0      	; 0x1c4 <main+0xc6>
+ 1c4:	00 00       	nop
+
+// must call each time stop is called otherwise tone will not generate.
+inline void startSound()
+{
+
+	TCCR1B |= (1<<CS11);
+ 1c6:	f7 01       	movw	r30, r14
+ 1c8:	80 81       	ld	r24, Z
+ 1ca:	82 60       	ori	r24, 0x02	; 2
+ 1cc:	80 83       	st	Z, r24
+ 1ce:	c6 cf       	rjmp	.-116    	; 0x15c <main+0x5e>
+
+000001d0 <__divmodsi4>:
+ 1d0:	05 2e       	mov	r0, r21
+ 1d2:	97 fb       	bst	r25, 7
+ 1d4:	1e f4       	brtc	.+6      	; 0x1dc <__divmodsi4+0xc>
+ 1d6:	00 94       	com	r0
+ 1d8:	0e 94 ff 00 	call	0x1fe	; 0x1fe <__negsi2>
+ 1dc:	57 fd       	sbrc	r21, 7
+ 1de:	07 d0       	rcall	.+14     	; 0x1ee <__divmodsi4_neg2>
+ 1e0:	0e 94 07 01 	call	0x20e	; 0x20e <__udivmodsi4>
+ 1e4:	07 fc       	sbrc	r0, 7
+ 1e6:	03 d0       	rcall	.+6      	; 0x1ee <__divmodsi4_neg2>
+ 1e8:	4e f4       	brtc	.+18     	; 0x1fc <__divmodsi4_exit>
+ 1ea:	0c 94 ff 00 	jmp	0x1fe	; 0x1fe <__negsi2>
+
+000001ee <__divmodsi4_neg2>:
+ 1ee:	50 95       	com	r21
+ 1f0:	40 95       	com	r20
+ 1f2:	30 95       	com	r19
+ 1f4:	21 95       	neg	r18
+ 1f6:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1f8:	4f 4f       	sbci	r20, 0xFF	; 255
+ 1fa:	5f 4f       	sbci	r21, 0xFF	; 255
+
+000001fc <__divmodsi4_exit>:
+ 1fc:	08 95       	ret
+
+000001fe <__negsi2>:
+ 1fe:	90 95       	com	r25
+ 200:	80 95       	com	r24
+ 202:	70 95       	com	r23
+ 204:	61 95       	neg	r22
+ 206:	7f 4f       	sbci	r23, 0xFF	; 255
+ 208:	8f 4f       	sbci	r24, 0xFF	; 255
+ 20a:	9f 4f       	sbci	r25, 0xFF	; 255
+ 20c:	08 95       	ret
+
+0000020e <__udivmodsi4>:
+ 20e:	a1 e2       	ldi	r26, 0x21	; 33
+ 210:	1a 2e       	mov	r1, r26
+ 212:	aa 1b       	sub	r26, r26
+ 214:	bb 1b       	sub	r27, r27
+ 216:	fd 01       	movw	r30, r26
+ 218:	0d c0       	rjmp	.+26     	; 0x234 <__udivmodsi4_ep>
+
+0000021a <__udivmodsi4_loop>:
+ 21a:	aa 1f       	adc	r26, r26
+ 21c:	bb 1f       	adc	r27, r27
+ 21e:	ee 1f       	adc	r30, r30
+ 220:	ff 1f       	adc	r31, r31
+ 222:	a2 17       	cp	r26, r18
+ 224:	b3 07       	cpc	r27, r19
+ 226:	e4 07       	cpc	r30, r20
+ 228:	f5 07       	cpc	r31, r21
+ 22a:	20 f0       	brcs	.+8      	; 0x234 <__udivmodsi4_ep>
+ 22c:	a2 1b       	sub	r26, r18
+ 22e:	b3 0b       	sbc	r27, r19
+ 230:	e4 0b       	sbc	r30, r20
+ 232:	f5 0b       	sbc	r31, r21
+
+00000234 <__udivmodsi4_ep>:
+ 234:	66 1f       	adc	r22, r22
+ 236:	77 1f       	adc	r23, r23
+ 238:	88 1f       	adc	r24, r24
+ 23a:	99 1f       	adc	r25, r25
+ 23c:	1a 94       	dec	r1
+ 23e:	69 f7       	brne	.-38     	; 0x21a <__udivmodsi4_loop>
+ 240:	60 95       	com	r22
+ 242:	70 95       	com	r23
+ 244:	80 95       	com	r24
+ 246:	90 95       	com	r25
+ 248:	9b 01       	movw	r18, r22
+ 24a:	ac 01       	movw	r20, r24
+ 24c:	bd 01       	movw	r22, r26
+ 24e:	cf 01       	movw	r24, r30
+ 250:	08 95       	ret
+
+00000252 <_exit>:
+ 252:	f8 94       	cli
+
+00000254 <__stop_program>:
+ 254:	ff cf       	rjmp	.-2      	; 0x254 <__stop_program>
