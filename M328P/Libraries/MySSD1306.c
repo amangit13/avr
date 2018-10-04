@@ -2,17 +2,20 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
-#define _RST PORTB3
-#define _CS PORTB5
-#define _DC PORTB4
-#define _CLK PORTB1
-#define _MOSI PORTB2
+#define _CS PORTC5
+#define _DC PORTC4
+#define _RST PORTC3
+
+#define _CLK PORTB5
+#define _MOSI PORTB3
 
 
 void displayinit(uint8_t vccstate) {
 
   // set pin directions
   DDRB = 0xFF;
+  DDRC = 0xff;
+  
 _delay_ms(10);
 
   HPORTB(_RST);

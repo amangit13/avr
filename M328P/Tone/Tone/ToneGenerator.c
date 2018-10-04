@@ -7,11 +7,12 @@
 #define B4 3822
 #define C4 3405
 
-#define instrumentNoise 1
-#define instrumentSquareWave 0
+#define toneNoise 1
+#define toneSquareWave 0
 
 volatile int _tonegenOC1A = B4;
-volatile uint8_t _instrumentName = 0;
+
+volatile uint8_t _toneName = toneSquareWave;
 
 // setup CTC mode to generate tone. Must also call playSound to start the tone.
 void setupToneGenerator()
@@ -40,9 +41,9 @@ void setupToneGenerator()
 	// Select clock source and prescalaing. this will start the timer.
 	//TCCR1B |= (1<< CS11);
 }
-inline void setInstrument(uint8_t instrumentName)
+inline void setTone(uint8_t toneName)
 {
-	_instrumentName = instrumentName;
+	_toneName = toneName;
 }
 inline void setNote(uint16_t note)
 {
@@ -69,14 +70,15 @@ inline void startSound()
 
 ISR(TIMER1_COMPA_vect)
 {
-	// change OCRA to a new frequency. It is done in the interrupt to avoid comparing compa with a non zero timer counter.
-	if (_instrumentName == 1)
+	switch(_toneName)
 	{
-		OCR1A = rand()%1000 + 100;	
+		case toneNoise:
+		OCR1A = rand()%1000 + 100;
 		TCNT1 = 0;
-	}
-	else
-	{
+		break;
+		
+	// change OCRA to a new frequency. It is done in the interrupt to avoid comparing compa with a non zero timer counter.
+		default:
 		OCR1A = _tonegenOC1A;
 		TCNT1 = 0;
 	}

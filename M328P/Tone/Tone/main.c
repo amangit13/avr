@@ -12,20 +12,40 @@
 #include <stdlib.h>
 #include "ToneGenerator.c"
 
-
 int main(void)
 {
 	
 	setupToneGenerator();
-	setNote(C4);
-	setInstrument(instrumentNoise);
-		
+	setNote(A4);
+	setTone(toneSquareWave);
+	
+	int i = 0;
+	
 	while(1)
 	{
+		i = 0;
+		setNote(C4);
+		
+		while(i < 50)
+		{
+			i++;
+			stopSound();
+			_delay_ms(100);
+			startSound();
+			_delay_ms(10);
+		}
+	
 		stopSound();
-		_delay_ms(90);
-		startSound();
-		_delay_ms(10);
-	}	
+		for (i = 100; i<2000; i+=20)
+		{
+			_delay_ms(100);
+			setFreq (i);
+			startSound();
+			_delay_ms(10);
+			stopSound();
+		}
+	}
+	
+	
 }
 
