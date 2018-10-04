@@ -11,10 +11,14 @@
 
 int main(void)
 {
-	displayinit(SSD1306_SWITCHCAPVCC);
+	displayinit(2);
 	displayclear();
-	displaybegin(0,1);
-	fastSPIwrite(255);
+	displaybegin(0,0);
+	
+	for (uint8_t i = 0;i<255; i++)
+	{
+		fastSPIwrite(255);
+	}
 	displayend();
     /* Replace with your application code */
     while (1) 

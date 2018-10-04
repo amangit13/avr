@@ -3,29 +3,29 @@ OLED.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  000002ae  2**0
+  0 .data         00000000  00800100  00800100  000002d0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000025a  00000000  00000000  00000054  2**1
+  1 .text         0000027c  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  000002ae  2**0
+  2 .comment      00000030  00000000  00000000  000002d0  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002e0  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000300  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000058  00000000  00000000  00000320  2**0
+  4 .debug_aranges 00000058  00000000  00000000  00000340  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000d3a  00000000  00000000  00000378  2**0
+  5 .debug_info   00000e02  00000000  00000000  00000398  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000079b  00000000  00000000  000010b2  2**0
+  6 .debug_abbrev 000007b1  00000000  00000000  0000119a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000526  00000000  00000000  0000184d  2**0
+  7 .debug_line   00000584  00000000  00000000  0000194b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000000b4  00000000  00000000  00001d74  2**2
+  8 .debug_frame  000000b4  00000000  00000000  00001ed0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000003f4  00000000  00000000  00001e28  2**0
+  9 .debug_str    000003f4  00000000  00000000  00001f84  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000032b  00000000  00000000  0000221c  2**0
+ 10 .debug_loc    00000389  00000000  00000000  00002378  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000048  00000000  00000000  00002547  2**0
+ 11 .debug_ranges 00000060  00000000  00000000  00002701  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,8 +65,8 @@ Disassembly of section .text:
   6e:	d8 e0       	ldi	r29, 0x08	; 8
   70:	de bf       	out	0x3e, r29	; 62
   72:	cd bf       	out	0x3d, r28	; 61
-  74:	0e 94 1c 01 	call	0x238	; 0x238 <main>
-  78:	0c 94 2b 01 	jmp	0x256	; 0x256 <_exit>
+  74:	0e 94 24 01 	call	0x248	; 0x248 <main>
+  78:	0c 94 3c 01 	jmp	0x278	; 0x278 <_exit>
 
 0000007c <__bad_interrupt>:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -78,9 +78,9 @@ Disassembly of section .text:
 	ssd1306_command(0Xff);
 	ssd1306_command(0x2F); // activate scroll
 }
-  80:	2d 9a       	sbi	0x05, 5	; 5
-  82:	2c 98       	cbi	0x05, 4	; 5
-  84:	2d 98       	cbi	0x05, 5	; 5
+  80:	45 9a       	sbi	0x08, 5	; 8
+  82:	44 98       	cbi	0x08, 4	; 8
+  84:	45 98       	cbi	0x08, 5	; 8
   86:	28 e0       	ldi	r18, 0x08	; 8
   88:	30 e0       	ldi	r19, 0x00	; 0
   8a:	90 e8       	ldi	r25, 0x80	; 128
@@ -96,7 +96,7 @@ Disassembly of section .text:
   9e:	21 50       	subi	r18, 0x01	; 1
   a0:	31 09       	sbc	r19, r1
   a2:	a1 f7       	brne	.-24     	; 0x8c <ssd1306_command+0xc>
-  a4:	2d 9a       	sbi	0x05, 5	; 5
+  a4:	45 9a       	sbi	0x08, 5	; 8
   a6:	08 95       	ret
 
 000000a8 <displayinit>:
@@ -111,7 +111,7 @@ Disassembly of section .text:
   b8:	f1 f7       	brne	.-4      	; 0xb6 <displayinit+0xe>
   ba:	00 c0       	rjmp	.+0      	; 0xbc <displayinit+0x14>
   bc:	00 00       	nop
-  be:	2b 9a       	sbi	0x05, 3	; 5
+  be:	43 9a       	sbi	0x08, 3	; 8
   c0:	9f ef       	ldi	r25, 0xFF	; 255
   c2:	21 ee       	ldi	r18, 0xE1	; 225
   c4:	84 e0       	ldi	r24, 0x04	; 4
@@ -121,7 +121,7 @@ Disassembly of section .text:
   cc:	e1 f7       	brne	.-8      	; 0xc6 <displayinit+0x1e>
   ce:	00 c0       	rjmp	.+0      	; 0xd0 <displayinit+0x28>
   d0:	00 00       	nop
-  d2:	2b 98       	cbi	0x05, 3	; 5
+  d2:	43 98       	cbi	0x08, 3	; 8
   d4:	9f ef       	ldi	r25, 0xFF	; 255
   d6:	21 ee       	ldi	r18, 0xE1	; 225
   d8:	84 e0       	ldi	r24, 0x04	; 4
@@ -131,7 +131,7 @@ Disassembly of section .text:
   e0:	e1 f7       	brne	.-8      	; 0xda <displayinit+0x32>
   e2:	00 c0       	rjmp	.+0      	; 0xe4 <displayinit+0x3c>
   e4:	00 00       	nop
-  e6:	2b 9a       	sbi	0x05, 3	; 5
+  e6:	43 9a       	sbi	0x08, 3	; 8
   e8:	9f ef       	ldi	r25, 0xFF	; 255
   ea:	21 ee       	ldi	r18, 0xE1	; 225
   ec:	84 e0       	ldi	r24, 0x04	; 4
@@ -159,143 +159,175 @@ Disassembly of section .text:
  126:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
  12a:	8d e8       	ldi	r24, 0x8D	; 141
  12c:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 130:	84 e1       	ldi	r24, 0x14	; 20
- 132:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 136:	80 e2       	ldi	r24, 0x20	; 32
- 138:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 13c:	80 e0       	ldi	r24, 0x00	; 0
- 13e:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 142:	81 ea       	ldi	r24, 0xA1	; 161
- 144:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 148:	88 ec       	ldi	r24, 0xC8	; 200
- 14a:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 14e:	8a ed       	ldi	r24, 0xDA	; 218
- 150:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 154:	82 e1       	ldi	r24, 0x12	; 18
- 156:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 15a:	81 e8       	ldi	r24, 0x81	; 129
- 15c:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 160:	c1 30       	cpi	r28, 0x01	; 1
- 162:	51 f4       	brne	.+20     	; 0x178 <displayinit+0xd0>
+ 130:	c1 30       	cpi	r28, 0x01	; 1
+ 132:	11 f5       	brne	.+68     	; 0x178 <displayinit+0xd0>
+ 134:	80 e1       	ldi	r24, 0x10	; 16
+ 136:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 13a:	80 e2       	ldi	r24, 0x20	; 32
+ 13c:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 140:	80 e0       	ldi	r24, 0x00	; 0
+ 142:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 146:	81 ea       	ldi	r24, 0xA1	; 161
+ 148:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 14c:	88 ec       	ldi	r24, 0xC8	; 200
+ 14e:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 152:	8a ed       	ldi	r24, 0xDA	; 218
+ 154:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 158:	82 e1       	ldi	r24, 0x12	; 18
+ 15a:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 15e:	81 e8       	ldi	r24, 0x81	; 129
+ 160:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
  164:	8f e9       	ldi	r24, 0x9F	; 159
  166:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
  16a:	89 ed       	ldi	r24, 0xD9	; 217
  16c:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
  170:	82 e2       	ldi	r24, 0x22	; 34
  172:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 176:	09 c0       	rjmp	.+18     	; 0x18a <displayinit+0xe2>
- 178:	8f ec       	ldi	r24, 0xCF	; 207
+ 176:	21 c0       	rjmp	.+66     	; 0x1ba <displayinit+0x112>
+ 178:	84 e1       	ldi	r24, 0x14	; 20
  17a:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 17e:	89 ed       	ldi	r24, 0xD9	; 217
+ 17e:	80 e2       	ldi	r24, 0x20	; 32
  180:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 184:	81 ef       	ldi	r24, 0xF1	; 241
+ 184:	80 e0       	ldi	r24, 0x00	; 0
  186:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 18a:	8b ed       	ldi	r24, 0xDB	; 219
+ 18a:	81 ea       	ldi	r24, 0xA1	; 161
  18c:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 190:	80 e4       	ldi	r24, 0x40	; 64
+ 190:	88 ec       	ldi	r24, 0xC8	; 200
  192:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 196:	84 ea       	ldi	r24, 0xA4	; 164
+ 196:	8a ed       	ldi	r24, 0xDA	; 218
  198:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 19c:	86 ea       	ldi	r24, 0xA6	; 166
+ 19c:	82 e1       	ldi	r24, 0x12	; 18
  19e:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1a2:	8e e2       	ldi	r24, 0x2E	; 46
+ 1a2:	81 e8       	ldi	r24, 0x81	; 129
  1a4:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1a8:	8f ea       	ldi	r24, 0xAF	; 175
+ 1a8:	8f ec       	ldi	r24, 0xCF	; 207
  1aa:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1ae:	cf 91       	pop	r28
- 1b0:	08 95       	ret
-
-000001b2 <displaybegin>:
- 1b2:	cf 93       	push	r28
- 1b4:	df 93       	push	r29
- 1b6:	d8 2f       	mov	r29, r24
- 1b8:	c6 2f       	mov	r28, r22
- 1ba:	81 e2       	ldi	r24, 0x21	; 33
+ 1ae:	89 ed       	ldi	r24, 0xD9	; 217
+ 1b0:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 1b4:	81 ef       	ldi	r24, 0xF1	; 241
+ 1b6:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 1ba:	8b ed       	ldi	r24, 0xDB	; 219
  1bc:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1c0:	8d 2f       	mov	r24, r29
+ 1c0:	80 e4       	ldi	r24, 0x40	; 64
  1c2:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1c6:	8f e7       	ldi	r24, 0x7F	; 127
+ 1c6:	84 ea       	ldi	r24, 0xA4	; 164
  1c8:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1cc:	82 e2       	ldi	r24, 0x22	; 34
+ 1cc:	86 ea       	ldi	r24, 0xA6	; 166
  1ce:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1d2:	8c 2f       	mov	r24, r28
+ 1d2:	8e e2       	ldi	r24, 0x2E	; 46
  1d4:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1d8:	87 e0       	ldi	r24, 0x07	; 7
+ 1d8:	8f ea       	ldi	r24, 0xAF	; 175
  1da:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
- 1de:	2d 9a       	sbi	0x05, 5	; 5
- 1e0:	2c 9a       	sbi	0x05, 4	; 5
- 1e2:	2d 98       	cbi	0x05, 5	; 5
- 1e4:	df 91       	pop	r29
- 1e6:	cf 91       	pop	r28
- 1e8:	08 95       	ret
+ 1de:	cf 91       	pop	r28
+ 1e0:	08 95       	ret
 
-000001ea <displayend>:
- 1ea:	2d 9a       	sbi	0x05, 5	; 5
- 1ec:	08 95       	ret
+000001e2 <displaybegin>:
+ 1e2:	cf 93       	push	r28
+ 1e4:	df 93       	push	r29
+ 1e6:	d8 2f       	mov	r29, r24
+ 1e8:	c6 2f       	mov	r28, r22
+ 1ea:	81 e2       	ldi	r24, 0x21	; 33
+ 1ec:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 1f0:	8d 2f       	mov	r24, r29
+ 1f2:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 1f6:	8f e7       	ldi	r24, 0x7F	; 127
+ 1f8:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 1fc:	82 e2       	ldi	r24, 0x22	; 34
+ 1fe:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 202:	8c 2f       	mov	r24, r28
+ 204:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 208:	87 e0       	ldi	r24, 0x07	; 7
+ 20a:	0e 94 40 00 	call	0x80	; 0x80 <ssd1306_command>
+ 20e:	45 9a       	sbi	0x08, 5	; 8
+ 210:	44 9a       	sbi	0x08, 4	; 8
+ 212:	45 98       	cbi	0x08, 5	; 8
+ 214:	df 91       	pop	r29
+ 216:	cf 91       	pop	r28
+ 218:	08 95       	ret
 
-000001ee <displayclear>:
- 1ee:	60 e0       	ldi	r22, 0x00	; 0
- 1f0:	80 e0       	ldi	r24, 0x00	; 0
- 1f2:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <displaybegin>
- 1f6:	20 e0       	ldi	r18, 0x00	; 0
- 1f8:	34 e0       	ldi	r19, 0x04	; 4
- 1fa:	08 c0       	rjmp	.+16     	; 0x20c <displayclear+0x1e>
- 1fc:	2d 98       	cbi	0x05, 5	; 5
- 1fe:	2b 98       	cbi	0x05, 3	; 5
- 200:	2d 9a       	sbi	0x05, 5	; 5
- 202:	01 97       	sbiw	r24, 0x01	; 1
- 204:	d9 f7       	brne	.-10     	; 0x1fc <displayclear+0xe>
- 206:	21 50       	subi	r18, 0x01	; 1
- 208:	31 09       	sbc	r19, r1
- 20a:	19 f0       	breq	.+6      	; 0x212 <displayclear+0x24>
- 20c:	88 e0       	ldi	r24, 0x08	; 8
- 20e:	90 e0       	ldi	r25, 0x00	; 0
- 210:	f5 cf       	rjmp	.-22     	; 0x1fc <displayclear+0xe>
- 212:	0e 94 f5 00 	call	0x1ea	; 0x1ea <displayend>
- 216:	08 95       	ret
+0000021a <displayend>:
+ 21a:	45 9a       	sbi	0x08, 5	; 8
+ 21c:	08 95       	ret
 
-00000218 <fastSPIwrite>:
- 218:	28 e0       	ldi	r18, 0x08	; 8
- 21a:	30 e0       	ldi	r19, 0x00	; 0
- 21c:	90 e8       	ldi	r25, 0x80	; 128
- 21e:	2d 98       	cbi	0x05, 5	; 5
- 220:	48 2f       	mov	r20, r24
- 222:	49 23       	and	r20, r25
- 224:	11 f0       	breq	.+4      	; 0x22a <fastSPIwrite+0x12>
- 226:	2b 9a       	sbi	0x05, 3	; 5
- 228:	01 c0       	rjmp	.+2      	; 0x22c <fastSPIwrite+0x14>
- 22a:	2b 98       	cbi	0x05, 3	; 5
- 22c:	2d 9a       	sbi	0x05, 5	; 5
- 22e:	96 95       	lsr	r25
- 230:	21 50       	subi	r18, 0x01	; 1
- 232:	31 09       	sbc	r19, r1
- 234:	a1 f7       	brne	.-24     	; 0x21e <fastSPIwrite+0x6>
- 236:	08 95       	ret
+0000021e <displayclear>:
+ 21e:	60 e0       	ldi	r22, 0x00	; 0
+ 220:	80 e0       	ldi	r24, 0x00	; 0
+ 222:	0e 94 f1 00 	call	0x1e2	; 0x1e2 <displaybegin>
+ 226:	20 e0       	ldi	r18, 0x00	; 0
+ 228:	34 e0       	ldi	r19, 0x04	; 4
+ 22a:	08 c0       	rjmp	.+16     	; 0x23c <displayclear+0x1e>
+ 22c:	2d 98       	cbi	0x05, 5	; 5
+ 22e:	2b 98       	cbi	0x05, 3	; 5
+ 230:	2d 9a       	sbi	0x05, 5	; 5
+ 232:	01 97       	sbiw	r24, 0x01	; 1
+ 234:	d9 f7       	brne	.-10     	; 0x22c <displayclear+0xe>
+ 236:	21 50       	subi	r18, 0x01	; 1
+ 238:	31 09       	sbc	r19, r1
+ 23a:	19 f0       	breq	.+6      	; 0x242 <displayclear+0x24>
+ 23c:	88 e0       	ldi	r24, 0x08	; 8
+ 23e:	90 e0       	ldi	r25, 0x00	; 0
+ 240:	f5 cf       	rjmp	.-22     	; 0x22c <displayclear+0xe>
+ 242:	0e 94 0d 01 	call	0x21a	; 0x21a <displayend>
+ 246:	08 95       	ret
 
-00000238 <main>:
+00000248 <main>:
 #include <avr/io.h>
 #include "MySSD1306.c"
 
 int main(void)
 {
-	displayinit(SSD1306_SWITCHCAPVCC);
- 238:	82 e0       	ldi	r24, 0x02	; 2
- 23a:	0e 94 54 00 	call	0xa8	; 0xa8 <displayinit>
+	displayinit(2);
+ 248:	82 e0       	ldi	r24, 0x02	; 2
+ 24a:	0e 94 54 00 	call	0xa8	; 0xa8 <displayinit>
 	displayclear();
- 23e:	0e 94 f7 00 	call	0x1ee	; 0x1ee <displayclear>
-	displaybegin(0,1);
- 242:	61 e0       	ldi	r22, 0x01	; 1
- 244:	80 e0       	ldi	r24, 0x00	; 0
- 246:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <displaybegin>
-	fastSPIwrite(255);
- 24a:	8f ef       	ldi	r24, 0xFF	; 255
- 24c:	0e 94 0c 01 	call	0x218	; 0x218 <fastSPIwrite>
+ 24e:	0e 94 0f 01 	call	0x21e	; 0x21e <displayclear>
+	displaybegin(0,0);
+ 252:	60 e0       	ldi	r22, 0x00	; 0
+ 254:	80 e0       	ldi	r24, 0x00	; 0
+ 256:	0e 94 f1 00 	call	0x1e2	; 0x1e2 <displaybegin>
+ 25a:	9f ef       	ldi	r25, 0xFF	; 255
+ 25c:	07 c0       	rjmp	.+14     	; 0x26c <main+0x24>
+
+void inline fastSPIwrite(uint8_t d) {
+
+  for (uint8_t bit = 0x80; bit; bit >>= 1)
+  {
+    LPORT(_CLKP, _CLK);
+ 25e:	2d 98       	cbi	0x05, 5	; 5
+
+    if (d & bit)
+      HPORT(_MOSIP, _MOSI);
+ 260:	2b 9a       	sbi	0x05, 3	; 5
+    else
+      LPORT(_MOSIP, _MOSI);
+    HPORT(_CLKP, _CLK);
+ 262:	2d 9a       	sbi	0x05, 5	; 5
+
+}
+
+void inline fastSPIwrite(uint8_t d) {
+
+  for (uint8_t bit = 0x80; bit; bit >>= 1)
+ 264:	86 95       	lsr	r24
+ 266:	d9 f7       	brne	.-10     	; 0x25e <main+0x16>
+ 268:	91 50       	subi	r25, 0x01	; 1
+	
+	for (uint8_t i = 0;i<255; i++)
+ 26a:	19 f0       	breq	.+6      	; 0x272 <main+0x2a>
+  {
+    LPORT(_CLKP, _CLK);
+ 26c:	2d 98       	cbi	0x05, 5	; 5
+ 26e:	80 e8       	ldi	r24, 0x80	; 128
+ 270:	f7 cf       	rjmp	.-18     	; 0x260 <main+0x18>
+	{
+		fastSPIwrite(255);
+	}
 	displayend();
- 250:	0e 94 f5 00 	call	0x1ea	; 0x1ea <displayend>
- 254:	ff cf       	rjmp	.-2      	; 0x254 <main+0x1c>
+ 272:	0e 94 0d 01 	call	0x21a	; 0x21a <displayend>
+ 276:	ff cf       	rjmp	.-2      	; 0x276 <main+0x2e>
 
-00000256 <_exit>:
- 256:	f8 94       	cli
+00000278 <_exit>:
+ 278:	f8 94       	cli
 
-00000258 <__stop_program>:
- 258:	ff cf       	rjmp	.-2      	; 0x258 <__stop_program>
+0000027a <__stop_program>:
+ 27a:	ff cf       	rjmp	.-2      	; 0x27a <__stop_program>

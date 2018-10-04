@@ -1,4 +1,4 @@
-#include "MyPortUtil.c"
+
 #define BLACK 0
 #define WHITE 1
 #define INVERSE 2

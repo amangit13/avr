@@ -2,9 +2,19 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
+#define HPORT(X,pin) X |= 1 << pin
+#define LPORT(X,pin) X &= ~(1<<pin)
+
+#define _CSP PORTC
+#define _DCP PORTC
+#define _RSTP PORTC
+
 #define _CS PORTC5
 #define _DC PORTC4
 #define _RST PORTC3
+
+#define _CLKP PORTB
+#define _MOSIP PORTB
 
 #define _CLK PORTB5
 #define _MOSI PORTB3
@@ -18,12 +28,12 @@ void displayinit(uint8_t vccstate) {
   
 _delay_ms(10);
 
-  HPORTB(_RST);
+  HPORT(_RSTP,_RST);
   // VDD (3.3V) goes high at start, lets just chill for a ms
   _delay_ms(100);
-  LPORTB(_RST);
+  LPORT(_RSTP, _RST);
 	_delay_ms(100);
-  HPORTB(_RST);
+  HPORT(_RSTP, _RST);
   _delay_ms(100);
   // turn on VCC (9V?)
 
@@ -39,11 +49,11 @@ _delay_ms(10);
   ssd1306_command(0x0);                                   // no offset
   ssd1306_command(SSD1306_SETSTARTLINE | 0x0);            // line #0
   ssd1306_command(SSD1306_CHARGEPUMP);                    // 0x8D
- // if (vccstate == SSD1306_EXTERNALVCC)
- // {
- //   ssd1306_command(0x10);
- // }
- // else
+ if (vccstate == SSD1306_EXTERNALVCC)
+ {
+    ssd1306_command(0x10);
+  }
+  else
   {
     ssd1306_command(0x14);
   }
@@ -97,11 +107,11 @@ void invertDisplay(uint8_t i) {
 */
 void ssd1306_command(uint8_t c) {
     // SPI
-    HPORTB(_CS);
-    LPORTB(_DC);
-    LPORTB(_CS);
+    HPORT(_CSP,_CS);
+    LPORT(_DCP, _DC);
+    LPORT(_CSP, _CS);
     fastSPIwrite(c);
-    HPORTB(_CS);
+    HPORT(_CSP,_CS);
 }
 
 void displaybegin(uint8_t x, uint8_t row)
@@ -114,14 +124,14 @@ void displaybegin(uint8_t x, uint8_t row)
     ssd1306_command(row); // Page start address (0 = reset)
     ssd1306_command(7); // Page end address
 
-    HPORTB(_CS);
-    HPORTB(_DC);
-    LPORTB(_CS);
+    HPORT(_CSP,_CS);
+    HPORT(_DCP, _DC);
+    LPORT(_CSP, _CS);
 }
 
 void displayend()
 {
-	HPORTB(_CS);
+	HPORT(_CSP, _CS);
 }
 
 void displayclear() {
@@ -141,13 +151,13 @@ void inline fastSPIwrite(uint8_t d) {
 
   for (uint8_t bit = 0x80; bit; bit >>= 1)
   {
-    LPORTB(_CLK);
+    LPORT(_CLKP, _CLK);
 
     if (d & bit)
-      HPORTB(_MOSI);
+      HPORT(_MOSIP, _MOSI);
     else
-      LPORTB(_MOSI);
-    HPORTB(_CLK);
+      LPORT(_MOSIP, _MOSI);
+    HPORT(_CLKP, _CLK);
   }
 
 }
