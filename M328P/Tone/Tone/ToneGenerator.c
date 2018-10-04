@@ -1,3 +1,5 @@
+// uses OCR1A i.e, PCB1 pin to generate tones. Connect speaker to PB1 with a 220 resistor.
+
 #define C3 7645
 #define D3 6810
 #define E3 6067

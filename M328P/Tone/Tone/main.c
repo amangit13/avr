@@ -24,7 +24,7 @@ int main(void)
 	while(1)
 	{
 		i = 0;
-		setNote(C4);
+		setFreq(50);
 		
 		while(i < 50)
 		{
@@ -32,16 +32,16 @@ int main(void)
 			stopSound();
 			_delay_ms(100);
 			startSound();
-			_delay_ms(10);
+			_delay_ms(30);
 		}
 	
 		stopSound();
-		for (i = 100; i<2000; i+=20)
+		for (i = 50; i<2000; i+=20)
 		{
 			_delay_ms(100);
 			setFreq (i);
 			startSound();
-			_delay_ms(10);
+			_delay_ms(30);
 			stopSound();
 		}
 	}
