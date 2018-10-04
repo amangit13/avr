@@ -276,7 +276,7 @@ Disassembly of section .text:
 
 int main(void)
 {
-	displayinit(2);
+	displayinit(SSD1306_SWITCHCAPVCC);
  248:	82 e0       	ldi	r24, 0x02	; 2
  24a:	0e 94 54 00 	call	0xa8	; 0xa8 <displayinit>
 	displayclear();

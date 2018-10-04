@@ -11,7 +11,7 @@
 
 int main(void)
 {
-	displayinit(2);
+	displayinit(SSD1306_SWITCHCAPVCC);
 	displayclear();
 	displaybegin(0,0);
 	

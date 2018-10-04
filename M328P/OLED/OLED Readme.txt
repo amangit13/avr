@@ -7,6 +7,10 @@ Res	RES	26	PC3
 D0	CLK	19	PB5
 D1	MOSI	17	PB3
 
+displays bars on the oled screen. 
+!!! Requires 5V and GND connections !!!
+
+
 
 http://asciiflow.com/
 
