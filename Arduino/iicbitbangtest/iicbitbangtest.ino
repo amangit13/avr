@@ -40,11 +40,11 @@ void I2CStop()
 void I2CWrite()
 {
   byte unsigned data = 0;
-  dly;
+
   // write 0xC0 address
-  for (byte i = 7; i==0; i--)
+  for (byte i = 7; i>=1; i--)
   {
-    if (0x0A & (1<< i))
+    if (0x0C & (1<< i))
       SDA_H;
     else
       SDA_L;
@@ -53,28 +53,37 @@ void I2CWrite()
     SCK_H;
     dly;
     SCK_L;
+    dly;
   }
 
-  SDA_IN; // switch to read ack
-  SCK_IN;
-
-  while (SCK_read == 0); // clock stretch
-  
-  dly;
-    
+  // master sending data. write mode bit.
+  SDA_L;
   SCK_H;
-  dly;   
-  data = SDA_read;
   dly;
   SCK_L;
-
   dly;
-  SDA_OUT; // swtich back to output
 
+  // pull high before reading the ack.
+  SDA_H;
+  
+  // switch data to input to read ack
+  SDA_IN;
+  SCK_H;
+  dly;
+  SCK_L;
+  dly;
+   // read ack
+  data = SDA_read;
+  dly;
+  
+  SDA_OUT; // swtich back to output
+  dly;
+  SDA_L;
+  
   if (data)
-    Serial.println("success");
+    Serial.println("fail");
   else
-    Serial.println ("fail");
+    Serial.println ("success");
 
 }
 
