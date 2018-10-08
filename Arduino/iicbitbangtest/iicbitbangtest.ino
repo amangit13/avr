@@ -16,6 +16,7 @@
 #define SDA_read PINC & (1<<4)
 
 #define dly _delay_ms(5)
+#define debug Serial.println
 
 void I2CStart()
 {
@@ -37,7 +38,8 @@ void I2CStop()
 void I2CWrite()
 {
   byte unsigned data = 0;
-
+  SCK_L;
+  
   // 0xC0 is the correct address. write anyting else to get nack and 0xc0 to get ack.
   for (byte i = 7; i>=1; i--)
   {
@@ -53,17 +55,13 @@ void I2CWrite()
     dly;
   }
 
-  // master sending data. write mode bit.
+  // control bit. 0 = write
   SDA_L;
   SCK_H;
   dly;
   SCK_L;
-  dly;
 
-  // pull high before reading the ack.
-  SDA_H;
-  
-  // switch data to input to read ack
+    // switch data to input to read ack
   SDA_IN;
   SCK_H;
   dly;
@@ -71,7 +69,7 @@ void I2CWrite()
   dly;
    // read ack
   data = SDA_read;
-  dly;
+  debug(data);
   
   SDA_OUT; // swtich back to output
   dly;
@@ -90,8 +88,8 @@ void I2CInit()
   SCK_OUT;
   SDA_H;
   SCK_H;
-  Serial.println(SDA, BIN);
-  Serial.println(SCK, BIN);
+  Serial.println(SDA_read);
+  Serial.println(SCK_read);
   
 }
 void setup() {
