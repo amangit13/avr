@@ -16,35 +16,32 @@
 #define SDA_read PINC & (1<<4)
 
 #define dly _delay_ms(5)
+
 void I2CStart()
 {
-  SDA_H;
   SCK_H;
   dly;
   SDA_L; // start trigger
   dly;
-  SCK_L;
   
 }
 
 void I2CStop()
 {
-  SCK_L;
-  SDA_L;
-  dly;
-  SCK_H; // stop trigger
+  SCK_H;
   dly;
   SDA_H;
+  dly;
 }
 
 void I2CWrite()
 {
   byte unsigned data = 0;
 
-  // write 0xC0 address
+  // 0xC0 is the correct address. write anyting else to get nack and 0xc0 to get ack.
   for (byte i = 7; i>=1; i--)
   {
-    if (0x0C & (1<< i))
+    if (0b01010100 & (1<< i))
       SDA_H;
     else
       SDA_L;
@@ -87,14 +84,23 @@ void I2CWrite()
 
 }
 
+void I2CInit()
+{
+  SDA_OUT;
+  SCK_OUT;
+  SDA_H;
+  SCK_H;
+  Serial.println(SDA, BIN);
+  Serial.println(SCK, BIN);
+  
+}
 void setup() {
   // put your setup code here, to run once:
   //setup PC4 and PC5 as output to bit bang SDA and SCL respectively on UNO 3
 
   Serial.begin(9600);
-  SDA_OUT;
-  SCK_OUT;
-
+  I2CInit();
+  
   Serial.println("starting");
   I2CStart();
   I2CWrite();
