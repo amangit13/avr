@@ -1,11 +1,12 @@
-#include<io.h>
 
-#define wait_IIC  while (!(TWCR & 1<< TWINT)) 
+//#include <Wire.h>
+#define wait_IIC  while (!(TWCR & (1<< TWINT))) 
 
 void setup() {
   // put your setup code here, to run once:
   DDRC = 0xff;
-  Serial.being(9600);
+  PINC = 0xff; // enable pullups
+  Serial.begin(9600);
   
   // 100Khz. TWBR 72. leave TWSR as is for prescalar of 1. first two bits zero
   TWBR = 72;
@@ -13,31 +14,36 @@ void setup() {
 
 
   // start bit
-  // enable TWI
-  TWCR |= 1<<TWEN;
-  // transmit start bit
-  TWCR |= 1<<TWSTA;
-  // start transmitting by clearing interrupt flag
-  TWCR |= 1<<TWINT;
-
+  TWCR |= ((1<<TWEN) | (1<<TWSTA) | (1<<TWINT));
   wait_IIC;
 
   // send dummy address
-  TWDR = 0x0a; //wrong address write mode. looking for nack
+  TWDR = 0x3C; //
   TWCR |= ((1<< TWEN) | (1<<TWINT));
   wait_IIC;
-
 
   if ((TWSR & 0xF8) == 0x20)
   {
     // error
-    Serial.print ("nack recieved");
+    Serial.println ("nack recieved");
     // send data
+
+    // send stop bit
+    TWCR = ((1<<TWEN)|(1<<TWINT)|(1<<TWSTO));
+    Serial.println("stop bit sent");
   }
   else
   {
     Serial.println("ack recieved");
-    // send data
+    // send dummy data
+    TWDR = 0; //
+    TWCR |= ((1<<TWEN)|(1<<TWINT));
+    wait_IIC;
+
+    // send stop bit
+    TWCR = ((1<<TWEN)|(1<<TWINT)|(1<<TWSTO));
+    Serial.println("done dummy date. stop bit sent");
+    
   }
 
   
