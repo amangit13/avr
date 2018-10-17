@@ -1,13 +1,12 @@
 
-//#include <Wire.h>
 #define twi_wait  while (!(TWCR & (1<< TWINT))) 
 #define twi_start   TWCR |= ((1<<TWEN) | (1<<TWSTA) | (1<<TWINT));
 
 #define twi_stop     TWCR = ((1<<TWEN)|(1<<TWINT)|(1<<TWSTO))
 
-#define twi_setdata(X) TWDR = X
+//#define twi_setdata(X) TWDR = X
 
-#define twi_senddata   TWCR |= ((1<< TWEN) | (1<<TWINT))
+#define twi_senddata(X)  TWDR = X <<1; TWCR |= ((1<< TWEN) | (1<<TWINT))
 
 #define twi_status (TWSR & 0xF8)
 #define twi_nack 0x20
@@ -16,68 +15,73 @@
     twi_stop;\
     return;  \
   }
-
-#define twi_masterWrite (X) twi_setdata (X) \
-  twi_senddata; \
-
 #define uint8 byte unsigned
 
+
+// write pixel data on oled
 void displayData(uint8 data)
 {
+
+Serial.println("displaydata started");
+  displayCommand(0x21); // set col address
+  displayCommand(0); // col start
+  displayCommand (127); // col end
+
+  displayCommand(0x22); //set page address
+  displayCommand(0);
+  displayCommand(7); // page end address for 64 pixels
+
   twi_start;
   twi_wait;
-
-  twi_master_write (0x40);
+  twi_senddata(0x3C); // send address
+  twi_ret_on_nack;
+  
+  twi_senddata(0x40); // write data
   twi_wait;
   twi_ret_on_nack;
   
-  twi_master_write(data);
+  twi_senddata(data); // send pixel data. Can be an array in the future. 
   twi_wait;
   twi_stop;
+  
+  Serial.println("displaydata end");
 }
 
 void displayCommand(uint8 command)
 {
+  Serial.print("command=");
   Serial.println(command);
   twi_start;
   twi_wait;
   
-  twi_master_write(0x3D); // address
+  twi_senddata(0x3C); // address
   twi_wait;
   twi_ret_on_nack;
   
-  Serial.println("ack recieved");
+  twi_senddata(0); // next byte is a command byte. co = 0 dc = 0
+  twi_wait;
+  twi_ret_on_nack;
+  
+  twi_senddata(command);
+  twi_wait;
+  twi_stop;
 
-  twi_master_write(0) // control
-  twi_wait;
-  twi_ret_on_nack;
-  
-  twi_master_write(command);
-  twi_wait;
-  twi_ret_on_nack;
+  Serial.println("command done");
 }
 
 
 void displayBegin()
 {
-  DDRC = 0xff;
-  PINC = 0xff;
   
   Serial.println("oled begin");
-  twi_start;
-  twi_wait;
-
-  twi_master_write (0x3D);
-  twi_wait;
-  twi_ret_on_nack;
-  Serial.println("slave ack");
   
   displayCommand(0xAE); // display off
   displayCommand(0xD5); // display clock div
   displayCommand (0x80); // ration 0x80
 
   displayCommand(0xA8); // set multiplex
-
+  displayCommand (63); // lcd height -1
+  
   displayCommand(0xD3); // display offset
   displayCommand(0x0); // no offset
   displayCommand (0x40); // line #0
@@ -99,50 +103,13 @@ void displayBegin()
 
   displayCommand (0xD8); // set vcom detect
   displayCommand (0x40);
-  displayCommand (0xA4); // Displayon_resume
-  displayCommand (0xA6); // normal display
+  displayCommand (0xA4); // Displayon_resume*/
+  displayCommand (0xA6); // invert display
 
   displayCommand (0x2E); // deactivate scroll
   displayCommand (0xAF); // display on
+  Serial.println("display begin done");
  
-}
-
-void twisetup()
-{
-    Serial.println("start");
- 
-  // start bit
-  twi_start;
-  twi_wait;
-
-  Serial.print("status ");   Serial.println(TWSR);
-  
-  // send address
-  twi_setdata (0x3D); 
-  twi_senddata;
-  twi_wait;
-
-  if (twi_status == 0x20)
-  {
-    // error
-    Serial.println ("nack recieved");
-    // send stop bit
-    twi_stop;
-    Serial.println("stop bit sent");
-  }
-  else
-  {
-    Serial.println("ack recieved");
-    // send dummy data
-    twi_setdata (0); 
-    twi_senddata;
-    twi_wait;
-
-    // send stop bit
-    twi_stop;
-    Serial.println("done dummy date. stop bit sent");
-    
-  }
 }
 
 void setup() {
@@ -151,13 +118,18 @@ void setup() {
   PINC = 0xff; // enable pullups
   Serial.begin(115200);
   
+  // enable I2C
+  TWCR |= 1<<TWEN;
+  
   // 400Khz. TWBR 12 for 400Khz, or 72 for 100Khz. leave TWSR as is for prescalar of 1. first two bits zero
-  TWBR = 12;
+  TWBR = 72;
   TWSR &= 0b11111100;
 
   displayBegin();
-  Serial.println("done");
 
+  displayData(0xff);
+  Serial.println("setup done");
+ 
 }
 
 void loop() {
