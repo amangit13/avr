@@ -31,18 +31,22 @@ Serial.println("displaydata started");
   displayCommand(0);
   displayCommand(7); // page end address for 64 pixels
 
+  Serial.println("displaydata loop started");
+
+for (uint8 i = 0; i< 64; i++)
+{
   twi_start;
   twi_wait;
   twi_senddata(0x3C); // send address
   twi_ret_on_nack;
-  
   twi_senddata(0x40); // write data
   twi_wait;
   twi_ret_on_nack;
-  
   twi_senddata(data); // send pixel data. Can be an array in the future. 
   twi_wait;
+  twi_ret_on_nack;
   twi_stop;
+}
   
   Serial.println("displaydata end");
 }

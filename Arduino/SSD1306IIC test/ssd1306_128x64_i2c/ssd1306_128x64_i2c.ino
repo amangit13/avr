@@ -1,3 +1,5 @@
+#include <Adafruit_SSD1306.h>
+
 /*********************************************************************
 This is an example for our Monochrome OLEDs based on SSD1306 drivers
 
