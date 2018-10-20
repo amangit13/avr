@@ -45,12 +45,13 @@ static volatile uint8_t twi_inRepStart;			// in the middle of a repeated start
 //static void (*twi_onSlaveTransmit)(void);
 //static void (*twi_onSlaveReceive)(uint8_t*, int);
 
-static uint8_t twi_masterBuffer[TWI_BUFFER_LENGTH]; // 32
+static uint8_t twi_masterBuffer[TWI_BUFFER_LENGTH]; // 9
 static volatile uint8_t twi_masterBufferIndex;
 static volatile uint8_t twi_masterBufferLength;
 
 static volatile uint8_t twi_error;
 
+static volatile uint8_t clearscreen = 0;
 /*
    Function twi_init
    Desc     readys twi pins and sets twi bitrate
@@ -69,7 +70,7 @@ void twi_init(void)
   // initialize twi prescaler and bit rate
   cbi(TWSR, TWPS0);
   cbi(TWSR, TWPS1);
-  
+
   // 400KHz. 6 = 571Khz. FPS with 129 mem is ~42 fps
   TWBR = 6; //((F_CPU / TWI_FREQ) - 16) / 2;
 
@@ -104,19 +105,19 @@ void twi_disable(void)
    Desc     sets slave address and enables interrupt
    Input    none
    Output   none
-*/
-void twi_setAddress(uint8_t address)
-{
+
+//void twi_setAddress(uint8_t address)
+//{
   // set twi slave address (skip over TWGCE bit)
-  TWAR = address << 1;
-}
+//  TWAR = address << 1;
+//}*/
 
 /*
    Function twi_setClock
    Desc     sets twi bit rate
    Input    Clock Frequency
    Output   none
-*/
+
 void twi_setFrequency(uint32_t frequency)
 {
   TWBR = 10;//((F_CPU / frequency) - 16) / 2;
@@ -124,9 +125,9 @@ void twi_setFrequency(uint32_t frequency)
   /* twi bit rate formula from atmega128 manual pg 204
     SCL Frequency = CPU Clock Frequency / (16 + (2 * TWBR))
     note: TWBR should be 10 or higher for master mode
-    It is 72 for a 16mhz Wiring board with 100kHz TWI */
-}
-
+    It is 72 for a 16mhz Wiring board with 100kHz TWI 
+    }
+*/
 
 uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait, uint8_t sendStop)
 {
@@ -257,16 +258,33 @@ ISR(TWI_vect)
     // Master Transmitter
     case TW_MT_SLA_ACK:  // slave receiver acked address
     case TW_MT_DATA_ACK: // slave receiver acked data
+
       // if there is data to send, send it, otherwise stop
-      if (twi_masterBufferIndex < twi_masterBufferLength) {
+      if (twi_masterBufferIndex < twi_masterBufferLength)
+      {
         // copy data to output register and ack
+        if (twi_masterBufferIndex == 0)
+        {
           TWDR = twi_masterBuffer[twi_masterBufferIndex++];
+        }
+        else if (clearscreen)
+        {
+          TWDR = 0X00;
+          twi_masterBufferIndex++;
+        }
+        else
+        {
+          TWDR = twi_masterBuffer[twi_masterBufferIndex++];
+        }
 
         twi_reply(1);
-      } else {
+      }
+      else
+      {
         if (twi_sendStop)
           twi_stop();
-        else {
+        else
+        {
           twi_inRepStart = true;	// we're gonna send the START
           // don't enable the interrupt. We'll generate the start, but we
           // avoid handling the interrupt until we're in the next transaction,

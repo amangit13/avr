@@ -29,7 +29,7 @@
   #endif
 
   #ifndef TWI_BUFFER_LENGTH
-  #define TWI_BUFFER_LENGTH 129
+  #define TWI_BUFFER_LENGTH 9
   #endif
 
   #define TWI_READY 0
