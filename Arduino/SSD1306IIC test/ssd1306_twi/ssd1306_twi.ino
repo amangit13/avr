@@ -21,11 +21,13 @@ void displayData()
   //twi_writeTo(0x3C, 0x40, 1,1,1);
   
   data[0] = 0x40;
-  
+  data[1] = 0xFF;
+  twi_writeTo(0x3C, data, 2, 1,1);
+  /*
   for (int i =0; i<64; i++)
   {
     twi_writeTo(0x3C, data, 31,1,1);
-  }
+  }*/
 }
 
 
@@ -68,13 +70,13 @@ void displayInit()
 
 void setup() {
   // put your setup code here, to run once:
-
+Serial.begin(115200);
 for (uint8_t x = 0; x<32; x++)
   data[x] = 0xFF;
 
   twi_init();
   displayInit();
-  displayData(); 
+  //displayData(); 
 }
 
 void loop() {
