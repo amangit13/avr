@@ -25,7 +25,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "twiport.h"
-#include <Arduino.h> // for digitalWrite
+//#include <Arduino.h> // for digitalWrite
 
 #ifndef cbi
 #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
@@ -35,7 +35,7 @@
 #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
  
-#include <pins_arduino.h>
+//#include <pins_arduino.h>
 #include "twi.h"
 
 static volatile uint8_t twi_state;
@@ -73,9 +73,11 @@ void twi_init(void)
   twi_inRepStart = false;
   
   // activate internal pullups for twi.
-  digitalWrite(SDA, 1);
-  digitalWrite(SCL, 1);
-
+  //digitalWrite(SDA, 1);
+  //digitalWrite(SCL, 1);
+  
+  PORTC = 0xff;
+  
   // initialize twi prescaler and bit rate
   cbi(TWSR, TWPS0);
   cbi(TWSR, TWPS1);
@@ -102,8 +104,9 @@ void twi_disable(void)
   TWCR &= ~(_BV(TWEN) | _BV(TWIE) | _BV(TWEA));
 
   // deactivate internal pullups for twi.
-  digitalWrite(SDA, 0);
-  digitalWrite(SCL, 0);
+  //digitalWrite(SDA, 0);
+ // digitalWrite(SCL, 0);
+  PORTC = 0x0;
 }
 
 /* 
@@ -445,7 +448,7 @@ ISR(TWI_vect)
       twi_releaseBus();
       break;
 
-
+/*
     // Master Receiver
     case TW_MR_DATA_ACK: // data received, ack sent
       // put byte into buffer
@@ -553,7 +556,7 @@ ISR(TWI_vect)
       // leave slave receiver state
       twi_state = TWI_READY;
       break;
-
+*/
     // All
     case TW_NO_INFO:   // no state information
       break;

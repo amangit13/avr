@@ -24,7 +24,7 @@ void displayData()
   
   for (int i =0; i<64; i++)
   {
-    twi_writeTo(0x3C, data, 17,1,1);
+    twi_writeTo(0x3C, data, 31,1,1);
   }
 }
 
