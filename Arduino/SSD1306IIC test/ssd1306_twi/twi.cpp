@@ -42,8 +42,8 @@ static volatile uint8_t twi_slarw;
 static volatile uint8_t twi_sendStop;			// should the transaction end with a stop
 static volatile uint8_t twi_inRepStart;			// in the middle of a repeated start
 
-static void (*twi_onSlaveTransmit)(void);
-static void (*twi_onSlaveReceive)(uint8_t*, int);
+//static void (*twi_onSlaveTransmit)(void);
+//static void (*twi_onSlaveReceive)(uint8_t*, int);
 
 static uint8_t twi_masterBuffer[TWI_BUFFER_LENGTH]; // 32
 static volatile uint8_t twi_masterBufferIndex;
@@ -69,7 +69,9 @@ void twi_init(void)
   // initialize twi prescaler and bit rate
   cbi(TWSR, TWPS0);
   cbi(TWSR, TWPS1);
-  TWBR = ((F_CPU / TWI_FREQ) - 16) / 2;
+  
+  // 400KHz. 6 = 571Khz. FPS with 129 mem is ~42 fps
+  TWBR = 6; //((F_CPU / TWI_FREQ) - 16) / 2;
 
   /* twi bit rate formula from atmega128 manual pg 204
     SCL Frequency = CPU Clock Frequency / (16 + (2 * TWBR))
@@ -117,7 +119,7 @@ void twi_setAddress(uint8_t address)
 */
 void twi_setFrequency(uint32_t frequency)
 {
-  TWBR = ((F_CPU / frequency) - 16) / 2;
+  TWBR = 10;//((F_CPU / frequency) - 16) / 2;
 
   /* twi bit rate formula from atmega128 manual pg 204
     SCL Frequency = CPU Clock Frequency / (16 + (2 * TWBR))
@@ -192,34 +194,7 @@ uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait
     return 4;	// other twi error
 }
 
-/*
-   Function twi_attachSlaveRxEvent
-   Desc     sets function called before a slave read operation
-   Input    function: callback function to use
-   Output   none
-*/
-void twi_attachSlaveRxEvent( void (*function)(uint8_t*, int) )
-{
-  twi_onSlaveReceive = function;
-}
 
-/*
-   Function twi_attachSlaveTxEvent
-   Desc     sets function called before a slave write operation
-   Input    function: callback function to use
-   Output   none
-*/
-void twi_attachSlaveTxEvent( void (*function)(void) )
-{
-  twi_onSlaveTransmit = function;
-}
-
-/*
-   Function twi_reply
-   Desc     sends byte or readys receive line
-   Input    ack: byte indicating to ack or to nack
-   Output   none
-*/
 
 void twi_reply(uint8_t ack)
 {
@@ -269,7 +244,7 @@ void twi_releaseBus(void)
 
 ISR(TWI_vect)
 {
-  Serial.println(TW_STATUS, HEX);
+  //Serial.println(TW_STATUS, HEX);
   switch (TW_STATUS) {
     // All Master
     case TW_START:     // sent start condition

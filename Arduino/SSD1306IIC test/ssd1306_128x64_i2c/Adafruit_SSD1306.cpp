@@ -282,7 +282,7 @@ void Adafruit_SSD1306::display(void) {
 		WIRE_WRITE(0x40);
 		for (uint8_t x=0; x<16; x++) 
 		{
-			WIRE_WRITE(0xF9);
+			WIRE_WRITE(0xFF);
 			i++;
 		}
 		i--;

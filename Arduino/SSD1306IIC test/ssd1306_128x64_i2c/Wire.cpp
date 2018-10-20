@@ -28,6 +28,7 @@ extern "C" {
 }
 
 #include "Wire.h"
+#include <hardwareSerial.h>
 
 // Initialize Class Variables //////////////////////////////////////////////////
 
@@ -169,6 +170,15 @@ void TwoWire::beginTransmission(int address)
 //
 uint8_t TwoWire::endTransmission(uint8_t sendStop)
 {
+  Serial.print("-- Buf Len ");
+  Serial.println(txBufferLength);
+  
+  for (uint8_t x = 0; x< txBufferLength; x++)
+  {
+    Serial.println(txBuffer[x], HEX);
+  }
+  Serial.println("--Buf End --");
+  
   // transmit buffer (blocking)
   uint8_t ret = twi_writeTo(txAddress, txBuffer, txBufferLength, 1, sendStop);
   // reset tx buffer iterator vars

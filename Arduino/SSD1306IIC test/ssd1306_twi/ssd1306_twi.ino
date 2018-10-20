@@ -1,15 +1,31 @@
 #include "twi.h"
-byte unsigned data[32];
+static uint8_t data[129];
+
+//#define _TWI_DEBUG
 
 void displayCommand(byte unsigned command)
 {
   data[0] = 0;
-  data[1] = command;  
-  twi_writeTo(0x3C,data, 2, 1, 1);
-   
+  data[1] = command;
+
+#ifdef _TWI_DEBUG
+  {
+    Serial.print("-- Buf Len ");
+    Serial.println(2);
+
+    for (uint8_t x = 0; x < 2; x++)
+    {
+      Serial.println(data[x], HEX);
+    }
+    Serial.println("--Buf End --");
+  }
+#endif
+
+  twi_writeTo(0x3C, data, 2, 1, 1);
 }
 
-void displayData()
+
+void displayData(uint8_t pattern)
 {
   displayCommand(0x21); // set col address
   displayCommand(0); // col start
@@ -18,16 +34,32 @@ void displayData()
   displayCommand(0x22); //set page address
   displayCommand(0);
   displayCommand(7); // page end address for 64 pixels
-  //twi_writeTo(0x3C, 0x40, 1,1,1);
-  
-  data[0] = 0x40;
-  data[1] = 0xFF;
-  twi_writeTo(0x3C, data, 2, 1,1);
-  /*
-  for (int i =0; i<64; i++)
+
+
+  for (uint8_t x = 0; x < 129; x++)
   {
-    twi_writeTo(0x3C, data, 31,1,1);
-  }*/
+    data[x] = pattern;
+  }
+
+  data[0] = 0x40;
+
+  for (int i = 0; i < 8; i++)
+  {
+#ifdef _TWI_DEBUG
+    {
+      Serial.print("-- Buf Len ");
+      Serial.println(17);
+
+      for (uint8_t x = 0; x < 17; x++)
+      {
+        Serial.println(data[x], HEX);
+      }
+      Serial.println("--Buf End --");
+    }
+#endif
+
+    twi_writeTo(0x3C, data, 129, 1, 1);
+  }
 }
 
 
@@ -39,7 +71,7 @@ void displayInit()
 
   displayCommand(0xA8); // set multiplex
   displayCommand (63); // lcd height -1
-  
+
   displayCommand(0xD3); // display offset
   displayCommand(0x0); // no offset
   displayCommand (0x40); // line #0
@@ -52,7 +84,7 @@ void displayInit()
   // 128 x 64
   displayCommand (0xDA); // compins;
   displayCommand (0x12);
-  
+
   displayCommand (0x81); // set contrast
   displayCommand (0xCF); // external vcc
 
@@ -70,13 +102,25 @@ void displayInit()
 
 void setup() {
   // put your setup code here, to run once:
-Serial.begin(115200);
-for (uint8_t x = 0; x<32; x++)
-  data[x] = 0xFF;
+  Serial.begin(115200);
 
   twi_init();
   displayInit();
-  //displayData(); 
+  displayData(0X0);
+  unsigned long milst;
+  unsigned long milend;
+
+  milst = millis();
+  for (uint8_t x = 0; x < 255; x++)
+    displayData(x);
+
+  displayData(255);
+  milend = millis();
+  
+  Serial.print("st: ");
+  Serial.println(milst);
+  Serial.print("end: ");
+  Serial.println(milend);
 }
 
 void loop() {

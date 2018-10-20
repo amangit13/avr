@@ -57,7 +57,7 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #endif
 
 void setup()   {                
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("display begin");
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
