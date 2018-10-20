@@ -1,12 +1,12 @@
 #include "twi.h"
-byte unsigned data[16];
+byte unsigned data[32];
 
 void displayCommand(byte unsigned command)
 {
   data[0] = 0;
   data[1] = command;  
   twi_writeTo(0x3C,data, 2, 1, 1);
-  
+   
 }
 
 void displayData()
@@ -18,11 +18,13 @@ void displayData()
   displayCommand(0x22); //set page address
   displayCommand(0);
   displayCommand(7); // page end address for 64 pixels
-
+  //twi_writeTo(0x3C, 0x40, 1,1,1);
+  
+  data[0] = 0x40;
+  
   for (int i =0; i<64; i++)
   {
-    data[0] = 0x40;
-    twi_writeTo(0x3C, data, 16,1,1);
+    twi_writeTo(0x3C, data, 17,1,1);
   }
 }
 
@@ -40,7 +42,7 @@ void displayInit()
   displayCommand(0x0); // no offset
   displayCommand (0x40); // line #0
   displayCommand (0x8D);// charge pump
-  displayCommand (0x10); // external VCC
+  displayCommand (0x14); // external VCC
   displayCommand (0x20); // memory mode
   displayCommand (0); // act like ks0108
   displayCommand (0xA0 | 0x1);// segremap
@@ -50,15 +52,15 @@ void displayInit()
   displayCommand (0x12);
   
   displayCommand (0x81); // set contrast
-  displayCommand (0x9F); // external vcc
+  displayCommand (0xCF); // external vcc
 
   displayCommand(0xD9); // set pre charge
-  displayCommand(0x22); // external vcc
+  displayCommand(0xF1); // external vcc
 
   displayCommand (0xD8); // set vcom detect
   displayCommand (0x40);
   displayCommand (0xA4); // Displayon_resume*/
-  displayCommand (0xA6); // invert display
+  displayCommand (0xA6); // normal display
 
   displayCommand (0x2E); // deactivate scroll
   displayCommand (0xAF); // display on
@@ -66,6 +68,10 @@ void displayInit()
 
 void setup() {
   // put your setup code here, to run once:
+
+for (uint8_t x = 0; x<32; x++)
+  data[x] = 0xFF;
+
   twi_init();
   displayInit();
   displayData(); 

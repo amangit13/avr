@@ -141,7 +141,8 @@ All text above, and the splash screen must be included in any redistribution
 #define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29
 #define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x2A
 
-class Adafruit_SSD1306 : public Adafruit_GFX {
+class Adafruit_SSD1306 : public Adafruit_GFX 
+{
  public:
   Adafruit_SSD1306(int8_t SID, int8_t SCLK, int8_t DC, int8_t RST, int8_t CS);
   Adafruit_SSD1306(int8_t DC, int8_t RST, int8_t CS);
@@ -170,7 +171,7 @@ class Adafruit_SSD1306 : public Adafruit_GFX {
 
  private:
   int8_t _i2caddr, _vccstate, sid, sclk, dc, rst, cs;
-  void fastSPIwrite(uint8_t c);
+  //void fastSPIwrite(uint8_t c);
 
   boolean hwSPI;
 #ifdef HAVE_PORTREG

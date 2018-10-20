@@ -33,7 +33,7 @@ Serial.println("displaydata started");
 
   Serial.println("displaydata loop started");
 
-for (uint8 i = 0; i< 64; i++)
+for (int i = 0; i< 1024; i++)
 {
   twi_start;
   twi_wait;
@@ -42,9 +42,13 @@ for (uint8 i = 0; i< 64; i++)
   twi_senddata(0x40); // write data
   twi_wait;
   twi_ret_on_nack;
-  twi_senddata(data); // send pixel data. Can be an array in the future. 
-  twi_wait;
-  twi_ret_on_nack;
+  for (uint8 x = 0; x<16; x++)
+  {
+    twi_senddata(0XFA); // send pixel data. Can be an array in the future. 
+    twi_wait;
+    twi_ret_on_nack;
+    i++;
+  }
   twi_stop;
 }
   
