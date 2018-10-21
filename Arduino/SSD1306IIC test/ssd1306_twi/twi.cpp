@@ -72,7 +72,7 @@ void twi_init(void)
   cbi(TWSR, TWPS1);
 
   // 400KHz. 6 = 571Khz. FPS with 129 mem is ~42 fps
-  TWBR = 6; //((F_CPU / TWI_FREQ) - 16) / 2;
+  TWBR = 10; //((F_CPU / TWI_FREQ) - 16) / 2;
 
   /* twi bit rate formula from atmega128 manual pg 204
     SCL Frequency = CPU Clock Frequency / (16 + (2 * TWBR))
@@ -106,11 +106,11 @@ void twi_disable(void)
    Input    none
    Output   none
 
-//void twi_setAddress(uint8_t address)
-//{
+  //void twi_setAddress(uint8_t address)
+  //{
   // set twi slave address (skip over TWGCE bit)
-//  TWAR = address << 1;
-//}*/
+  //  TWAR = address << 1;
+  //}*/
 
 /*
    Function twi_setClock
@@ -118,18 +118,18 @@ void twi_disable(void)
    Input    Clock Frequency
    Output   none
 
-void twi_setFrequency(uint32_t frequency)
-{
+  void twi_setFrequency(uint32_t frequency)
+  {
   TWBR = 10;//((F_CPU / frequency) - 16) / 2;
 
   /* twi bit rate formula from atmega128 manual pg 204
     SCL Frequency = CPU Clock Frequency / (16 + (2 * TWBR))
     note: TWBR should be 10 or higher for master mode
-    It is 72 for a 16mhz Wiring board with 100kHz TWI 
+    It is 72 for a 16mhz Wiring board with 100kHz TWI
     }
 */
 
-uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait, uint8_t sendStop)
+uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait, uint8_t sendStop, uint8_t cls)
 {
   uint8_t i;
 
@@ -142,6 +142,8 @@ uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait
   while (TWI_READY != twi_state) {
     continue;
   }
+
+  clearscreen = cls;
   twi_state = TWI_MTX;
   twi_sendStop = sendStop;
   // reset error state (0xFF.. no error occured)
@@ -160,10 +162,15 @@ uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait
   twi_slarw = TW_WRITE;
   twi_slarw |= address << 1;
 
+  if (cls)
+    twi_masterBufferLength  = 1024; // clear all screen
+
+
   // if we're in a repeated start, then we've already sent the START
   // in the ISR. Don't do it again.
   //
-  if (true == twi_inRepStart) {
+  if (true == twi_inRepStart)
+  {
     // if we're in the repeated start state, then we've already sent the start,
     // (@@@ we hope), and the TWI statemachine is just waiting for the address byte.
     // We need to remove ourselves from the repeated start state before we enable interrupts,
@@ -171,14 +178,21 @@ uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait
     // up. Also, don't enable the START interrupt. There may be one pending from the
     // repeated start that we sent outselves, and that would really confuse things.
     twi_inRepStart = false;			// remember, we're dealing with an ASYNC ISR
-    do {
+
+    do
+    {
       TWDR = twi_slarw;
-    } while (TWCR & _BV(TWWC));
+    }
+    while (TWCR & _BV(TWWC));
+
+
     TWCR = _BV(TWINT) | _BV(TWEA) | _BV(TWEN) | _BV(TWIE);	// enable INTs, but not START
   }
   else
+  {
     // send start condition
     TWCR = _BV(TWINT) | _BV(TWEA) | _BV(TWEN) | _BV(TWIE) | _BV(TWSTA);	// enable INTs
+  }
 
   // wait for write operation to complete
   while (wait && (TWI_MTX == twi_state)) {
@@ -270,7 +284,7 @@ ISR(TWI_vect)
         else if (clearscreen)
         {
           TWDR = 0X00;
-          twi_masterBufferIndex++;
+          twi_masterBufferIndex++; // this will go to 1024 for full screen clear
         }
         else
         {

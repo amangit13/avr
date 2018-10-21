@@ -8,10 +8,10 @@ void setup() {
 
   twi_init();
   displayInit();
-
+  displayData(0,0,0,1);
   while (1)
     for (uint8_t x = 0; x < 255; x++)
-      displayData(8,2,x);
+      displayData(8,2,x,0);
 
 }
 

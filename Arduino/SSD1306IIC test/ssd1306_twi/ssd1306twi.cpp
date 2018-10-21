@@ -21,11 +21,11 @@ void displayCommand(uint8_t command)
   }
 #endif
 
-  twi_writeTo(0x3C, data, 2, 1, 1);
+  twi_writeTo(0x3C, data, 2, 1, 1, 0);
 }
 
 
-void displayData(uint8_t x, uint8_t page, uint8_t pattern)
+void displayData(uint8_t x, uint8_t page, uint8_t pattern, uint8_t cls)
 {
   displayCommand(0x21); // set col address
   displayCommand(x); // col start
@@ -58,10 +58,9 @@ void displayData(uint8_t x, uint8_t page, uint8_t pattern)
     }
 #endif
 
-    twi_writeTo(0x3C, data, 9, 1, 1);
+    twi_writeTo(0x3C, data, 9, 1, 1, cls);
   }
 }
-
 
 void displayInit()
 {

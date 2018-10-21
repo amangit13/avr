@@ -40,9 +40,9 @@
   
   void twi_init(void);
   void twi_disable(void);
-  void twi_setAddress(uint8_t);
-  void twi_setFrequency(uint32_t);
-  uint8_t twi_writeTo(uint8_t, uint8_t*, uint8_t, uint8_t, uint8_t);
+  //void twi_setAddress(uint8_t);
+  //void twi_setFrequency(uint32_t);
+  uint8_t twi_writeTo(uint8_t, uint8_t*, uint8_t, uint8_t, uint8_t, uint8_t cls);
   void twi_reply(uint8_t);
   void twi_stop(void);
   void twi_releaseBus(void);
