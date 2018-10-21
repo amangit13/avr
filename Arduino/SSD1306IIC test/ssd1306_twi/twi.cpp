@@ -51,7 +51,7 @@ static volatile uint8_t twi_masterBufferLength;
 
 static volatile uint8_t twi_error;
 
-static volatile uint8_t clearscreen = 0;
+static volatile uint8_t clearscreen;
 /*
    Function twi_init
    Desc     readys twi pins and sets twi bitrate
@@ -64,7 +64,7 @@ void twi_init(void)
   twi_state = TWI_READY;
   twi_sendStop = true;		// default value
   twi_inRepStart = false;
-
+  clearscreen = false;
   PORTC = 0xff;
 
   // initialize twi prescaler and bit rate
@@ -100,38 +100,11 @@ void twi_disable(void)
   PORTC = 0x0;
 }
 
-/*
-   Function twi_slaveInit
-   Desc     sets slave address and enables interrupt
-   Input    none
-   Output   none
-
-  //void twi_setAddress(uint8_t address)
-  //{
-  // set twi slave address (skip over TWGCE bit)
-  //  TWAR = address << 1;
-  //}*/
-
-/*
-   Function twi_setClock
-   Desc     sets twi bit rate
-   Input    Clock Frequency
-   Output   none
-
-  void twi_setFrequency(uint32_t frequency)
-  {
-  TWBR = 10;//((F_CPU / frequency) - 16) / 2;
-
-  /* twi bit rate formula from atmega128 manual pg 204
-    SCL Frequency = CPU Clock Frequency / (16 + (2 * TWBR))
-    note: TWBR should be 10 or higher for master mode
-    It is 72 for a 16mhz Wiring board with 100kHz TWI
-    }
-*/
 
 uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait, uint8_t sendStop, uint8_t cls)
 {
   uint8_t i;
+  clearscreen = cls;
 
   // ensure data will fit into buffer
   if (TWI_BUFFER_LENGTH < length) {
@@ -143,7 +116,6 @@ uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait
     continue;
   }
 
-  clearscreen = cls;
   twi_state = TWI_MTX;
   twi_sendStop = sendStop;
   // reset error state (0xFF.. no error occured)
@@ -163,13 +135,13 @@ uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait
   twi_slarw |= address << 1;
 
   if (cls)
-    twi_masterBufferLength  = 1024; // clear all screen
+    twi_masterBufferLength  = 129; // clear all screen
 
-
+ 
   // if we're in a repeated start, then we've already sent the START
   // in the ISR. Don't do it again.
   //
-  if (true == twi_inRepStart)
+/*  if (true == twi_inRepStart)
   {
     // if we're in the repeated start state, then we've already sent the start,
     // (@@@ we hope), and the TWI statemachine is just waiting for the address byte.
@@ -188,7 +160,7 @@ uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait
 
     TWCR = _BV(TWINT) | _BV(TWEA) | _BV(TWEN) | _BV(TWIE);	// enable INTs, but not START
   }
-  else
+  else */
   {
     // send start condition
     TWCR = _BV(TWINT) | _BV(TWEA) | _BV(TWEN) | _BV(TWIE) | _BV(TWSTA);	// enable INTs
@@ -259,8 +231,8 @@ void twi_releaseBus(void)
 
 ISR(TWI_vect)
 {
-  //Serial.println(TW_STATUS, HEX);
-  switch (TW_STATUS) {
+  switch (TW_STATUS) 
+  {
     // All Master
     case TW_START:     // sent start condition
     case TW_REP_START: // sent repeated start condition
@@ -277,13 +249,14 @@ ISR(TWI_vect)
       if (twi_masterBufferIndex < twi_masterBufferLength)
       {
         // copy data to output register and ack
-        if (twi_masterBufferIndex == 0)
+        if (twi_masterBufferIndex == 0) // at index 0 send address or command
         {
-          TWDR = twi_masterBuffer[twi_masterBufferIndex++];
+          TWDR = twi_masterBuffer[0];
+          twi_masterBufferIndex++;
         }
         else if (clearscreen)
         {
-          TWDR = 0X00;
+          TWDR = twi_masterBuffer[1]; // apply pattern at index 1. 0x00 to clear the screen.
           twi_masterBufferIndex++; // this will go to 1024 for full screen clear
         }
         else
@@ -297,7 +270,7 @@ ISR(TWI_vect)
       {
         if (twi_sendStop)
           twi_stop();
-        else
+/*        else
         {
           twi_inRepStart = true;	// we're gonna send the START
           // don't enable the interrupt. We'll generate the start, but we
@@ -305,7 +278,7 @@ ISR(TWI_vect)
           // at the point where we would normally issue the start.
           TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN) ;
           twi_state = TWI_READY;
-        }
+        }*/
       }
       break;
     case TW_MT_SLA_NACK:  // address sent, nack received
