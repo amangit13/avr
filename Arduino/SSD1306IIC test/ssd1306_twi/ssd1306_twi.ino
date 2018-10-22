@@ -8,13 +8,13 @@ void setup() {
   uint8_t i = 0;
   twi_init();
   displayInit();
-  while (1)
+  /*while (1)
   {
     i ++;
     for (uint8_t x = 0; x < 8; x++)
       displayData(0, x, i, 1);
   }
-
+*/
 }
 
 
