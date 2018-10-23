@@ -8,16 +8,16 @@ void setup() {
 
   uint8_t x = 0;
   long st,ed;
-  //s
+  s
   twi_init;
 
   displayBegin();
-  //st = millis();
+  st = millis();
   for (x = 0; x < 255; x++)
     displayData(0, 0, 1024, x, x);
-  //ed = millis();
+  ed = millis();
   
-  //p(ed-st)
+  p(ed-st)
 }
 
 void loop() {

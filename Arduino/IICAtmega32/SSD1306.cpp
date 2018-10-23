@@ -102,8 +102,7 @@ void displayBegin()
 
   displayCommand (0xD8); // set vcom detect
   displayCommand (0x40);
-  displayCommand (0xA4); // Displayon_resume*/
-  displayCommand (0xA6); // normal display
+  displayCommand (0xA4); // Displayon_resume
 
   displayCommand (0x2E); // deactivate scroll
   displayCommand (0xAF); // display on
