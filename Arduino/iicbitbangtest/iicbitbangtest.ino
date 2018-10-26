@@ -90,6 +90,8 @@ void I2CInit()
   SCK_H;
   Serial.println(SDA_read);
   Serial.println(SCK_read);
+  Serial.println(SDA);
+  Serial.println(SCK);
   
 }
 void setup() {
