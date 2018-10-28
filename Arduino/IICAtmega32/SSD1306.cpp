@@ -1,5 +1,3 @@
-//#include <inttypes.h>
-
 #include "twi.h"
 #include "SSD1306.h"
 
