@@ -1,10 +1,33 @@
 #include "twi.h"
 #include "SSD1306.h"
 //#include "SerialDebug.h"
+#include <avr/pgmspace.h>
 
+void _beginData(uint8_t x, uint8_t row, uint8_t endx, uint8_t endrow)
+{
+  displayCommand(0x21); // set col address
+  displayCommand(x); // col start
+  displayCommand (endx); // col end
+
+  displayCommand(0x22); //set page address
+  displayCommand(row);
+  displayCommand(endrow); // page end address for 64 pixels
+
+  twi_start;
+  twi_wait;
+
+  twi_sendaddr(0x3C); // send address
+  twi_wait;
+  twi_ret_on_nack;
+
+  twi_senddata(0x40); // write data
+  twi_wait;
+
+
+}
 void displayCommand(uint8_t command)
 {
-  
+
   twi_start;
   twi_wait;
 
@@ -28,26 +51,9 @@ void displayCommand(uint8_t command)
 void displayData(uint8_t x, uint8_t row, uint16_t len, uint8_t data, uint8_t xpattern)
 {
 
-  displayCommand(0x21); // set col address
-  displayCommand(x); // col start
-  displayCommand (127); // col end
-
-  displayCommand(0x22); //set page address
-  displayCommand(row);
-  displayCommand(7); // page end address for 64 pixels
-
-  twi_start;
-  twi_wait;
-
-  twi_sendaddr(0x3C); // send address
-  twi_wait;
+  _beginData(x, row, 127, 7);
   twi_ret_on_nack;
 
-  twi_senddata(0x40); // write data
-  twi_wait;
-
-
-  twi_ret_on_nack;
   uint8_t mod = 0;
 
   for (uint16_t i = 0; i < len; i++)
@@ -70,6 +76,19 @@ void displayData(uint8_t x, uint8_t row, uint16_t len, uint8_t data, uint8_t xpa
   twi_stop;
 }
 
+void displayPGMData(uint8_t x, uint8_t row, uint8_t xend, uint8_t rowend, uint8_t *adr)
+{
+  uint16_t len = (xend - x) * (rowend - row);
+  _beginData(x, row, xend, rowend);
+  for (uint16_t i = 0; i < len; i++)
+  {
+    twi_senddata(pgm_read_byte(adr + 1));
+    twi_wait;
+    twi_ret_on_nack;
+  }
+
+  twi_stop;
+}
 
 void displayBegin()
 {

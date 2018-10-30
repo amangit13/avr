@@ -11,7 +11,7 @@ void setup() {
   displayBegin();
   while(1)
   {
-    displayData(0, 0, 1024, 0xff, x);
+    displayData(32, 2, 96, 0xff, x);
     x++;
   }
 }
