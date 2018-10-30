@@ -1,7 +1,7 @@
 #include <avr/io.h>
 
 //1<<TWEN | 1<<TWEA;
-#define twi_init DDRC = 0XFF; PINC = 0XFF; PORTC = 0xFF; TWSR &= 0b11111100; TWBR = 4; TWCR = 0b01000100
+#define twi_init DDRC = 0XFF; PINC = 0XFF; PORTC = 0xFF; TWSR &= 0b11111100; TWBR = 12; TWCR = 0b01000100
 
 #define twi_wait  while (!(TWCR & (1<< TWINT))) 
 

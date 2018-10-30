@@ -1,8 +1,10 @@
-#include "twiAsynch.h"
+#include "twi.h"
 #include "SSD1306.h"
+//#include "SerialDebug.h"
 
 void displayCommand(uint8_t command)
 {
+  
   twi_start;
   twi_wait;
 
