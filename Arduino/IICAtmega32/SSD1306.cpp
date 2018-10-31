@@ -25,6 +25,7 @@ void _beginData(uint8_t x, uint8_t row, uint8_t endx, uint8_t endrow)
 
 
 }
+
 void displayCommand(uint8_t command)
 {
 
@@ -48,7 +49,7 @@ void displayCommand(uint8_t command)
 }
 
 // write pixel data on oled
-void displayData(uint8_t x, uint8_t row, uint16_t len, uint8_t data, uint8_t xpattern)
+void displayPattern(uint8_t x, uint8_t row, uint16_t len, uint8_t ypattern, uint8_t xpattern)
 {
 
   _beginData(x, row, 127, 7);
@@ -62,7 +63,7 @@ void displayData(uint8_t x, uint8_t row, uint16_t len, uint8_t data, uint8_t xpa
 
     if (mod)
     {
-      twi_senddata(data); // send pixel data. Can be an array in the future.
+      twi_senddata(ypattern); // send pixel data. Can be an array in the future.
     }
     else
     {
@@ -76,13 +77,13 @@ void displayData(uint8_t x, uint8_t row, uint16_t len, uint8_t data, uint8_t xpa
   twi_stop;
 }
 
-void displayPGMData(uint8_t x, uint8_t row, uint8_t xend, uint8_t rowend, uint8_t *adr)
+void displayPGMData(uint8_t x, uint8_t row, uint8_t width, uint8_t height, uint8_t *adr)
 {
-  uint16_t len = (xend - x) * (rowend - row);
-  _beginData(x, row, xend, rowend);
+  uint16_t len = width * height;
+  _beginData(x, row, x + width, row + height);
   for (uint16_t i = 0; i < len; i++)
   {
-    twi_senddata(pgm_read_byte(adr + 1));
+    twi_senddata(pgm_read_byte(adr + i));
     twi_wait;
     twi_ret_on_nack;
   }
@@ -90,6 +91,10 @@ void displayPGMData(uint8_t x, uint8_t row, uint8_t xend, uint8_t rowend, uint8_
   twi_stop;
 }
 
+void clearDisplay()
+{
+  displayPattern (0, 0, 1024, 0, 0);
+}
 void displayBegin()
 {
 

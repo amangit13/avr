@@ -1,25 +1,31 @@
+#define ALPHA
+#define NUMBERS
+#define LINES
+
 #include "SSD1306.h"
 #include "twi.h"
 //#include "SerialDebug.h"
-uint8_t const test[] PROGMEM = {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
+#include "chars.h"
 void setup() {
 
-  
   uint8_t x = 0;
   twi_init;
 
   displayBegin();
-  displayData(0,0,1024,1,8);
-  displayPGMData(0,0,7,1,test);
+  clearDisplay();
+  displayPGMData(0,0,127,1,chars);
+  displayPGMData(0,1,80,1,&chars[16*8]);
+  displayPGMData(0,2,80,1,nums);
+  displayPGMData(0,3,8*4,1,lines);
   
   while(1)
   {
-    displayData(32, 2, 96, 0xff, x);
+    displayPattern (0, 5, 32, 0xff, x);
     x++;
   }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // put your main code here, to run repeatedly:cha
 
 }
