@@ -9,6 +9,9 @@
 void setup() {
 
   uint8_t x = 0;
+  uint8_t cont = 0;
+  int8_t stpcont = 1;
+  
   twi_init;
 
   displayBegin();
@@ -20,7 +23,14 @@ void setup() {
   
   while(1)
   {
-    displayPattern (0, 5, 32, 0xff, x);
+    displayCommand (0x81); // set contrast
+    displayCommand (cont); // external vcc
+    cont+= stpcont;
+    
+    if (cont > 254)
+      stpcont *= -1;
+          
+    displayPattern (64, 3, 50, 0xff, x);
     x++;
   }
 }

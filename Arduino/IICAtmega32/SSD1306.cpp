@@ -3,6 +3,17 @@
 //#include "SerialDebug.h"
 #include <avr/pgmspace.h>
 
+#define SSD_32
+//#define SSD_64
+
+#if defined SSD_64
+  #define LCDHEIGHT 63
+  #define LCDPAGE_END 7
+#else if defined SSD_32
+  #define LCDHEIGHT 31
+  #define LCDPAGE_END 3
+#endif
+
 void _beginData(uint8_t x, uint8_t row, uint8_t endx, uint8_t endrow)
 {
   displayCommand(0x21); // set col address
@@ -11,7 +22,7 @@ void _beginData(uint8_t x, uint8_t row, uint8_t endx, uint8_t endrow)
 
   displayCommand(0x22); //set page address
   displayCommand(row);
-  displayCommand(endrow); // page end address for 64 pixels
+  displayCommand(endrow); // page end address
 
   twi_start;
   twi_wait;
@@ -52,7 +63,7 @@ void displayCommand(uint8_t command)
 void displayPattern(uint8_t x, uint8_t row, uint16_t len, uint8_t ypattern, uint8_t xpattern)
 {
 
-  _beginData(x, row, 127, 7);
+  _beginData(x, row, 127, LCDPAGE_END);
   twi_ret_on_nack;
 
   uint8_t mod = 0;
@@ -95,19 +106,20 @@ void clearDisplay()
 {
   displayPattern (0, 0, 1024, 0, 0);
 }
+
 void displayBegin()
 {
 
   displayCommand(0xAE); // display off
   displayCommand(0xD5); // display clock div
-  displayCommand (0x80); // ration 0x80
+  displayCommand (128); // ratio 0x80
 
   displayCommand(0xA8); // set multiplex
-  displayCommand (63); // lcd height -1
+  displayCommand (LCDHEIGHT); // lcd height -1
 
   displayCommand(0xD3); // display offset
   displayCommand(0x0); // no offset
-  displayCommand (0x40); // line #0
+  displayCommand (64); // line #0
   displayCommand (0x8D);// charge pump
   displayCommand (0x14); // external VCC
   displayCommand (0x20); // memory mode
@@ -116,10 +128,14 @@ void displayBegin()
   displayCommand (0xC8);
   // 128 x 64
   displayCommand (0xDA); // compins;
-  displayCommand (0x12);
+#if defined SSD_32
+  displayCommand (0x02); // 12 for 128 x 64. 02 for 128 x 32
+#else defined SSD_64
+  displayCommand (0x12); // 12 for 128 x 64. 02 for 128 x 32
+#endif
 
   displayCommand (0x81); // set contrast
-  displayCommand (0xCF); // external vcc
+  displayCommand (0x10); // external vcc
 
   displayCommand(0xD9); // set pre charge
   displayCommand(0xF1); // external vcc
