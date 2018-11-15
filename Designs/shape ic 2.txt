@@ -1,0 +1,82 @@
+<shape h="300" w="100" aspect="variable" strokewidth="inherit">
+  <connections>
+    <constraint x="0" y="0.066" perimeter="0"/>
+    <constraint x="0" y=".13" perimeter="0"/>
+    <constraint x="0" y=".2" perimeter="0"/>
+    <constraint x="0" y=".26" perimeter="0"/>
+    <constraint x="0" y=".33" perimeter="0"/>
+    <constraint x="0" y=".4" perimeter="0"/>
+    <constraint x="0" y=".46" perimeter="0"/>
+    <constraint x="0" y=".53" perimeter="0"/>
+    <constraint x="0" y=".6" perimeter="0"/>
+    <constraint x="0" y=".66" perimeter="0"/>
+    <constraint x="0" y=".73" perimeter="0"/>
+    <constraint x="0" y=".8" perimeter="0"/>
+    <constraint x="0" y=".86" perimeter="0"/>
+    <constraint x="0" y=".93" perimeter="0"/>
+
+    <constraint x="1" y="0.066" perimeter="0"/>
+    <constraint x="1" y=".13" perimeter="0"/>
+    <constraint x="1" y=".2" perimeter="0"/>
+    <constraint x="1" y=".26" perimeter="0"/>
+    <constraint x="1" y=".33" perimeter="0"/>
+    <constraint x="1" y=".4" perimeter="0"/>
+    <constraint x="1" y=".46" perimeter="0"/>
+    <constraint x="1" y=".53" perimeter="0"/>
+    <constraint x="1" y=".6" perimeter="0"/>
+    <constraint x="1" y=".66" perimeter="0"/>
+    <constraint x="1" y=".73" perimeter="0"/>
+    <constraint x="1" y=".8" perimeter="0"/>
+    <constraint x="1" y=".86" perimeter="0"/>
+    <constraint x="1" y=".93" perimeter="0"/>
+
+  </connections>
+  <foreground>
+<strokecolor color="#000000"/>
+    <rect x="20" y="0" w="60" h="300"/>
+    <fillstroke/>
+  </foreground>
+
+<background>
+<path>
+<move x="0" y="20"/>
+<line x="100" y="20"/>
+<move x="0" y="40"/>
+<line x="100" y="40"/>
+<move x="0" y="60"/>
+<line x="100" y="60"/>
+<move x="0" y="80"/>
+<line x="100" y="80"/>
+<move x="0" y="100"/>
+<line x="100" y="100"/>
+<move x="0" y="120"/>
+<line x="100" y="120"/>
+</path>
+<stroke/>
+
+<path>
+<strokecolor color="#ff0000"/>
+<move x="0" y="140"/>
+<line x="100" y="140"/>
+<stroke/>
+</path>
+<path>
+<strokecolor color="#000000"/>
+<move x="0" y="160"/>
+<line x="100" y="160"/>
+<move x="0" y="180"/>
+<line x="100" y="180"/>
+<move x="0" y="200"/>
+<line x="100" y="200"/>
+<move x="0" y="220"/>
+<line x="100" y="220"/>
+<move x="0" y="240"/>
+<line x="100" y="240"/>
+<move x="0" y="260"/>
+<line x="100" y="260"/>
+<move x="0" y="280"/>
+<line x="100" y="280"/>
+</path>
+<stroke/>
+</background>
+</shape>
