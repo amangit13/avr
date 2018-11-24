@@ -1,0 +1,15 @@
+setup sequence
+Write 0x02 at 1C to reset all sounds
+disable noise channel 0x15. write 0x0
+disable envolope channels 2 & 5 (0x18 & 0x19). Write 0x0
+--------
+
+to play a note
+Select octave (0x10 - 0x12)
+Select chan Freq (0x08 - 0x0D)
+Select Volume (0x00 - 0x05)
+
+send the data to register or address
+WR - low
+delay
+WR - High
