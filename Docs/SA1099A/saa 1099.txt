@@ -3,7 +3,7 @@ SAA1099  (Philips)
 ------------------------
 
   func	pin	pin   func
-
+	-----u-----
    /WR	 1	 18   Vcc
    /CS	 2	 17   D7
     A0	 3	 16   D6
