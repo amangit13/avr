@@ -134,8 +134,8 @@ void writeAddress() {
 //Initiate the WR and AO pins, as well as reset/enable all sound channels
 void SAATunes::init_pins (byte AZ, byte WE) {
 	
-	AO = AZ;
-	WR = WE;
+	AO = AZ;//9 pb1
+	WR = WE;// 8 pb0
 	
 	DDRD = B11111111;
     pinMode(AO, OUTPUT);
@@ -151,9 +151,9 @@ void SAATunes::init_pins (byte AZ, byte WE) {
     PORTD = 0x02;
     writeAddress();
 
-    digitalWrite(AO, LOW);
-    PORTD = 0x00;
-    writeAddress();
+    //digitalWrite(AO, LOW);
+    //PORTD = 0x00;
+    //writeAddress();
 	
 	digitalWrite(AO, HIGH);
     PORTD = 0x1C;
@@ -189,8 +189,8 @@ void SAATunes::init_pins (byte AZ, byte WE) {
 	writeAddress();
 	
 	// Set up the interrupt
-	OCR0A = 0xAF;
-	TIMSK0 |= _BV(OCIE0A);
+	//OCR0A = 0xAF;
+	//TIMSK0 |= _BV(OCIE0A);
 	
 	//Play a little startup sound (Sounds cool, and gets rid of any random startup noise on the channels!)
 	
@@ -201,9 +201,10 @@ void SAATunes::init_pins (byte AZ, byte WE) {
 	tune_stopnote(4);
 	tune_stopnote(5);
 	
-	tune_playnote(3, 24, 64);
-	delay(32);
-	tune_playnote(0, 48, 64);
+	tune_playnote(0, 49, 127);
+	delay(1000);
+  tune_stopnote(0);
+/*	tune_playnote(0, 48, 64);
 	delay(32);
 	tune_playnote(1, 52, 64);
 	delay(32);
@@ -212,7 +213,7 @@ void SAATunes::init_pins (byte AZ, byte WE) {
 	tune_playnote(3, 60, 64);
 	delay(32);
 	tune_playnote(4, 64, 64);
-	delay(1024);
+	delay(1024);*/
 	tune_stopnote(0);
 	tune_stopnote(1);
 	tune_stopnote(2);
@@ -227,13 +228,13 @@ void SAATunes::init_pins (byte AZ, byte WE) {
 
 void tune_playnote (byte chan, byte note, byte volume) {
 	
-  SAATunes::channelActive[chan] = false;
+ // SAATunes::channelActive[chan] = false;
 	
   //Percussion code, in this version we're ignoring percussion. 
-  if (note > 127) { // Notes above 127 are percussion sounds.
+/*  if (note > 127) { // Notes above 127 are percussion sounds.
 	note = 60; //Set note to some random place
 	volume = 0; //Then set it to 0 volume
-  }
+  }*/
   
   byte noteAdr[] = {5, 32, 60, 85, 110, 132, 153, 173, 192, 210, 227, 243}; // The 12 note-within-an-octave values for the SAA1099, starting at B
   byte octaveAdr[] = {0x10, 0x11, 0x12}; //The 3 octave addresses (was 10, 11, 12)
@@ -245,7 +246,7 @@ void tune_playnote (byte chan, byte note, byte volume) {
   byte octave = (note / 12) - 1; //Some fancy math to get the correct octave
   byte noteVal = note - ((octave + 1) * 12); //More fancy math to get the correct note
 
-  prevOctaves[chan] = octave; //Set this variable so we can remember /next/ time what octave was /last/ played on this channel
+  //prevOctaves[chan] = octave; //Set this variable so we can remember /next/ time what octave was /last/ played on this channel
 
   //Octave addressing and setting code:
   digitalWrite(AO, HIGH);
@@ -331,65 +332,26 @@ void tune_stopnote (byte chan) {
 	
 	SAATunes::channelActive[chan] = false;
 	
-	/* CURRENTLY MODIFIED FOR HACKED SUSTAIN
+	// CURRENTLY MODIFIED FOR HACKED SUSTAIN
 	
-	if (drum_chan_one == chan){ //If drum is active on this channel, then run special code to disable
-		drum_chan_one = NO_DRUM;
-		
-		//Set noise generator mode
-		digitalWrite(AO, HIGH);
-		PORTD = 0x16;
-		writeAddress();
-
-		if (chan < 3){
-			digitalWrite(AO, LOW);
-			PORTD = PORTD | (0 >> 4);
-			writeAddress();
-		} else {
-			digitalWrite(AO, LOW);
-			PORTD = PORTD | (0 << 4);
-			writeAddress();
-		}
-		
-		//Enable tone generator
-		digitalWrite(AO, HIGH);
-		PORTD = 0x14;
-		writeAddress();
-
-		digitalWrite(AO, LOW);
-		bitSet(PORTD, chan);
-		writeAddress();
-	
-		//Disable noise generator
-		digitalWrite(AO, HIGH);
-		PORTD = 0x15;
-		writeAddress();
-
-		digitalWrite(AO, LOW);
-		bitClear(PORTD, chan);
-		writeAddress();
-	
-	} 
     
 	byte volAddress[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05};
 
 	digitalWrite(AO, HIGH);
-	PORTD = volAddress[byte(chan)];
+	PORTD = 0;//volAddress[byte(chan)];
 	writeAddress();
 
 	digitalWrite(AO, LOW);
 	PORTD = 0x00;
 	writeAddress();
 
-	
+	/*
 	#if DO_DECAY
 		doingDecay[chan] = false;
 		decayVolume[chan] = 16;
 		decayTimer[chan] = 0;
 	#endif
-	
 	*/
-	
 }
 
 
@@ -397,6 +359,7 @@ void tune_stopnote (byte chan) {
 // Start playing a score
 //-----------------------------------------------
 
+/*
 void SAATunes::tune_playscore (const byte *score) {
 	
 	volume_present = ASSUME_VOLUME;
@@ -410,10 +373,10 @@ void SAATunes::tune_playscore (const byte *score) {
 	
     score_start = score;
     score_cursor = score;
-    tune_stepscore();  /* execute initial commands */
+    tune_stepscore();  // execute initial commands 
     SAATunes::tune_playing = true; //Release the intterupt routine 
 }
-
+*/
 
 /* Do score commands until a "wait" is found, or the score is stopped.
 This is called initially from tune_playscore, but then is called
@@ -426,7 +389,7 @@ from the interrupt routine when waits expire.
 #define CMD_RESTART	0xe0	/* restart the score from the beginning */
 #define CMD_STOP	0xf0	/* stop playing */
 /* if CMD < 0x80, then the other 7 bits and the next byte are a 15-bit big-endian number of msec to wait */
-
+/*
 void tune_stepscore (void) {
     byte cmd, opcode, chan, note, vol;
     unsigned duration;
@@ -434,7 +397,7 @@ void tune_stepscore (void) {
     while (1) {
         cmd = pgm_read_byte(score_cursor++);
 		
-        if (cmd < 0x80) { /* wait count in msec. */
+        if (cmd < 0x80) { // wait count in msec. 
             duration = ((unsigned)cmd << 8) | (pgm_read_byte(score_cursor++));
             wait_toggle_count = duration; //((unsigned long) wait_timer_frequency2 * duration + 500) / 1000
 		if (wait_toggle_count == 0) wait_toggle_count = 1;
@@ -443,10 +406,10 @@ void tune_stepscore (void) {
 		
         opcode = cmd & 0xf0;
         chan = cmd & 0x0f; //Should erase the low nibble?
-        if (opcode == CMD_STOPNOTE) { /* stop note */
+        if (opcode == CMD_STOPNOTE) { // stop note 
             tune_stopnote (chan);
         }
-        else if (opcode == CMD_PLAYNOTE) { /* play note */
+        else if (opcode == CMD_PLAYNOTE) { // play note 
             note = pgm_read_byte(score_cursor++); // argument evaluation order is undefined in C!
 #if DO_VOLUME
       vol = volume_present ? pgm_read_byte(score_cursor++) : 127;
@@ -456,32 +419,32 @@ void tune_stepscore (void) {
       tune_playnote (chan, note);
 #endif
         }
-        else if (opcode == CMD_RESTART) { /* restart score */
+        else if (opcode == CMD_RESTART) { // restart score 
             score_cursor = score_start;
         }
-        else if (opcode == CMD_STOP) { /* stop score */
+        else if (opcode == CMD_STOP) { // stop score 
             SAATunes::tune_playing = false;
             break;
         }
     }
 }
-
+*/
 
 //-----------------------------------------------
 // Stop playing a score
 //-----------------------------------------------
-
+/*
 void SAATunes::tune_stopscore (void) {
     int i;
     for (i=0; i<6; ++i)
         tune_stopnote(i);
     SAATunes::tune_playing = false;
 }
-
+*/
 
 //Timer stuff
 // Interrupt is called once a millisecond
- 
+ /*
 SIGNAL(TIMER0_COMPA_vect) {
      
 	//Begin new note code
@@ -527,5 +490,4 @@ SIGNAL(TIMER0_COMPA_vect) {
 }
 
 
-
-
+*/

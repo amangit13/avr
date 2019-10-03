@@ -45,8 +45,8 @@ void loop() {
   delay(2500);
 
   //Begin playing the score. 
- st.tune_playscore(score); //The "score" here should be replaced with whatever the name of the byte array in the .H file is
-  
+// st.tune_playscore(score); //The "score" here should be replaced with whatever the name of the byte array in the .H file is
+  while(1);
   while(st.tune_playing){
     //While the score is playing, do nothing. You can put something here, it will just call an interrupt every millisecond.
   }
