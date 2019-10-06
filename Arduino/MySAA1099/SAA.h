@@ -14,6 +14,8 @@
 #define FREQ4 0x0C
 #define FREQ5 0x0D
 
+#define FREQEN 0x14
+
 #define VOL0 0x00
 #define VOL1 0x01
 #define VOL2 0x02
@@ -21,11 +23,12 @@
 #define VOL4 0x04
 #define VOL5 0x05
 
-#define LOAD_ADDR PORTB |= 0b00000001
-#define LOAD_DATA PORTB &= 0b11111110
+#define LOAD_ADDR PORTB |= 0b00000010
+#define LOAD_DATA PORTB &= 0b11111101
 
-#define WR_H PORTB |=0b00000010
-#define WR_L PORTB &=0b11111101
+#define WR_H PORTB |=0b00000001
+#define WR_L PORTB &=0b11111110
+
 #define _PULSE   {WR_L; delayMicroseconds(5); WR_H;}
 
 void sendCmd(byte unsigned address, byte unsigned command)
@@ -63,10 +66,11 @@ void initSAA()
 
 void playNote(byte unsigned freq, byte unsigned chan)
 {
-  sendCmd(OCTAVE01, 0x44);
+  sendCmd(OCTAVE01, 0xFF);
   sendCmd(FREQ0,173);
   sendCmd(VOL0,0xFF);
-  _delay_ms(500);
+  //sendCmd(FREQEN, 0xff);
+  _delay_ms(1000);
   sendCmd(RESET);
   
 }
