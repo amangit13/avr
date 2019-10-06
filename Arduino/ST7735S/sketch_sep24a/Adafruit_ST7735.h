@@ -118,14 +118,7 @@ class Adafruit_ST7735 : public Adafruit_GFX {
            invertDisplay(boolean i);
   uint16_t Color565(uint8_t r, uint8_t g, uint8_t b) { return newColor(r, g, b);}
   
-  /* These are not for current use, 8-bit protocol only!
-  uint8_t  readdata(void),
-           readcommand8(uint8_t);
-  uint16_t readcommand16(uint8_t);
-  uint32_t readcommand32(uint8_t);
-  void     dummyclock(void);
-  */
-
+ 
  private:
   uint8_t  tabcolor;
 
@@ -134,12 +127,13 @@ class Adafruit_ST7735 : public Adafruit_GFX {
            writedata(uint8_t d),
            commandList(const uint8_t *addr),
            commonInit(const uint8_t *cmdList);
-//uint8_t  spiread(void);
 
   boolean  hwSPI;
+
 #ifdef SPI_HAS_TRANSACTION
   SPISettings spisettings;
 #endif
+
 #if defined(ARDUINO_ARCH_SAM) || defined(__ARDUINO_ARC__) || \
     defined(ARDUINO_ARCH_STM32)
   volatile uint32_t *dataport, *clkport, *csport, *rsport;
@@ -152,6 +146,7 @@ class Adafruit_ST7735 : public Adafruit_GFX {
            datapinmask, clkpinmask, cspinmask, rspinmask,
            colstart, rowstart; // some displays need this changed
  #endif   
+
 };
 
 #endif
