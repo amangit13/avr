@@ -1,0 +1,1 @@
+use fritzing to open fzz files. they contain circuit diagrams
