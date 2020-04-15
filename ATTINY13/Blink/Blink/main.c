@@ -15,9 +15,9 @@ int main(void)
     /* Replace with your application code */
     while (1) 
     {
-		_delay_ms(200);
+		_delay_ms(50);
 		PORTB = 0x00;
-		_delay_ms(200);
+		_delay_ms(50);
 		PORTB = 0xff;
 		
     }
