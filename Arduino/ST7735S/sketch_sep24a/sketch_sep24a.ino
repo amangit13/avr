@@ -1,4 +1,4 @@
-#include "TFT.h"  // Arduino LCD library
+#include "Adafruit_ST7735.h"  // Arduino LCD library
 #include <SPI.h>
 
 /*
@@ -42,7 +42,9 @@ st7735s
 // #define rst  1
 
 // create an instance of the library
-TFT TFTscreen = TFT(cs, dc, rst);
+//TFT TFTscreen = TFT(cs, dc, rst);
+
+Adafruit_ST7735 TFTscreen = Adafruit_ST7735(cs,dc,rst);
 
 // char array to print to the screen
  char sensorPrintout[4];
@@ -50,7 +52,11 @@ TFT TFTscreen = TFT(cs, dc, rst);
 void setup() {
 
   // Put this line at the beginning of every sketch that uses the GLCD:
-  TFTscreen.begin();
+  //TFTscreen.begin();
+
+  TFTscreen.initG();
+  TFTscreen.setRotation(3);
+
 
   // clear the screen with a black background, bgr
   TFTscreen.background(0, 00, 0);
