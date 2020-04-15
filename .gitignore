@@ -6,3 +6,9 @@ M328P/IIC SCanner/IICScanner/.vs/IICScanner/v14/.atsuo
 Tools/fritzing.0.9.3b.64.pc.zip
 Tools/GitHubDesktopSetup.exe
 Tools/arduino-1.8.10-windows.zip
+*.eep
+*.elf
+*.lss
+*.map
+*.srec
+*.mk
