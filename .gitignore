@@ -12,3 +12,4 @@ Tools/arduino-1.8.10-windows.zip
 *.map
 *.srec
 *.mk
+ATTINY13/Blink/Blink/Debug/Makefile
