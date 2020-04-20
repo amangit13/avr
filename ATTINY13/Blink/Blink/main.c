@@ -6,20 +6,23 @@
  */ 
 
 #include <avr/io.h>
+#include <util/delay_basic.h>
 #include <util/delay.h>
+#include "Timmer.c"
+#include "UART.c"
+
+
+#define _NOP __asm__ __volatile__ ("nop");
+
 
 int main(void)
 {
 	DDRB = 0xff;
 	PORTB = 0xff;
-    /* Replace with your application code */
-    while (1) 
-    {
-		_delay_ms(50);
-		PORTB = 0x00;
-		_delay_ms(50);
-		PORTB = 0xff;
-		
-    }
+	
+	//setupCTC();
+	while (1)
+	{
+		sbyte(65);
+	}
 }
-

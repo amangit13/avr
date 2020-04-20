@@ -13,3 +13,5 @@ Tools/arduino-1.8.10-windows.zip
 *.srec
 *.mk
 ATTINY13/Blink/Blink/Debug/Makefile
+ATTINY13/Blink/.vs/Blink/v14/.atsuo
+ATTINY13/Blink/.vs/Blink/v14/.atsuo
