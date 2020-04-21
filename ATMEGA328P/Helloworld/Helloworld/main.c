@@ -13,11 +13,11 @@
 int main(void)
 {
 	USART_Init();
-	_delay_ms(1000);
 	
 	while (1)
 	{
-		USART_Transmit(0xFF);
+		_delay_ms(100);
+		serialouts("Aman Ahmed\n");
 	}
 }
 
