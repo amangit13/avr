@@ -5,10 +5,9 @@
  * Author : home
  */ 
 
-#define F_CPU 16000000
+#define F_CPU 20000000
 #include <avr/io.h>
 #include <util/delay.h>
-
 
 int main(void)
 {

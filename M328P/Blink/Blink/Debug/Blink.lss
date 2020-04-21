@@ -17,15 +17,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   6 .debug_abbrev 0000068a  00000000  00000000  000008d0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000026b  00000000  00000000  00000f5a  2**0
+  7 .debug_line   00000152  00000000  00000000  00000f5a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000024  00000000  00000000  000011c8  2**2
+  8 .debug_frame  00000024  00000000  00000000  000010ac  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000378  00000000  00000000  000011ec  2**0
+  9 .debug_str    00000378  00000000  00000000  000010d0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000048  00000000  00000000  00001564  2**0
+ 10 .debug_loc    00000048  00000000  00000000  00001448  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000010  00000000  00000000  000015ac  2**0
+ 11 .debug_ranges 00000010  00000000  00000000  00001490  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -72,8 +72,8 @@ Disassembly of section .text:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 00000080 <main>:
+#include <avr/io.h>
 #include <util/delay.h>
-
 
 int main(void)
 {
@@ -92,9 +92,9 @@ int main(void)
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  86:	2f ef       	ldi	r18, 0xFF	; 255
-  88:	39 e6       	ldi	r19, 0x69	; 105
-  8a:	98 e1       	ldi	r25, 0x18	; 24
+  86:	2f e7       	ldi	r18, 0x7F	; 127
+  88:	34 e8       	ldi	r19, 0x84	; 132
+  8a:	9e e1       	ldi	r25, 0x1E	; 30
   8c:	21 50       	subi	r18, 0x01	; 1
   8e:	30 40       	sbci	r19, 0x00	; 0
   90:	90 40       	sbci	r25, 0x00	; 0
@@ -104,9 +104,9 @@ int main(void)
 		_delay_ms(500);
 		PORTB = 0;
   98:	15 b8       	out	0x05, r1	; 5
-  9a:	2f ef       	ldi	r18, 0xFF	; 255
-  9c:	39 e6       	ldi	r19, 0x69	; 105
-  9e:	98 e1       	ldi	r25, 0x18	; 24
+  9a:	2f e7       	ldi	r18, 0x7F	; 127
+  9c:	34 e8       	ldi	r19, 0x84	; 132
+  9e:	9e e1       	ldi	r25, 0x1E	; 30
   a0:	21 50       	subi	r18, 0x01	; 1
   a2:	30 40       	sbci	r19, 0x00	; 0
   a4:	90 40       	sbci	r25, 0x00	; 0
