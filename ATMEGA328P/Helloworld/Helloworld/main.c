@@ -9,15 +9,16 @@
 #include <util/delay.h>
 #include "AT328UART.c"
 #include "Blink.c"
+#include "ADC.c"
 
 int main(void)
 {
 	USART_Init();
+	ADC_init();
 	
 	while (1)
 	{
-		_delay_ms(100);
-		serialouts("Aman Ahmed\n");
+		serialout(ADC_read());
 	}
 }
 
