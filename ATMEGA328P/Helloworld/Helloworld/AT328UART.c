@@ -23,6 +23,7 @@ void AT328_UART_out(int_fast8_t data)
 {
 	/* Wait for empty transmit buffer */
 	/* Put data into buffer, sends the data */
+//	while (!(UCSR0A & (1<<RXC0)));	
 	UDR0 = data;}
 
 void AT328_UART_outs(char * data)
