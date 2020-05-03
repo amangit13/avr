@@ -13,10 +13,11 @@
 #include "AT328UART.c"
 #include "AT328ADC.c"
 #include "AT328OScope.c"
-
+#include "AT328LogicAnalyzer.c"
 int main(void)
 {
 	AT328_OSC_init();
+	AT328_Logic_init(311);
 	while (1);			
 }
 
