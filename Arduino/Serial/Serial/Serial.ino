@@ -5,10 +5,10 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  Serial.begin(9600);
   while (1)
   {
-    Serial.write(65);
+    Serial.write("Hello");
     delay(1000);
   }
 }
