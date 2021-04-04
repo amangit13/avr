@@ -17,7 +17,11 @@
 		read_var @0,VAR1
 	.endm
 	.macro VAR1_add;(val)
-		
+		push R16
+		_VAR1 R16
+		ADDI R16,@0
+		VAR1_ R16
+		POP R16	
 	.endm
 .CSEG
 .ORG 0x0
