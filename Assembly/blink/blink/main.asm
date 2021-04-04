@@ -6,7 +6,7 @@
 ;
 .device attiny13a
 
-.include "mymacros.inc"
+.include "C:\Files\AVR\Assembly\common\mymacros.inc"
 
 .DSEG
 	VAR1: .byte 1
@@ -28,7 +28,7 @@
 goto REST
 
 .ORG 0x0010
-.include "myutilities.inc"
+.include "C:\Files\AVR\Assembly\common\myutilities.inc"
 
 
 REST:
