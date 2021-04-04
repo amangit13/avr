@@ -16,31 +16,24 @@
 	.macro _VAR1;(register)
 		read_var @0,VAR1
 	.endm
-	.macro VAR1_add;(val)
-		push R16
-		_VAR1 R16
-		ADDI R16,@0
-		VAR1_ R16
-		POP R16	
-	.endm
+
 .CSEG
 .ORG 0x0
-goto REST
+	goto REST
 
 .ORG 0x0010
-.include "C:\Files\AVR\Assembly\common\myutilities.inc"
-
+	.include "C:\Files\AVR\Assembly\common\myutilities.inc"
 
 REST:
-R21_ 128
-set_PB_out (0)
+	R21_ 128
+	set_PB_out (0)
 
-loop_infinity:	
-	RCALL delay_1_sec
-	toggle_PB (0)
+	loop_infinity:	
+		RCALL delay_1_sec
+		toggle_PB (0)
 
-inc R21
-VAR1_ R21
+	inc R21
+	VAR1_ R21
 
-goto loop_infinity
+	goto loop_infinity
 
