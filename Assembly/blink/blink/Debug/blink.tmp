@@ -24,11 +24,12 @@
   <FILE>blink.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <REST><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>16</LINE></REST>
+  <VAR1><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>12</LINE></VAR1>
+  <REST><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>30</LINE></REST>
   <delay_1_sec><FILE>C:\Files\AVR\Assembly\blink\blink\myutilities.inc</FILE><LINE>2</LINE></delay_1_sec>
   <dly_r18><FILE>C:\Files\AVR\Assembly\blink\blink\myutilities.inc</FILE><LINE>7</LINE></dly_r18>
   <dly_r16><FILE>C:\Files\AVR\Assembly\blink\blink\myutilities.inc</FILE><LINE>8</LINE></dly_r16>
   <dly_r17><FILE>C:\Files\AVR\Assembly\blink\blink\myutilities.inc</FILE><LINE>9</LINE></dly_r17>
-  <loop_infinity><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>19</LINE></loop_infinity>
+  <loop_infinity><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>33</LINE></loop_infinity>
  </LABELS>
 </ASSEMBLER_INFO>

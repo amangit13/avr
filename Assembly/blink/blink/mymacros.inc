@@ -24,6 +24,15 @@ ldi r20,@0
 ldi r21,@0
 .endmacro
 
+;------------------------- SRAM variable assignemnts ----------------------------------
+.macro set_var;(variable, register) R16 = value at ram address e.b., R16 = @(22). 
+STS @0,@1
+.endm
+
+.macro read_var;(register, variable)
+LDS @0,@1
+.endm
+
 ;----------------------------------- JUMP CONDITIONS-------------------------------
 ;---- is register = number
 .macro is_equal_goto;(register, val, label)
@@ -71,45 +80,41 @@ cpi @0,@1
 brne @2
 .endm
 
-;------------------------- EQUAL assignemnts ----------------------------------
-.macro EQ;(Register, val) R16 = value at ram address e.b., R16 = @(22). 
-LDS @0,@1
+
+;-------------------IO PORTB----------------------------
+.macro set_PB_out;(bit) set direction
+SBI DDRB, @0
 .endmacro
 
-;-------------------IO----------------------------
-.macro SET_PB_OUT
-SBI DDRB, @0 ; DDRB_ 1
+.macro set_PB_in;(bit) setdirection
+SBI DDRB, @0
 .endmacro
 
-.macro SET_PB_IN
-SBI DDRB, @0 ; DDRB_ 1
-.endmacro
-
-.macro READ_PB0
+.macro read_PB0;(register)
 IN @0,PB0
 .endmacro
 
-;--------------- PORTB ------------------
-.macro PB_ON ; PB_ON 1
+.macro PB_on;(bit)
 SBI PORTB,@0
 .endmacro
 
-.macro PB_OFF ; PB_Off 1
+.macro PB_off;(bit)
 CBI PORTB,@0
 .endmacro
 
-.macro IF_PB_BIT_SET_SKIP	; if_PB_BIT_SET 1 
-SBIS PORTB,@0			
+.macro skip_next_if_PB_bit_set;(bit)
+SBIS PORTB,@0					; skip if bit # set		
 .endmacro				
 
-.macro TOGGLE_PB
-	IF_PB_BIT_SET_SKIP @0
-		rjmp _ON
-	PB_OFF @0
+.macro toggle_PB;(bit)
+	skip_next_if_PB_bit_set @0
+		rjmp _toggle_on
+	PB_off @0
 	rjmp _return1
-_ON:
-	PB_ON @0
+_toggle_on:
+	PB_on @0
 
 _return1:
 .endmacro
+
 
