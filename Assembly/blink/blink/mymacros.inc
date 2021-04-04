@@ -1,3 +1,28 @@
+;--------------------------REGISTER ASSIGNMENTS------------------------------------
+
+.macro R16_
+ldi r16,@0
+.endmacro
+
+.macro R17_
+ldi r17,@0
+.endmacro
+
+.macro R18_
+ldi r18,@0
+.endm
+
+.macro R19_
+ldi r19,@0
+.endmacro
+
+.macro R20_
+ldi r20,@0
+.endmacro
+
+.macro R21_
+ldi r21,@0
+.endmacro
 
 ;----------------------------------- JUMP CONDITIONS-------------------------------
 ;---- is register = number
@@ -24,52 +49,34 @@ brne @0
 
 ; ------------------------------- loops -----------------------------------------
 ; while not zero. R16 --
-.macro dec_while_R16_not_0;(label)
-dec R16
-brne @0
+.macro repeat_until_r16_0;(label)
+dec R16			; 1
+brne @0			; 1 when false, 2 when true
 .endmacro
 
 ; while not zero. R17 --
-.macro dec_while_R17_not_0;(label)
+.macro repeat_until_r17_0;(label)
 dec R17
-brne @0					; jump to label
+brne @0					; jump to label if not zero
 .endmacro
 
-
-.macro dec_R16_until ; dec_R16_until (val, label)
-dec R16
+.macro repeat_until_r16 ; dec_R16_until (val, label)
+inc R16
 cpi R16,@0			; if R16 == val
-breq @1				; jump to label
+breq @1				; jump to label if not zero
 .endmacro
 
-.macro dec_R17_until ; dec_R17_until (val, label)
-dec R17
+.macro rpeat_until_r17 ; dec_R17_until (val, label)
+inc R17
 cpi R17,@0			; if R17 == val
 breq @1				; jump to label
-.endmacro
+.endm
 
-
-;--------------------------REGISTER ASSIGNMENTS------------------------------------
-
-.macro R16_
-ldi r16,@0
-.endmacro
-
-.macro R17_
-ldi r17,@0
-.endmacro
-
-.macro R19_
-ldi r19,@0
-.endmacro
-
-.macro R20_
-ldi r20,@0
-.endmacro
-
-.macro R21_
-ldi r21,@0
-.endmacro
+.macro repeat_until;(Register,Nnumber, label)
+inc @0
+cpi @0,@1
+brne @2
+.endm
 
 ;------------------------- EQUAL assignemnts ----------------------------------
 .macro EQ;(Register, val) R16 = value at ram address e.b., R16 = @(22). 
@@ -112,3 +119,4 @@ _ON:
 
 _return1:
 .endmacro
+

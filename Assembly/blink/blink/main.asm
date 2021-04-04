@@ -6,25 +6,18 @@
 ;
 .include "mymacros.inc"
 
-R16_ 255
-SET_PB_OUT 1
+.ORG 0x0
+goto REST
 
-for:
-dec r16
-not_zero_goto (for)
+.ORG 0x0010
+.include "myutilities.inc"
 
-R16_ 255
+REST:
+SET_PB_OUT (0)
 
-loop_infinity:
-
-	loopA:
-		R17_ 255
-
-		loopB:
-		dec_while_r17_not_0 (loopB)
-
-	dec_while_R16_not_0 (loopA)
-
-	TOGGLE_PB (0)
-
+loop_infinity:	
+	RCALL delay_1_sec
+	RCALL delay_1_sec
+	TOGGLE_PB 0
 goto loop_infinity
+
