@@ -26,17 +26,10 @@ ldi r21,@0
 
 ;----------------------------------- JUMP CONDITIONS-------------------------------
 ;---- is register = number
-.macro is_equal;(register, val)
+.macro is_equal_goto;(register, val, label)
 cpi @0,@1 ; compare with immediate
+breq @2 ; if Z=0 jump. Z = Zero bit.
 .endmacro
-
-	.macro yes_equal_goto;(label)
-	breq @0 ; if Z=0 jump. Z = Zero bit.
-	.endmacro
-
-	.macro not_equal_goto;(label)
-	brne @0 ; if not eqal jump
-	.endmacro
 
 .macro goto;(label)
 rjmp @0
@@ -60,13 +53,13 @@ dec R17
 brne @0					; jump to label if not zero
 .endmacro
 
-.macro repeat_until_r16 ; dec_R16_until (val, label)
+.macro repeat_until_r16;(val, label)
 inc R16
 cpi R16,@0			; if R16 == val
 breq @1				; jump to label if not zero
 .endmacro
 
-.macro rpeat_until_r17 ; dec_R17_until (val, label)
+.macro rpeat_until_r17;(val, label)
 inc R17
 cpi R17,@0			; if R17 == val
 breq @1				; jump to label
@@ -105,12 +98,12 @@ SBI PORTB,@0
 CBI PORTB,@0
 .endmacro
 
-.macro IF_PB_BIT_SET	; if_PB_BIT_SET 1 
-SBIS PORTB,@0			;	PB_OFF 1
-.endmacro				; PB_ON 1
+.macro IF_PB_BIT_SET_SKIP	; if_PB_BIT_SET 1 
+SBIS PORTB,@0			
+.endmacro				
 
 .macro TOGGLE_PB
-	IF_PB_BIT_SET @0
+	IF_PB_BIT_SET_SKIP @0
 		rjmp _ON
 	PB_OFF @0
 	rjmp _return1

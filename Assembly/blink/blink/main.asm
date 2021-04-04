@@ -1,3 +1,4 @@
+.device attiny13a
 ;
 ; blink.asm
 ;
@@ -16,7 +17,6 @@ REST:
 SET_PB_OUT (0)
 
 loop_infinity:	
-	RCALL delay_1_sec
 	RCALL delay_1_sec
 	TOGGLE_PB 0
 goto loop_infinity
