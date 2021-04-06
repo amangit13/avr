@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATtiny13A"</DEVICE>
+ <WORKING_DIR>C:\Files\AVR\Assembly\ShiftRegisterTest\ShiftRegisterTest\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.8.332\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Files\AVR\Assembly\ShiftRegisterTest\ShiftRegisterTest\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.8.332\avrasm\inc\tn13Adef.inc</FILE>
+  <FILE>C:\Files\AVR\Assembly\common\mymacros.inc</FILE>
+  <FILE>C:\Files\AVR\Assembly\common\mymacros_registers.inc</FILE>
+  <FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Files\AVR\Assembly\ShiftRegisterTest\ShiftRegisterTest\Debug\ShiftRegisterTest.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>ShiftRegisterTest.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>ShiftRegisterTest.map</FILE>
+  <FILE>ShiftRegisterTest.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <RESET><FILE>C:\Files\AVR\Assembly\ShiftRegisterTest\ShiftRegisterTest\main.asm</FILE><LINE>16</LINE></RESET>
+  <delay_1_sec><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>2</LINE></delay_1_sec>
+  <dly_r18><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>7</LINE></dly_r18>
+  <dly_r16><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>8</LINE></dly_r16>
+  <dly_r17><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>9</LINE></dly_r17>
+ </LABELS>
+</ASSEMBLER_INFO>

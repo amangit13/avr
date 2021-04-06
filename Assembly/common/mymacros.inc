@@ -1,28 +1,3 @@
-;--------------------------REGISTER ASSIGNMENTS------------------------------------
-
-.macro R16_
-ldi r16,@0
-.endmacro
-
-.macro R17_
-ldi r17,@0
-.endmacro
-
-.macro R18_
-ldi r18,@0
-.endm
-
-.macro R19_
-ldi r19,@0
-.endmacro
-
-.macro R20_
-ldi r20,@0
-.endmacro
-
-.macro R21_
-ldi r21,@0
-.endmacro
 
 ;------------------------- SRAM variable assignemnts ----------------------------------
 .macro set_var;(variable, register) R16 = value at ram address e.b., R16 = @(22). 
