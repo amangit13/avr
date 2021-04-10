@@ -24,6 +24,10 @@ rjmp @0
 brne @0
 .endmacro
 
+.macro if_bit_set_skip_next;(io register, bit)
+	SBIS @0, @1
+.endm
+
 ; ------------------------------- loops -----------------------------------------
 ; while not zero. R16 --
 .macro repeat_until_r16_0;(label)
