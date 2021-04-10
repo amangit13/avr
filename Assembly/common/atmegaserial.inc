@@ -53,10 +53,11 @@
 
 .macro serial_send_data ;(value)
 	serial_wait:
-		if_bit_set_skip_next SERIAL_CTRL_A, 5
+		if_bit_set_skip_next SERIAL_CTRL_A, 5; loop until bit 5 of control register a is set. it indicates that data register is ready to send data and can be written.
 	rjmp serial_wait
 
 	R16_ @0
 	SERIAL_DATA_ R16
 	SERIAL_TX_ENABLE
+
 .endm
