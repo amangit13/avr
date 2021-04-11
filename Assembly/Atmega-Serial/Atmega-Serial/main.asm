@@ -4,6 +4,7 @@
 ; Created: 4/8/2021 10:31:44 PM
 ; Author : amana
 ;
+#define _ATMEGA8_
 .include "C:\Files\AVR\Assembly\common\mymacros_registers.inc"
 .include "C:\Files\AVR\Assembly\common\mymacros.inc"
 
@@ -11,15 +12,21 @@
 
 
 .cseg
-.org 0
+.org 0x0000
 	goto RESET
+	reti
+	reti
 
-
-.org 0x0010
-	.include "C:\Files\AVR\Assembly\common\atmegaserial.inc"
-	goto RESET
+.include "C:\Files\AVR\Assembly\common\myutilities.inc"
+.include "C:\Files\AVR\Assembly\common\atmegaserial.inc"
+goto RESET
 
 RESET:
-    serial_init_16M_9600
-	serial_send_data 'A'
-    goto RESET
+	init_stack
+	blink_test
+
+   ; serial_init_16M_9600
+	LOOP:
+	;serial_send_data 'A'
+
+    goto LOOP

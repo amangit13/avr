@@ -1,10 +1,51 @@
-;UCSRC
-;UCSRC – USART Control and Status Register C
-;URSEL: 
-; Bit 7 – URSEL: Register Select
-; Bit 6 – UMSEL: USART Mode Select
-;
-;
+
+; ***** USART ************************
+; UDR - USART I/O Data Register
+;.equ	UDR0	= 0	; USART I/O Data Register bit 0
+;.equ	UDR1	= 1	; USART I/O Data Register bit 1
+;.equ	UDR2	= 2	; USART I/O Data Register bit 2
+;.equ	UDR3	= 3	; USART I/O Data Register bit 3
+;.equ	UDR4	= 4	; USART I/O Data Register bit 4
+;.equ	UDR5	= 5	; USART I/O Data Register bit 5
+;.equ	UDR6	= 6	; USART I/O Data Register bit 6
+;.equ	UDR7	= 7	; USART I/O Data Register bit 7
+
+; UCSRA - USART Control and Status Register A
+;.equ	USR	= UCSRA	; For compatibility
+;.equ	MPCM	= 0	; Multi-processor Communication Mode
+;.equ	U2X	= 1	; Double the USART transmission speed
+;.equ	UPE	= 2	; Parity Error
+;.equ	PE	= UPE	; For compatibility
+;.equ	DOR	= 3	; Data overRun
+;.equ	FE	= 4	; Framing Error
+;.equ	UDRE	= 5	; USART Data Register Empty
+;.equ	TXC	= 6	; USART Transmitt Complete
+;.equ	RXC	= 7	; USART Receive Complete
+
+; UCSRB - USART Control and Status Register B
+;.equ	UCR	= UCSRB	; For compatibility
+;.equ	TXB8	= 0	; Transmit Data Bit 8
+;.equ	RXB8	= 1	; Receive Data Bit 8
+;.equ	UCSZ2	= 2	; Character Size
+;.equ	CHR9	= UCSZ2	; For compatibility
+;.equ	TXEN	= 3	; Transmitter Enable
+;.equ	RXEN	= 4	; Receiver Enable
+;.equ	UDRIE	= 5	; USART Data register Empty Interrupt Enable
+;.equ	TXCIE	= 6	; TX Complete Interrupt Enable
+;.equ	RXCIE	= 7	; RX Complete Interrupt Enable
+
+; UCSRC - USART Control and Status Register C
+;.equ	UCPOL	= 0	; Clock Polarity
+;.equ	UCSZ0	= 1	; Character Size
+;.equ	UCSZ1	= 2	; Character Size
+;.equ	USBS	= 3	; Stop Bit Select
+;.equ	UPM0	= 4	; Parity Mode Bit 0
+;.equ	UPM1	= 5	; Parity Mode Bit 1
+;.equ	UMSEL	= 6	; USART Mode Select
+;.equ	URSEL	= 7	; Register Select
+
+
+
 .equ SERIAL_CTRL_A = UCSRA ; bit 6 = transmit complete. set when tranmit is complete. bit 5 = Data register is empty  buffer is empty. 
 .equ SERIAL_CTRL_B = UCSRB ; bit 3 = transmit enable. starts the transmit. resets after data register is transfered.
 .equ SERIAL_CTRL_C = UCSRC ; bit 2:1. character size for the frame. bit 3 = stop bit size (1 or 2)
@@ -45,19 +86,28 @@
 
 
 .macro serial_init_16M_9600
-	R16_ 103; UBBR value for 9600 baud for 16MHz
+	R16_ 103						; UBBR value for 9600 baud for 16MHz
 	SERIAL_BAUD_L_ R16
-	R16_ 0b00000110 ; 8 bit character frame, 1 bit stop bit.
+	
+	R16_ 127						; set 7th bit of UBRRH to 1 to access register C
+	SERIAL_BAUD_H_ R16
+
+	R16_ 0b00000110					; 8 bit character frame, 1 bit stop bit.
 	SERIAL_CTRL_C_ r16
 .endm
 
-.macro serial_send_data ;(value)
+;------------------------- serial send data ----------------------
+.macro serial_send_data ;value
+	R16_ @0
+	rcall _serial_Send_data
+.endm
+
+_serial_send_data: ;(value)
 	serial_wait:
 		if_bit_set_skip_next SERIAL_CTRL_A, 5; loop until bit 5 of control register a is set. it indicates that data register is ready to send data and can be written.
-	rjmp serial_wait
+	goto serial_wait
 
-	R16_ @0
 	SERIAL_DATA_ R16
 	SERIAL_TX_ENABLE
-
-.endm
+ret
+;--------------------------------------------------------------------

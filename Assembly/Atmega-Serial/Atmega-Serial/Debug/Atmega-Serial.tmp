@@ -12,6 +12,7 @@
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m8def.inc</FILE>
   <FILE>C:\Files\AVR\Assembly\common\mymacros_registers.inc</FILE>
   <FILE>C:\Files\AVR\Assembly\common\mymacros.inc</FILE>
+  <FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE>
   <FILE>C:\Files\AVR\Assembly\common\atmegaserial.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
@@ -25,6 +26,13 @@
   <FILE>Atmega-Serial.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>22</LINE></RESET>
+  <RESET><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>24</LINE></RESET>
+  <_atmega8_delay_1sec><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>22</LINE></_atmega8_delay_1sec>
+  <atmeg8_r18><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>27</LINE></atmeg8_r18>
+  <atmeg8_r16><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>29</LINE></atmeg8_r16>
+  <atmeg8_r17><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>31</LINE></atmeg8_r17>
+  <_serial_send_data><FILE>C:\Files\AVR\Assembly\common\atmegaserial.inc</FILE><LINE>105</LINE></_serial_send_data>
+  <serial_wait><FILE>C:\Files\AVR\Assembly\common\atmegaserial.inc</FILE><LINE>106</LINE></serial_wait>
+  <LOOP><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>29</LINE></LOOP>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -96,4 +96,16 @@ _toggle_on:
 _return1:
 .endmacro
 
+;---------------------- bit operations IO -----------------------
+.macro set_io_bit;(io, bit)
+	sbi @0,@1
+.endm
 
+
+;---------------------- common init -------------------------
+.macro init_stack
+	R16_ high(RAMEND)
+	OUT SPH,R16
+	R16_ low(RAMEND)
+	OUT SPL, R16
+.endm
