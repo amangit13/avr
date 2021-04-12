@@ -23,10 +23,9 @@ goto RESET
 
 RESET:
 	init_stack
-	blink_test
 
-   ; serial_init_16M_9600
+    serial_init_16M_9600
 	LOOP:
-	;serial_send_data 'A'
-
+	serial_send_data 65
+	delay_1sec
     goto LOOP

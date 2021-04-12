@@ -18,7 +18,7 @@
 ;.equ	PE	= UPE	; For compatibility
 ;.equ	DOR	= 3	; Data overRun
 ;.equ	FE	= 4	; Framing Error
-;.equ	UDRE	= 5	; USART Data Register Empty
+;.equ	UDRE= 5	; USART Data Register Empty
 ;.equ	TXC	= 6	; USART Transmitt Complete
 ;.equ	RXC	= 7	; USART Receive Complete
 
@@ -36,9 +36,9 @@
 
 ; UCSRC - USART Control and Status Register C
 ;.equ	UCPOL	= 0	; Clock Polarity
-;.equ	UCSZ0	= 1	; Character Size
-;.equ	UCSZ1	= 2	; Character Size
-;.equ	USBS	= 3	; Stop Bit Select
+;.equ	UCSZ0	= 1	; Character Size		1
+;.equ	UCSZ1	= 2	; Character Size		1: 8 bits
+;.equ	USBS	= 3	; Stop Bit Select		0: 1 stop bit
 ;.equ	UPM0	= 4	; Parity Mode Bit 0
 ;.equ	UPM1	= 5	; Parity Mode Bit 1
 ;.equ	UMSEL	= 6	; USART Mode Select
@@ -55,46 +55,51 @@
 
 .equ SERIAL_DATA = UDR
 
-.macro SERIAL_CTRL_C_;(register)
-	out SERIAL_CTRL_C, @0
+.macro SERIAL_CTRL_C_;(value)
+	R16_ @0
+	out SERIAL_CTRL_C, R16
 .endm
 
-.macro SERIAL_CTRL_B_;(regsiter)
-	out SERIAL_CTRL_B, @0
+.macro SERIAL_CTRL_B_;(value)
+	R16_ @0
+	out SERIAL_CTRL_B, R16
 .endm
 
-.macro SERIAL_CTRL_A_;(register)
-	out SERIAL_CTRL_A, @0
+.macro SERIAL_CTRL_A_;(value)
+	R16_ @0
+	out SERIAL_CTRL_A, R16
 .endm
 
 
-.macro SERIAL_BAUD_L_;(register)
-	out SERIAL_BAUD_L, @0
+.macro SERIAL_BAUD_L_;(value)
+	R16_ @0
+	out SERIAL_BAUD_L, R16
 .endm
-.macro SERIAL_BAUD_H_;(register)
-	out SERIAL_BAUD_H, @0
+.macro SERIAL_BAUD_H_;(value)
+	R16_ @0
+	out SERIAL_BAUD_H, R16
 .endm
 
 .macro SERIAL_DATA_;(register)
-	out SERIAL_DATA,@0
+	out SERIAL_DATA, @0
 .endm
 
 .macro SERIAL_TX_ENABLE
-	R16_ 0b00001000
-	SERIAL_CTRL_B_ R16
+	SERIAL_CTRL_B_ 0b00001000
 .endm
 
 
 .macro serial_init_16M_9600
-	R16_ 103						; UBBR value for 9600 baud for 16MHz
-	SERIAL_BAUD_L_ R16
 	
-	R16_ 127						; set 7th bit of UBRRH to 1 to access register C
-	SERIAL_BAUD_H_ R16
+	; 8 bit character frame, 1 bit stop bit.
+	SERIAL_CTRL_C_ 0b10000110
 
-	R16_ 0b00000110					; 8 bit character frame, 1 bit stop bit.
-	SERIAL_CTRL_C_ r16
+	; UBBR value for 9600 baud for 16MHz
+	SERIAL_BAUD_L_ 103
+
+	SERIAL_TX_ENABLE
 .endm
+ 
 
 ;------------------------- serial send data ----------------------
 .macro serial_send_data ;value
@@ -103,11 +108,9 @@
 .endm
 
 _serial_send_data: ;(value)
-	serial_wait:
+	_serial_wait:
 		if_bit_set_skip_next SERIAL_CTRL_A, 5; loop until bit 5 of control register a is set. it indicates that data register is ready to send data and can be written.
-	goto serial_wait
-
-	SERIAL_DATA_ R16
-	SERIAL_TX_ENABLE
+	goto _serial_wait
+		SERIAL_DATA_ R16
 ret
 ;--------------------------------------------------------------------
