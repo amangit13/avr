@@ -49,8 +49,12 @@ ldi r15,@0
 .endm
 
 .macro R16_
-ldi r16,@0
+	ldi r16,@0
 .endmacro
+
+.macro R16__
+mov r16,@0
+.endm
 
 .macro R17_
 ldi r17,@0

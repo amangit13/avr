@@ -102,8 +102,13 @@
  
 
 ;------------------------- serial send data ----------------------
-.macro serial_send_data ;value
+.macro serial_send_const ;value
 	R16_ @0
+	rcall _serial_Send_data
+.endm
+
+.macro serial_send_data ;register
+	R16__ @0
 	rcall _serial_Send_data
 .endm
 

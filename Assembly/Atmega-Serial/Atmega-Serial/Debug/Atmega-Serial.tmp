@@ -11,9 +11,10 @@
  <INCLUDED_FILES>
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m8def.inc</FILE>
   <FILE>C:\Files\AVR\Assembly\common\mymacros_registers.inc</FILE>
-  <FILE>C:\Files\AVR\Assembly\common\mymacros.inc</FILE>
-  <FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE>
-  <FILE>C:\Files\AVR\Assembly\common\atmegaserial.inc</FILE>
+  <FILE>C:\Files\AVR\Assembly\common\mymacros_jump.inc</FILE>
+  <FILE>C:\Files\AVR\Assembly\common\mymacros_memory.inc</FILE>
+  <FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE>
+  <FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\Debug\Atmega-Serial.obj</FILE>
@@ -26,13 +27,16 @@
   <FILE>Atmega-Serial.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>24</LINE></RESET>
-  <_atmega8_delay_1sec><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>22</LINE></_atmega8_delay_1sec>
-  <atmeg8_r18><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>27</LINE></atmeg8_r18>
-  <atmeg8_r16><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>29</LINE></atmeg8_r16>
-  <atmeg8_r17><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>31</LINE></atmeg8_r17>
-  <_serial_send_data><FILE>C:\Files\AVR\Assembly\common\atmegaserial.inc</FILE><LINE>110</LINE></_serial_send_data>
-  <_serial_wait><FILE>C:\Files\AVR\Assembly\common\atmegaserial.inc</FILE><LINE>111</LINE></_serial_wait>
-  <LOOP><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>29</LINE></LOOP>
+  <RESET><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>25</LINE></RESET>
+  <_atmega8_delay_1sec><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>22</LINE></_atmega8_delay_1sec>
+  <atmeg8_r18><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>27</LINE></atmeg8_r18>
+  <atmeg8_r16><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>29</LINE></atmeg8_r16>
+  <atmeg8_r17><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>31</LINE></atmeg8_r17>
+  <_serial_send_data><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>115</LINE></_serial_send_data>
+  <_serial_wait><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>116</LINE></_serial_wait>
+  <message><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>23</LINE></message>
+  <setpointer><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>29</LINE></setpointer>
+  <LOOP><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>31</LINE></LOOP>
+  <continue><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>39</LINE></continue>
  </LABELS>
 </ASSEMBLER_INFO>
