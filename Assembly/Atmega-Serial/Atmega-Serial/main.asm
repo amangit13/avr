@@ -15,7 +15,6 @@
 
 .include "C:\Files\AVR\Assembly\common\myproc_utilities.inc"
 .include "C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc"
-goto RESET
 
 message: .DB "HELLO WORLD. ",0
 
