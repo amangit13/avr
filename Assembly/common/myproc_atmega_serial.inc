@@ -102,13 +102,12 @@
  
 
 ;------------------------- serial send data ----------------------
-.macro serial_send_const ;value
+.macro serial_send_data ;value
 	R16_ @0
 	rcall _serial_Send_data
 .endm
 
-.macro serial_send_data ;register
-	R16__ @0
+.macro serial_send_R16 ;register
 	rcall _serial_Send_data
 .endm
 
@@ -118,4 +117,26 @@ _serial_send_data: ;(value)
 	goto _serial_wait
 		SERIAL_DATA_ R16
 ret
+
+;------------------------ serial send string codeseg-----------------------
+.macro serial_send_string_cseg;(label)
+	csegpointer @0
+	rcall _serial_send_string_cseg
+.endm
+
+_serial_send_string_cseg:
+
+	_serial_setptr: 
+		csegponter_val_to_R0
+
+	if_register_equal_skip_next R0,0
+		goto _serial_readnext
+	ret ; end of string
+	_serial_readnext:
+		R16__ R0
+		serial_send_R16
+		ADIW Z,1
+	goto _serial_setptr
+ret
 ;--------------------------------------------------------------------
+

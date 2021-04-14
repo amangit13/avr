@@ -52,7 +52,7 @@ ldi r15,@0
 	ldi r16,@0
 .endmacro
 
-.macro R16__
+.macro R16__;(register)
 mov r16,@0
 .endm
 

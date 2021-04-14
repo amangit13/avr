@@ -27,16 +27,17 @@
   <FILE>Atmega-Serial.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>25</LINE></RESET>
+  <RESET><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>22</LINE></RESET>
   <_atmega8_delay_1sec><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>22</LINE></_atmega8_delay_1sec>
   <atmeg8_r18><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>27</LINE></atmeg8_r18>
   <atmeg8_r16><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>29</LINE></atmeg8_r16>
   <atmeg8_r17><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>31</LINE></atmeg8_r17>
-  <_serial_send_data><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>115</LINE></_serial_send_data>
-  <_serial_wait><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>116</LINE></_serial_wait>
-  <message><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>23</LINE></message>
-  <setpointer><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>29</LINE></setpointer>
-  <LOOP><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>31</LINE></LOOP>
-  <continue><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>39</LINE></continue>
+  <_serial_send_data><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>114</LINE></_serial_send_data>
+  <_serial_wait><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>115</LINE></_serial_wait>
+  <_serial_send_string_cseg><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>127</LINE></_serial_send_string_cseg>
+  <_serial_setptr><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>129</LINE></_serial_setptr>
+  <_serial_readnext><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>135</LINE></_serial_readnext>
+  <message><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>20</LINE></message>
+  <LOOP><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>27</LINE></LOOP>
  </LABELS>
 </ASSEMBLER_INFO>
