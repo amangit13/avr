@@ -27,7 +27,9 @@
   <FILE>Atmega-Serial.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>22</LINE></RESET>
+  <message1><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>15</LINE></message1>
+  <RESET><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>23</LINE></RESET>
+  <serial_data_interrupt><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>152</LINE></serial_data_interrupt>
   <_atmega8_delay_1sec><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>22</LINE></_atmega8_delay_1sec>
   <atmeg8_r18><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>27</LINE></atmeg8_r18>
   <atmeg8_r16><FILE>C:\Files\AVR\Assembly\common\myproc_utilities.inc</FILE><LINE>29</LINE></atmeg8_r16>
@@ -37,7 +39,8 @@
   <_serial_send_string_cseg><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>127</LINE></_serial_send_string_cseg>
   <_serial_setptr><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>129</LINE></_serial_setptr>
   <_serial_readnext><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>135</LINE></_serial_readnext>
-  <message><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>20</LINE></message>
-  <LOOP><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>27</LINE></LOOP>
+  <_serial_sendData_async><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>154</LINE></_serial_sendData_async>
+  <_serial_continue><FILE>C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc</FILE><LINE>162</LINE></_serial_continue>
+  <LOOP><FILE>C:\Files\AVR\Assembly\Atmega-Serial\Atmega-Serial\main.asm</FILE><LINE>28</LINE></LOOP>
  </LABELS>
 </ASSEMBLER_INFO>

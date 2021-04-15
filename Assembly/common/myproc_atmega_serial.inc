@@ -113,7 +113,7 @@
 
 _serial_send_data: ;(value)
 	_serial_wait:
-		if_bit_set_skip_next SERIAL_CTRL_A, 5; loop until bit 5 of control register a is set. it indicates that data register is ready to send data and can be written.
+		if_io_bit_set_skip_next SERIAL_CTRL_A, 5; loop until bit 5 of control register a is set. it indicates that data register is ready to send data and can be written.
 	goto _serial_wait
 		SERIAL_DATA_ R16
 ret
@@ -127,7 +127,7 @@ ret
 _serial_send_string_cseg:
 
 	_serial_setptr: 
-		csegponter_val_to_R0
+		csegpointer_val_to_R0
 
 	if_register_equal_skip_next R0,0
 		goto _serial_readnext
@@ -138,5 +138,29 @@ _serial_send_string_cseg:
 		ADIW Z,1
 	goto _serial_setptr
 ret
-;--------------------------------------------------------------------
+;------------------------Serial send string async using interrupts --------------------------------
 
+; -- calling this macro will start the async data send with register empty interrupt enabled. use .org 0x00C rcall serial_data_interrupt
+.macro serial_string_async;label
+	csegpointer @0					; point z to the label
+	csetpointer_valto_Z0			; load first byte into Z0
+	SERIAL_DATA_ R0					; send first byte
+	SERIAL_CONTROL_B_ 0b00100000	; enable data regester empty interrupt
+.endm
+; 
+
+serial_data_interrupt:; call this macro in the USART register empty interrupt 0x00C address. set Z to the address by using terminate string with 0. example: .org 0x00C rcall serial_data_interrupt
+
+_serial_sendData_async:
+	csegpointer_val_to_R0
+	
+	if_register_equal_skip_next R0,0
+		goto _serial_continue
+	SERIAL_CTRL_B_ 0; disable interrupt
+	reti ; 0, end of string
+
+	_serial_continue:
+		SERIAL_DATA_ R0
+		ADIW Z,1
+reti
+;------------------------------------------------------------------------------------------------

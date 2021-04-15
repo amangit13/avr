@@ -1,16 +1,7 @@
 
-;------------------------- SRAM variable assignemnts ----------------------------------
-.macro set_var;(variable, register) R16 = value at ram address e.b., R16 = @(22). 
-STS @0,@1
-.endm
-
-.macro read_var;(register, variable)
-LDS @0,@1
-.endm
-
 ;----------------------------------- JUMP CONDITIONS-------------------------------
 ;---- is register = number
-.macro is_equal_goto;(register, val, label)
+.macro if_register_equal_goto;(register, val, label)
 cpi @0,@1 ; compare with immediate
 breq @2 ; if Z=0 jump. Z = Zero bit.
 .endmacro
@@ -20,11 +11,11 @@ rjmp @0
 .endmacro
 
 ; not zero goto label
-.macro not_zero_goto;(lable)
+.macro if_flag_not_zero_goto;(lable)
 brne @0
 .endmacro
 
-.macro if_bit_set_skip_next;(io register, bit)
+.macro if_io_bit_set_skip_next;(io register, bit)
 	SBIS @0, @1
 .endm
 

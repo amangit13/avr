@@ -13,6 +13,16 @@
 	LDI ZL, low(@0*2)
 .endm
 
-.macro csegponter_val_to_R0
+.macro csegpointer_val_to_R0
 	LPM
+.endm
+
+
+;------------------------- SRAM variable assignemnts ----------------------------------
+.macro set_var;(variable, register) R16 = value at ram address e.b., R16 = @(22). 
+STS @0,@1
+.endm
+
+.macro read_var;(register, variable)
+LDS @0,@1
 .endm

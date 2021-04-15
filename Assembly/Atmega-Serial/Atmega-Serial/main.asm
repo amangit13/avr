@@ -11,12 +11,14 @@
 .dseg
 
 .cseg
-.org 000 goto RESET
+.org 000 
+	message1: .DB "HELLO WORLD. ",0
+	goto RESET
+.org 0x00C rcall serial_data_interrupt
 
 .include "C:\Files\AVR\Assembly\common\myproc_utilities.inc"
 .include "C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc"
 
-message: .DB "HELLO WORLD. ",0
 
 RESET:
 	init_stack
@@ -24,7 +26,8 @@ RESET:
 	R20_ 0
 	
 	LOOP:
-		serial_send_string_cseg message
+		serial_send_string_cseg message1
+	
 		inc R20
 		R16__ R20
 		serial_send_R16
@@ -32,3 +35,4 @@ RESET:
 		delay_1sec
 	
     goto LOOP
+
