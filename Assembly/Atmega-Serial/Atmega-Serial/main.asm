@@ -5,20 +5,20 @@
 ; Author : amana
 ;
 #define _ATMEGA8_
-.include "C:\Files\AVR\Assembly\common\mymacros_registers.inc"
-.include "C:\Files\AVR\Assembly\common\mymacros_jump.inc"
-.include "C:\Files\AVR\Assembly\common\mymacros_memory.inc"
+.include "mymacros_registers.inc"
+.include "mymacros_jump.inc"
+.include "mymacros_memory.inc"
 .dseg
 
 .cseg
 .org 000 
-	message1: .DB "HELLO WORLD. ",0
 	goto RESET
 .org 0x00C rcall serial_data_interrupt
 
-.include "C:\Files\AVR\Assembly\common\myproc_utilities.inc"
-.include "C:\Files\AVR\Assembly\common\myproc_atmega_serial.inc"
+.include "myproc_utilities.inc"
+.include "myproc_atmega_serial.inc"
 
+message1: .DB "HELLO WORLD. ",0
 
 RESET:
 	init_stack
