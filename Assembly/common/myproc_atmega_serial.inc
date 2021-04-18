@@ -99,12 +99,27 @@
 
 	SERIAL_TX_ENABLE
 .endm
+
+.macro seria_init_16M_250K
+	; 8 bit character frame, 1 bit stop bit.
+	SERIAL_CTRL_C_ 0b10000110
+
+	; UBBR value for 250K baud for 16MHz
+	SERIAL_BAUD_L_ 8
+
+	SERIAL_TX_ENABLE
+
+.endm
  
 
 ;------------------------- serial send data ----------------------
+.macro serial_send_reg_data; register
+	R16__ @0
+	rcall _serial_send_data
+.endm
 .macro serial_send_data ;value
 	R16_ @0
-	rcall _serial_Send_data
+	rcall _serial_send_data
 .endm
 
 .macro serial_send_R16 ;register

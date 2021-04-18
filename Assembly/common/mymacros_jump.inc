@@ -1,7 +1,7 @@
 
 ;----------------------------------- JUMP CONDITIONS-------------------------------
 ;---- is register = number
-.macro if_register_equal_goto;(register, val, label)
+.macro if_reg_equ_goto;(register, val, label)
 cpi @0,@1 ; compare with immediate
 breq @2 ; if Z=0 jump. Z = Zero bit.
 .endmacro
@@ -24,6 +24,14 @@ brne @0
 	cpse @0,R16
 .endm
 
+
+.macro if_reg_zero_goto;(label)
+	breq @0
+.endm
+
+.macro if_reg_not_zero_goto;(label)
+	brne @0
+.endm
 ; ------------------------------- loops -----------------------------------------
 ; while not zero. R16 --
 .macro repeat_until_r16_0;(label)
