@@ -4,14 +4,17 @@
  <WORKING_DIR>C:\Files\AVR\Assembly\blink\blink\Debug</WORKING_DIR>
  <INCLUDE_PATH>
   <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.8.332\avrasm\inc</DIR>
+  <DIR>..\..\..\common</DIR>
   <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
  <SOURCE_FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.8.332\avrasm\inc\tn13Adef.inc</FILE>
-  <FILE>C:\Files\AVR\Assembly\common\mymacros.inc</FILE>
-  <FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE>
+  <FILE>..\..\..\common\mymacros_jump.inc</FILE>
+  <FILE>..\..\..\common\mymacros_registers.inc</FILE>
+  <FILE>..\..\..\common\mymacros_memory.inc</FILE>
+  <FILE>..\..\..\common\myproc_utilities.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Files\AVR\Assembly\blink\blink\Debug\blink.obj</FILE>
@@ -24,12 +27,9 @@
   <FILE>blink.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <VAR1><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>13</LINE></VAR1>
-  <REST><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>29</LINE></REST>
-  <delay_1_sec><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>2</LINE></delay_1_sec>
-  <dly_r18><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>7</LINE></dly_r18>
-  <dly_r16><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>8</LINE></dly_r16>
-  <dly_r17><FILE>C:\Files\AVR\Assembly\common\myutilities.inc</FILE><LINE>9</LINE></dly_r17>
-  <loop_infinity><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>33</LINE></loop_infinity>
+  <RESET><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>20</LINE></RESET>
+  <delay_1sec_attiny13_9_6mhz><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>12</LINE></delay_1sec_attiny13_9_6mhz>
+  <_dly_loop><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>21</LINE></_dly_loop>
+  <repeat><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>25</LINE></repeat>
  </LABELS>
 </ASSEMBLER_INFO>

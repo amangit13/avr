@@ -11,7 +11,7 @@ rjmp @0
 .endmacro
 
 ; not zero goto label
-.macro if_flag_not_zero_goto;(lable)
+.macro if_not_zero_goto;(lable)
 brne @0
 .endmacro
 
@@ -57,7 +57,7 @@ cpi R17,@0			; if R17 == val
 breq @1				; jump to label
 .endm
 
-.macro repeat_until;(Register,Nnumber, label)
+.macro repeat_until_equ;(Register,Nnumber, label)
 inc @0
 cpi @0,@1
 brne @2
@@ -108,8 +108,10 @@ _return1:
 
 ;---------------------- common init -------------------------
 .macro init_stack
-	R16_ high(RAMEND)
-	OUT SPH,R16
+	#ifdef _atmega8_
+		R16_ high(RAMEND)
+		OUT SPH,R16
+	#endif
 	R16_ low(RAMEND)
 	OUT SPL, R16
 .endm

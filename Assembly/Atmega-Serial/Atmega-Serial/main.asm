@@ -23,7 +23,7 @@ message1: .DB "HELLO WORLD. ",0
 
 RESET:
 	init_stack
-    seria_init_16M_250K
+    serial_init_16M_9600
 	R20_ 200
 	R21_ 1 ; positive direction
 
@@ -56,6 +56,6 @@ RESET:
 			inc R20
 		
 		send_Data: serial_send_reg_data R20
-		;delay_1sec
+		delay_1sec
     goto LOOP
 
