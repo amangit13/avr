@@ -9,7 +9,7 @@
  */
 
 // Desired fuse configuration
-#define  HFUSE  0xDF   // Default for ATmega48/88/168, for others see
+#define  HFUSE  0xD9   // Default for ATmega48/88/168, for others see
 #define  LFUSE  0x62   // http://www.engbedded.com/cgi-bin/fc.cgi
 
 // Pin Assignments
@@ -63,13 +63,16 @@ void loop()  // run over and over again
   digitalWrite(XA0, LOW);
   digitalWrite(BS1, LOW);
   digitalWrite(BS2, LOW);
+
+  
   // Enter programming mode
   digitalWrite(VCC, HIGH);  // Apply VCC to start programming process
   digitalWrite(WR, HIGH);  // Now we can assert !OE and !WR
   digitalWrite(OE, HIGH);
-  delay(1);
+  delayMicroseconds(40); // delay 20 - 60 micro second 
   digitalWrite(RST, LOW);   // Apply 12V to !RESET thru level shifter
   delay(1);
+  
   // Now we're in programming mode until RST is set HIGH again
   
   // First we program HFUSE

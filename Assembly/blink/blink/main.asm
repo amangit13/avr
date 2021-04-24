@@ -4,7 +4,7 @@
 ; Created: 3/28/2021 8:55:21 AM
 ; Author : amana
 ;
-#define _attiny13_
+#define _atmega8_
 
 .include "mymacros_jump.inc" ; import macros
 .include "mymacros_registers.inc" ; import macros

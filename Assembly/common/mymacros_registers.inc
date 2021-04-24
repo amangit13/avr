@@ -52,7 +52,7 @@ ldi r15,@0
 	ldi r16,@0
 .endmacro
 
-.macro R16__;(register)
+.macro R16_R
 mov r16,@0
 .endm
 
@@ -105,4 +105,46 @@ ldi r30,@0
 .endm
 .macro R31_
 ldi r31,@0
+.endm
+
+
+;-------------------IO PORTB----------------------------
+.macro set_PB_out;(bit) set direction
+SBI DDRB, @0
+.endmacro
+
+.macro set_PB_in;(bit) setdirection
+SBI DDRB, @0
+.endmacro
+
+.macro read_PB0;(register)
+IN @0,PB0
+.endmacro
+
+.macro PB_on;(bit)
+SBI PORTB,@0
+.endmacro
+
+.macro PB_off;(bit)
+CBI PORTB,@0
+.endmacro
+
+.macro skip_next_if_PB_bit_set;(bit)
+SBIS PORTB,@0					; skip if bit # set		
+.endmacro				
+
+.macro toggle_PB;(bit)
+	skip_next_if_PB_bit_set @0
+		rjmp _toggle_on
+	PB_off @0
+	rjmp _return1
+_toggle_on:
+	PB_on @0
+
+_return1:
+.endmacro
+
+;---------------------- bit operations IO -----------------------
+.macro set_io_bit;(io, bit)
+	sbi @0,@1
 .endm

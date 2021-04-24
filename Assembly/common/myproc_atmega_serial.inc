@@ -158,7 +158,7 @@ _serial_send_string_cseg:
 		goto _serial_readnext
 	ret ; end of string
 	_serial_readnext:
-		R16__ R0
+		R16_R R0
 		serial_send_R16
 		ADIW Z,1
 	goto _serial_setptr

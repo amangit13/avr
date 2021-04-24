@@ -26,3 +26,11 @@ STS @0,@1
 .macro read_var;(register, variable)
 LDS @0,@1
 .endm
+
+;---------------------- common init -------------------------
+.macro init_m8_stack
+	R16_ high(RAMEND)
+	OUT SPH,R16
+	R16_ low(RAMEND)
+	OUT SPL, R16
+.endm

@@ -1,4 +1,4 @@
-#define _atmega8_
+#define _8MHZ_
 .include "mymacros_registers.inc"
 .include "mymacros_jump.inc"
 .include "mymacros_memory.inc"
@@ -6,7 +6,7 @@
 
 
 .cseg
-.org 000 goto RESET
+.org 000 rjmp RESET
 RETI ; interrupt vectors
 RETI
 RETI
@@ -33,11 +33,13 @@ goto RESET
 
 RESET:
 
-init_stack
+init_m8_stack
 set_PB_out 0
+PB_on 0
 
 REPEAT:
+delay_10ms
+
 toggle_PB 0
-delay_1sec
 
 goto REPEAT
