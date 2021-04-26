@@ -15,6 +15,7 @@
   <FILE>..\..\..\common\mymacros_jump.inc</FILE>
   <FILE>..\..\..\common\mymacros_memory.inc</FILE>
   <FILE>..\..\..\common\myproc_utilities.inc</FILE>
+  <FILE>..\..\..\common\myproc_timer.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\Debug\AtmegaBlink.obj</FILE>
@@ -27,10 +28,10 @@
   <FILE>AtmegaBlink.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>34</LINE></RESET>
-  <_delayw_loops><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>36</LINE></_delayw_loops>
-  <_dlyw_start><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>40</LINE></_dlyw_start>
-  <_dlyw_loop><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>44</LINE></_dlyw_loop>
-  <REPEAT><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>40</LINE></REPEAT>
+  <RESET><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>19</LINE></RESET>
+  <_delayw_loops><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>41</LINE></_delayw_loops>
+  <_dlyw_start><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>45</LINE></_dlyw_start>
+  <_dlyw_loop><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>49</LINE></_dlyw_loop>
+  <REPEAT><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>25</LINE></REPEAT>
  </LABELS>
 </ASSEMBLER_INFO>

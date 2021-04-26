@@ -6,29 +6,14 @@
 
 
 .cseg
-.org 000 rjmp RESET
-RETI ; interrupt vectors
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-RETI
-
+.org 000 NOP
+NOP
+rjmp RESET
+.org 0x12 RETI
+.org 0x13
 .include "myproc_utilities.inc"
+.include "myproc_timer.inc"
 ;.include "myproc_atmega_serial.inc"
-goto RESET
 
 
 RESET:

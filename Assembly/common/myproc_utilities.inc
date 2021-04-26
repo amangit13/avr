@@ -8,8 +8,6 @@
 	#endif
 #endif
 
-
-
 .macro delay_1sec
 	.set _v1H = 0xC3 ; C350 = 50,000
 	.set _v1L = 0x50 ; 50,000
@@ -28,6 +26,13 @@
 	.set _v1H = 0x1A
 	.set _v1L = 0x0A
 	.set _v2 = 3
+	rcall _delayw_loops
+.endm
+
+.macro delay_100ms
+	.set _v1H = 0x4E
+	.set _v1L = 0x1F
+	.set _v2 = 10
 	rcall _delayw_loops
 .endm
 
