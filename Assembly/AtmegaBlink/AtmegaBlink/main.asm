@@ -6,11 +6,11 @@
 
 
 .cseg
-.org 000 NOP
-NOP
-rjmp RESET
+.org 000 goto RESET
 .org 0x12 RETI
+
 .org 0x13
+.include "myproc_math.inc"
 .include "myproc_utilities.inc"
 .include "myproc_timer.inc"
 ;.include "myproc_atmega_serial.inc"
@@ -23,7 +23,7 @@ set_PB_out 0
 PB_on 0
 
 REPEAT:
-delay_10ms
+delay_1sec
 
 toggle_PB 0
 

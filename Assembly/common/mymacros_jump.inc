@@ -32,35 +32,6 @@ brne @0
 .macro if_reg_not_zero_goto;(label)
 	brne @0
 .endm
-; ------------------------------- loops -----------------------------------------
-; while not zero. R16 --
-.macro repeat_until_r16_0;(label)
-dec R16			; 1
-brne @0			; 1 when false, 2 when true
-.endmacro
 
-; while not zero. R17 --
-.macro repeat_until_r17_0;(label)
-dec R17
-brne @0					; jump to label if not zero
-.endmacro
-
-.macro repeat_until_r16;(val, label)
-inc R16
-cpi R16,@0			; if R16 == val
-breq @1				; jump to label if not zero
-.endmacro
-
-.macro rpeat_until_r17;(val, label)
-inc R17
-cpi R17,@0			; if R17 == val
-breq @1				; jump to label
-.endm
-
-.macro repeat_until_equ;(Register,Nnumber, label)
-inc @0
-cpi @0,@1
-brne @2
-.endm
 
 

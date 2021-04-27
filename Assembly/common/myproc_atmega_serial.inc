@@ -151,7 +151,7 @@ ret
 
 _serial_send_string_cseg:
 
-	_serial_setptr: 
+	_serial_readnext: 
 		csegpointer_val_to_R0
 
 	if_register_equal_skip_next R0,0
@@ -160,8 +160,8 @@ _serial_send_string_cseg:
 	_serial_readnext:
 		R16_R R0
 		serial_send_R16
-		ADIW Z,1
-	goto _serial_setptr
+		add_int Z,1
+	goto _serial_readnext
 ret
 ;------------------------Serial send string async using interrupts --------------------------------
 
