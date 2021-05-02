@@ -52,12 +52,12 @@
 
 .equ SERIAL_BAUD_L = UBRRL
 .equ SERIAL_BAUD_H = UBRRH
-
 .equ SERIAL_DATA = UDR
 
-.macro SERIAL_CTRL_C_;(value)
+;------------ register direct access -----------
+.macro serial.writeControlRegC ; value
 	R16_ @0
-	out SERIAL_CTRL_C, R16
+	out UCSRC, R16
 .endm
 
 .macro SERIAL_CTRL_B_;(value)
@@ -100,6 +100,17 @@
 	SERIAL_TX_ENABLE
 .endm
 
+.macro serial.init_8M_9600
+	
+	; 8 bit character frame, 1 bit stop bit.
+	serial.writeControlRegC 0b10000110
+
+	; UBBR value for 9600 baud for 16MHz
+	SERIAL_BAUD_L_ 51
+
+	SERIAL_TX_ENABLE
+.endm
+
 .macro serial_init_16M_76_8K
 	; 8 bit character frame, 1 bit stop bit.
 	SERIAL_CTRL_C_ 0b10000110
@@ -123,16 +134,17 @@
  .endm
 
 ;------------------------- serial send data ----------------------
-.macro serial_send_reg_data; register
-	R16__ @0
+.macro serial.sendRegByte; register
+	R16_R @0
 	rcall _serial_send_data
 .endm
-.macro serial_send_data ;value
+
+.macro serial.sendByte ;value
 	R16_ @0
 	rcall _serial_send_data
 .endm
 
-.macro serial_send_R16 ;register
+.macro serial.send_R16
 	rcall _serial_Send_data
 .endm
 
@@ -155,11 +167,11 @@ _serial_send_string_cseg:
 		csegpointer_val_to_R0
 
 	if_register_equal_skip_next R0,0
-		goto _serial_readnext
+		goto _serial_send
 	ret ; end of string
-	_serial_readnext:
+	_serial_send:
 		R16_R R0
-		serial_send_R16
+		serial.send_R16
 		add_int Z,1
 	goto _serial_readnext
 ret

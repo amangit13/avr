@@ -8,6 +8,11 @@
 	#endif
 #endif
 
+.set _v1 = 50000
+.set _v2 = 40
+rcall _delayw_loops
+
+
 .macro delay_1sec
 	.set _v1 = 50000
 	.set _v2 = 40

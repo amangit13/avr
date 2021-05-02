@@ -107,44 +107,21 @@ ldi r30,@0
 ldi r31,@0
 .endm
 
-
-;-------------------IO PORTB----------------------------
-.macro set_PB_out;(bit) set direction
-SBI DDRB, @0
-.endmacro
-
-.macro set_PB_in;(bit) setdirection
-SBI DDRB, @0
-.endmacro
-
-.macro read_PB0;(register)
-IN @0,PB0
-.endmacro
-
-.macro PB_on;(bit)
-SBI PORTB,@0
-.endmacro
-
-.macro PB_off;(bit)
-CBI PORTB,@0
-.endmacro
-
-.macro skip_next_if_PB_bit_set;(bit)
-SBIS PORTB,@0					; skip if bit # set		
-.endmacro				
-
-.macro toggle_PB;(bit)
-	skip_next_if_PB_bit_set @0
-		rjmp _toggle_on
-	PB_off @0
-	rjmp _return1
-_toggle_on:
-	PB_on @0
-
-_return1:
-.endmacro
-
-;---------------------- bit operations IO -----------------------
-.macro set_io_bit;(io, bit)
-	sbi @0,@1
+;--------------- word read and write ops -------------------
+.macro set_word_to_reg; register, 16 bit val. Rn:Rn+1 = int
+	ldi @0, low(@1)
+	ldi @0+1, high(@1)
 .endm
+
+.macro set_word_to_port; port, 16 bit val. Pb:Pn+1 = int
+	ldi R16, low(@1)
+	ldi R17, high(@1)
+	out @0, R16
+	out @0+1, R17
+.endm
+
+.macro register.setBit;(register, bit #)
+	sbr @0,@1
+.endm
+
+

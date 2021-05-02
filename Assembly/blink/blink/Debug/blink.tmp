@@ -14,7 +14,9 @@
   <FILE>..\..\..\common\mymacros_jump.inc</FILE>
   <FILE>..\..\..\common\mymacros_registers.inc</FILE>
   <FILE>..\..\..\common\mymacros_memory.inc</FILE>
+  <FILE>..\..\..\common\myproc_math.inc</FILE>
   <FILE>..\..\..\common\myproc_utilities.inc</FILE>
+  <FILE>..\..\..\common\myproc_timer.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Files\AVR\Assembly\blink\blink\Debug\blink.obj</FILE>
@@ -27,9 +29,12 @@
   <FILE>blink.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>20</LINE></RESET>
-  <delay_1sec_attiny13_9_6mhz><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>12</LINE></delay_1sec_attiny13_9_6mhz>
-  <_dly_loop><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>21</LINE></_dly_loop>
-  <repeat><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>25</LINE></repeat>
+  <RESET><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>21</LINE></RESET>
+  <_delayw_loops><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>28</LINE></_delayw_loops>
+  <_dlyw_start><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>34</LINE></_dlyw_start>
+  <_dlyw_loop><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>38</LINE></_dlyw_loop>
+  <_delay_at13_timer_msec><FILE>..\..\..\common\myproc_timer.inc</FILE><LINE>18</LINE></_delay_at13_timer_msec>
+  <_delay_wait><FILE>..\..\..\common\myproc_timer.inc</FILE><LINE>20</LINE></_delay_wait>
+  <repeat><FILE>C:\Files\AVR\Assembly\blink\blink\main.asm</FILE><LINE>26</LINE></repeat>
  </LABELS>
 </ASSEMBLER_INFO>

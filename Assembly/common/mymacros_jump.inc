@@ -25,6 +25,10 @@ brne @0
 .endm
 
 
+.macro if_reg_bit_set_skip_next ;register, bit
+	SBRS @0,@1
+.endm
+
 .macro if_reg_zero_goto;(label)
 	breq @0
 .endm
