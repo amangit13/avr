@@ -1,4 +1,4 @@
-#define _9_6MHZ_
+#define _8MHZ_
 .include "mymacros_registers.inc"
 .include "mymacros_jump.inc"
 .include "mymacros_memory.inc"
@@ -9,29 +9,28 @@
 .cseg
 .org 000 goto RESET
 .org 0x12 RETI
+.org 0x008 goto _timer_interrupt
 
 .org 0x13
 .include "myproc_math.inc"
-.include "myproc_utilities.inc"
-.include "myproc_atmega_timer.inc"
 .include "myproc_atmega_serial.inc"
+;.include "myproc_utilities.inc"
+.include "myproc_atmega_timer.inc"
 
 RESET:
 
 init_m8_stack
-serial.init_8M_9600
-io.PB.setPinForOutput 0
+io.PB.setPinMode 0, IO_OUTPUT
 io.PB.PinOn 0
+serial.init_8M_9600
 
-timer1.begin()
+timer1.begininterrupt	
+sei
 
 MAIN_REPEAT:
-	//timer1.readCounter R16, R17
-	//serial.send_R16
-	//serial.sendRegByte R17
-	//serial.sendByte 32
-	timer1.readFlagReg R16
-	serial.send_R16
-	io.PB.togglePin 0
+	goto MAIN_REPEAT
 
-goto MAIN_REPEAT
+
+_timer_interrupt:
+	io.PB.togglePin 0
+reti

@@ -8,20 +8,18 @@
 	#endif
 #endif
 
-.set _v1 = 50000
-.set _v2 = 40
-rcall _delayw_loops
+;.set _v1 = 50000
+;.set _v2 = 40
 
-
-.macro delay_1sec
-	.set _v1 = 50000
-	.set _v2 = 40
+.macro util.delay_100msec
+	.set _v1 = 20000
+	.set _v2 = 10
 	rcall _delayw_loops
 .endm
 
-.macro delay_msec; value   <------------ does not work. do not use
-	.set _v1 = (@0/8000)*4
-	.set _v2 = @0*8000%(@0*8000/4)
+.macro util.delay_1sec
+	.set _v1 = 1000
+	.set _v2 = 4
 	rcall _delayw_loops
 .endm
 
@@ -37,10 +35,10 @@ _delayw_loops:
 
 	_dlyw_loop:
 		subtract_int R24, 1					; 2 cycle
-	if_not_zero_goto _dlyw_loop			; 2 cycle for jmp, 1 for else. 
+		if_not_zero_goto _dlyw_loop			; 2 cycle for jmp, 1 for else. 
 
-		dec R18							; 1 cycle
-	if_not_zero_goto _dlyw_start			; 2 cycle
+		dec R18								; 1 cycle
+		if_not_zero_goto _dlyw_start			; 2 cycle
 
 	pop3 R18,R24,R25
 ret

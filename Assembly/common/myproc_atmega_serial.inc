@@ -148,11 +148,12 @@
 	rcall _serial_Send_data
 .endm
 
-_serial_send_data: ;(value)
+_serial_send_data: ;(R16)
 	_serial_wait:
 		if_io_bit_set_skip_next SERIAL_CTRL_A, 5; loop until bit 5 of control register a is set. it indicates that data register is ready to send data and can be written.
 	goto _serial_wait
-		SERIAL_DATA_ R16
+	
+	SERIAL_DATA_ R16
 ret
 
 ;------------------------ serial send string codeseg-----------------------

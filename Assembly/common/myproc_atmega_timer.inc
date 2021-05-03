@@ -50,12 +50,20 @@ ret
 
 	.macro timer1.writeControlRegA; value
 		R16_ @0
-		TCCR1A, R16
+		out TCCR1A, R16
 	.endm
 
 	.macro timer1.writeControlRegB; value
 		R16_ @0
-		TCCR1B, R16
+		out TCCR1B, R16
+	.endm
+
+	.macro timer1.readControlAReg; Reg
+		in @0,TCCR1A
+	.endm
+
+	.macro timer1.readControlBReg; reg
+		in @0, TCCR1B
 	.endm
 
 ;timer1.controlReg
@@ -67,11 +75,9 @@ ret
 ;---------------------------------------------------------------------------------------
 
 .macro timer1.begin
-	;set_word_to_port TCNT1L,0
-	timer1.controlReg.setPrescalar 3
-	R16_ 0 ; write bit #2 to reset the timer.
-	out TIFR, R16
-	timer1.writeFlagReg 4
+	set_word_to_port TCNT1L,0
+	timer1.controlReg.setPrescalar 5
+	timer1.writeFlagReg 1<<TOV1
 .endm
 
 .macro timer1.stop
@@ -79,18 +85,23 @@ ret
 .endm
 
 .macro timer1.delay_msec
-	rcall _timer1.delay_msec
+	rcall _timer1_delay_msec
 .endm
-
+.macro timer1.begininterrupt
+	timer1.controlReg.setPrescalar 2
+	R16_ 1<<TOIE1
+	out TIMSK, R16
+.endm
 _timer1_delay_msec:
 	timer1.begin
 
 	_delay_timer1:
-		in R16, TIFR
-		if_reg_bit_set_skip_next R16, 2
+		timer1.readFlagReg R16
+		if_reg_bit_set_skip_next R16, 1<<TOV1
 			goto _delay_timer1
 
-		R16_ 4 ; write bit #2 to reset the timer.
-		out TIFR, R16
-		timer1.stop
 ret
+
+.macro timer1.interruptHandler
+.org 0x003 rcall _timer_interrupt
+.endm

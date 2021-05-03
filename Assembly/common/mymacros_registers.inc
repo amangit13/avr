@@ -60,6 +60,10 @@ mov r16,@0
 ldi r17,@0
 .endmacro
 
+.macro R17_R
+	mov R17,@0
+.endm
+
 .macro R18_
 ldi r18,@0
 .endm

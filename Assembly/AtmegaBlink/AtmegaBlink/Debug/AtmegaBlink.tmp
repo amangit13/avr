@@ -16,9 +16,8 @@
   <FILE>..\..\..\common\mymacros_memory.inc</FILE>
   <FILE>..\..\..\common\mymacros_io.inc</FILE>
   <FILE>..\..\..\common\myproc_math.inc</FILE>
-  <FILE>..\..\..\common\myproc_utilities.inc</FILE>
-  <FILE>..\..\..\common\myproc_atmega_timer.inc</FILE>
   <FILE>..\..\..\common\myproc_atmega_serial.inc</FILE>
+  <FILE>..\..\..\common\myproc_atmega_timer.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\Debug\AtmegaBlink.obj</FILE>
@@ -31,22 +30,20 @@
   <FILE>AtmegaBlink.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>19</LINE></RESET>
-  <_delayw_loops><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>28</LINE></_delayw_loops>
-  <_dlyw_start><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>34</LINE></_dlyw_start>
-  <_dlyw_loop><FILE>..\..\..\common\myproc_utilities.inc</FILE><LINE>38</LINE></_dlyw_loop>
-  <_delay_m_timer0_msec><FILE>..\..\..\common\myproc_atmega_timer.inc</FILE><LINE>18</LINE></_delay_m_timer0_msec>
-  <_delay_wait><FILE>..\..\..\common\myproc_atmega_timer.inc</FILE><LINE>22</LINE></_delay_wait>
-  <_timer1_delay_msec><FILE>..\..\..\common\myproc_atmega_timer.inc</FILE><LINE>85</LINE></_timer1_delay_msec>
-  <_delay_timer1><FILE>..\..\..\common\myproc_atmega_timer.inc</FILE><LINE>88</LINE></_delay_timer1>
+  <RESET><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>20</LINE></RESET>
+  <_timer_interrupt><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>34</LINE></_timer_interrupt>
   <_serial_send_data><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>151</LINE></_serial_send_data>
   <_serial_wait><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>152</LINE></_serial_wait>
-  <_serial_send_string_cseg><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>164</LINE></_serial_send_string_cseg>
-  <_serial_readnext><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>166</LINE></_serial_readnext>
-  <_serial_send><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>172</LINE></_serial_send>
-  <serial_data_interrupt><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>189</LINE></serial_data_interrupt>
-  <_serial_sendData_async><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>191</LINE></_serial_sendData_async>
-  <_serial_continue><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>199</LINE></_serial_continue>
-  <MAIN_REPEAT><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>28</LINE></MAIN_REPEAT>
+  <_serial_send_string_cseg><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>165</LINE></_serial_send_string_cseg>
+  <_serial_readnext><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>167</LINE></_serial_readnext>
+  <_serial_send><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>173</LINE></_serial_send>
+  <serial_data_interrupt><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>190</LINE></serial_data_interrupt>
+  <_serial_sendData_async><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>192</LINE></_serial_sendData_async>
+  <_serial_continue><FILE>..\..\..\common\myproc_atmega_serial.inc</FILE><LINE>200</LINE></_serial_continue>
+  <_delay_m_timer0_msec><FILE>..\..\..\common\myproc_atmega_timer.inc</FILE><LINE>18</LINE></_delay_m_timer0_msec>
+  <_delay_wait><FILE>..\..\..\common\myproc_atmega_timer.inc</FILE><LINE>22</LINE></_delay_wait>
+  <_timer1_delay_msec><FILE>..\..\..\common\myproc_atmega_timer.inc</FILE><LINE>95</LINE></_timer1_delay_msec>
+  <_delay_timer1><FILE>..\..\..\common\myproc_atmega_timer.inc</FILE><LINE>98</LINE></_delay_timer1>
+  <MAIN_REPEAT><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>30</LINE></MAIN_REPEAT>
  </LABELS>
 </ASSEMBLER_INFO>

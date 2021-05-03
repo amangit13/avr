@@ -1,11 +1,16 @@
-;-------------------IO PORTB----------------------------
-.macro io.PB.SetPinForOutput;(bit) set direction
-SBI DDRB, @0
-.endmacro
+;--------------- CONSTANTS --------------
+.equ IO_OUTPUT=0
+.equ IO_INPUT=1
 
-.macro io.PB.SetPinForInput;(bit) setdirection
-SBI DDRB, @0
-.endmacro
+;-------------------IO PORTB----------------------------
+.macro io.PB.setPinMode; (pin #, IO_OUTPUT | IO_INPUT)
+.if @1==IO_OUTPUT
+	SBI DDRB, @0
+.endif
+.if @1==IO_INPUT
+	CBI DDRB, @0 
+.endif
+.endm
 
 .macro io.PB.read;(register)
 IN @0,PB
