@@ -1,3 +1,7 @@
+.macro timer1.interruptHandler
+.org 0x003 rcall _timer_interrupt
+.endm
+
 ;-------------------- timer related macros and functions
 .macro begin_m_timer0
 	R16_ 0
@@ -15,20 +19,22 @@
 	rcall _delay_m_timer0_msec
 .endm
 
-_delay_m_timer0_msec:	
+#ifdef TIMER0_DLY
+	_delay_m_timer0_msec:	
 	
-	begin_m_timer0()
+		begin_m_timer0()
 
-	_delay_wait:
-		IN R16,TIFR
-			if_reg_bit_set_skip_next R16, 0 ; bit 1 is timer over flow bit
-		goto _delay_wait ; bit not set loop back
+		_delay_wait:
+			IN R16,TIFR
+				if_reg_bit_set_skip_next R16, 0 ; bit 1 is timer over flow bit
+			goto _delay_wait ; bit not set loop back
 	
-	// reset flag
-	R16_ 1 ; setting bit 1 resets the overflow flag
-	out TIFR, R16
-	stop_m_time0
-ret
+		// reset flag
+		R16_ 1 ; setting bit 1 resets the overflow flag
+		out TIFR, R16
+		stop_m_time0
+	ret
+#endif
 
 ;-------------------------- Timer 1 ---------------------------------------------------
 
@@ -85,23 +91,22 @@ ret
 .endm
 
 .macro timer1.delay_msec
-	rcall _timer1_delay_msec
+	;rcall _timer1_delay_msec
 .endm
+
 .macro timer1.begininterrupt
 	timer1.controlReg.setPrescalar 2
 	R16_ 1<<TOIE1
 	out TIMSK, R16
 .endm
+
+
 _timer1_delay_msec:
-	timer1.begin
+		timer1.begin
 
-	_delay_timer1:
-		timer1.readFlagReg R16
-		if_reg_bit_set_skip_next R16, 1<<TOV1
-			goto _delay_timer1
+		_delay_timer1:
+			timer1.readFlagReg R16
+			if_reg_bit_set_skip_next R16, 1<<TOV1
+				goto _delay_timer1
 
-ret
-
-.macro timer1.interruptHandler
-.org 0x003 rcall _timer_interrupt
-.endm
+	ret

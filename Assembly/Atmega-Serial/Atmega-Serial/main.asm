@@ -4,58 +4,44 @@
 ; Created: 4/8/2021 10:31:44 PM
 ; Author : amana
 ;
-#define _ATMEGA8_
+
+#define _8MHZ_
 .include "mymacros_registers.inc"
 .include "mymacros_jump.inc"
 .include "mymacros_memory.inc"
+.include "mymacros_math.inc"
+.include "mymacros_io.inc"
 .dseg
 
-
 .cseg
-.org 000 
-	goto RESET
+.org 000 goto MAIN
 .org 0x00C rcall serial_data_interrupt
 
-.include "myproc_utilities.inc"
-.include "myproc_atmega_serial.inc"
 
-message1: .DB "HELLO WORLD. ",0
+.include "myproc_utils.asm"
+.include "myproc_atmega_serial.asm"
+.include "myproc_string.asm"
 
-RESET:
-	init_stack
-    serial_init_16M_9600
+MAIN:
+	init_m8_stack
+    serial.init_8M_9600
 	R20_ 200
-	R21_ 1 ; positive direction
+	io.PB.setPinMode IO_OUTPUT, 0
+
+	message1: .DB "HELLO WORLD. value = ",0
 
 	LOOP:
-		;serial_send_string_cseg message1
+		io.PB.togglePin 0
+		inc R20
+		serial.send_string_cseg message1
 		
-		; --------------------- Set direction ----------------------
-		if_reg_equ_goto R20,1,positive
-			else0: 
-				if_reg_equ_goto R20,255,negative
-			else1: 
-				goto cont
+		R18__ R20
+		string.hexToStr_R18R19
+		serial.sendRegByte R18
+		serial.sendRegByte R19
 
-		positive:
-			R21_ 1
-			goto cont
-		negative:
-			R21_ 0
-			goto cont
-		;------------------------------------------------------------
+		serial.sendByte serial.LINE_FEED
 
-
-		;------------------ check direction and send data ----------
-		cont:
-
-		if_reg_equ_goto R21,1,increase
-		else00: dec R20
-			goto send_data
-		increase:
-			inc R20
-		
-		send_Data: serial_send_reg_data R20
-		delay_1sec
+		util.delay_100msec
     goto LOOP
 

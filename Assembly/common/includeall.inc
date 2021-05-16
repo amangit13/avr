@@ -1,0 +1,5 @@
+.include "mymacros_registers.inc"
+.include "mymacros_jump.inc"
+.include "mymacros_memory.inc"
+.include "mymacros_io.inc"
+.include "mymacros_math.inc"

@@ -37,5 +37,9 @@ brne @0
 	brne @0
 .endm
 
+.macro if_reg_greater_eq_goto ;(reg, value, label)
+	cpi @0, @1
+	BRSH @2
+.endm
 
 

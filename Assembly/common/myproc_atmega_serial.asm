@@ -44,6 +44,8 @@
 ;.equ	UMSEL	= 6	; USART Mode Select
 ;.equ	URSEL	= 7	; Register Select
 
+.set serial.LINE_FEED = 10
+.set serial.END_OF_TEXT=3
 
 
 .equ SERIAL_CTRL_A = UCSRA ; bit 6 = transmit complete. set when tranmit is complete. bit 5 = Data register is empty  buffer is empty. 
@@ -135,7 +137,7 @@
 
 ;------------------------- serial send data ----------------------
 .macro serial.sendRegByte; register
-	R16_R @0
+	R16__ @0
 	rcall _serial_send_data
 .endm
 
@@ -157,7 +159,7 @@ _serial_send_data: ;(R16)
 ret
 
 ;------------------------ serial send string codeseg-----------------------
-.macro serial_send_string_cseg;(label)
+.macro serial.send_string_cseg;(label)
 	csegpointer @0
 	rcall _serial_send_string_cseg
 .endm
@@ -171,7 +173,7 @@ _serial_send_string_cseg:
 		goto _serial_send
 	ret ; end of string
 	_serial_send:
-		R16_R R0
+		R16__ R0
 		serial.send_R16
 		add_int Z,1
 	goto _serial_readnext

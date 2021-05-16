@@ -19,6 +19,9 @@ LDS @0,@1
 .endm
 
 
+;---------------- constants in cseg -------------------
+
+
 ;---------------------- stack init -------------------------
 .macro init_m8_stack
 	R16_ high(RAMEND)
