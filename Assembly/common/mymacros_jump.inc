@@ -2,8 +2,8 @@
 ;----------------------------------- JUMP CONDITIONS-------------------------------
 ;---- is register = number
 .macro if_reg_equ_goto;(register, val, label)
-cpi @0,@1 ; compare with immediate
-breq @2 ; if Z=0 jump. Z = Zero bit.
+	cpi @0,@1 ; compare with immediate
+	breq @2 ; if Z=0 jump. Z = Zero bit.
 .endmacro
 
 .macro goto;(label)
