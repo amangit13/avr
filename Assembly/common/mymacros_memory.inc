@@ -8,6 +8,10 @@
 	LPM
 .endm
 
+.macro readcseg_to_r0
+	csegpionter
+	LPM
+.endm
 
 ;------------------------- SRAM variable assignemnts ----------------------------------
 .macro set_var;(variable, register) var1 = R16

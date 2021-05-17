@@ -1,28 +1,32 @@
-#define _8MHZ_
+.set CPUF=8000000
 .include "mymacros_registers.inc"
 .include "mymacros_jump.inc"
 .include "mymacros_memory.inc"
 .include "mymacros_io.inc"
 .include "mymacros_math.inc"
 
-.dseg
-
-
-.cseg
-.org 000 goto RESET
+.org 000 goto MAIN
 .include "myproc_utils.asm"
+.include "myproc_atmega_serial.asm"
 
-RESET:
-
+MAIN:
 	init_m8_stack
-	io.PB.setPinMode 1, IO_OUTPUT
-	io.PB.PinOn 1
+	serial.init_8M_9600
 	io.PB.setPinMode 0, IO_OUTPUT
-	io.PB.PinOff 0
+	R19_ 10
 
 	MAIN_REPEAT:
-		io.PB.togglePin 1
+		serial.sendRegByte R19
 		io.PB.togglePin 0
-		util.delay_100msec
-		goto MAIN_REPEAT
+		util.delay_10msec
 
+		dec R19
+			if_zero_goto MAIN_REPEAT2
+
+	goto MAIN_REPEAT
+
+	MAIN_REPEAT2:
+		io.PB.togglePin 0
+		util.delay_1sec
+	goto MAIN_REPEAT2
+	

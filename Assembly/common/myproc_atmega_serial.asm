@@ -137,13 +137,17 @@
 
 ;------------------------- serial send data ----------------------
 .macro serial.sendRegByte; register
+	push R16
 	R16__ @0
 	rcall _serial_send_data
+	pop R16
 .endm
 
 .macro serial.sendByte ;value
+	push R16
 	R16_ @0
 	rcall _serial_send_data
+	pop R16
 .endm
 
 .macro serial.send_R16

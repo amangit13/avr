@@ -96,9 +96,20 @@ ldi r23,@0
 .macro R24_
 ldi r24,@0
 .endm
-.macro R25_
-ldi r25,@0
+
+.macro R24__
+	Mov R24, @0
 .endm
+
+.macro R25_
+	ldi r25,@0
+.endm
+
+.macro R25__
+	Mov R25, @0
+.endm
+
+
 .macro R26_
 ldi r26,@0
 .endm

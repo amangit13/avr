@@ -10,10 +10,6 @@ breq @2 ; if Z=0 jump. Z = Zero bit.
 rjmp @0
 .endmacro
 
-; not zero goto label
-.macro if_not_zero_goto;(lable)
-brne @0
-.endmacro
 
 .macro if_io_bit_set_skip_next;(io register, bit)
 	SBIS @0, @1
@@ -29,11 +25,11 @@ brne @0
 	SBRS @0,@1
 .endm
 
-.macro if_reg_zero_goto;(label)
+.macro if_zero_goto;(label)
 	breq @0
 .endm
 
-.macro if_reg_not_zero_goto;(label)
+.macro if_not_zero_goto;(label)
 	brne @0
 .endm
 
