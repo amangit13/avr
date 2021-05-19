@@ -22,7 +22,7 @@ MAIN:
 		util.delay_10msec
 
 		dec R19
-			if_zero_goto MAIN_REPEAT2
+		if_zero_goto MAIN_REPEAT2
 
 	goto MAIN_REPEAT
 
