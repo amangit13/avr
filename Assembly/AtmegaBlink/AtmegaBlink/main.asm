@@ -9,6 +9,7 @@
 .include "myproc_utils.asm"
 .include "myproc_atmega_serial.asm"
 
+
 MAIN:
 	init_m8_stack
 	serial.init_8M_9600

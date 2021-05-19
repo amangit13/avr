@@ -45,3 +45,31 @@ SBIS PORTB,@0					; skip if bit # set
 .macro io.setPin;(port, bit)
 	sbi @0,@1
 .endm
+
+;----------------------- direct port access-------------------------
+
+.macro DDRB_ ;value
+	push R16
+	R16_ @0
+	out DDRB, R16
+	pop r16
+.endm
+
+.macro _DDRB; register
+	IN @0, DDRB
+.endm
+
+.macro PORTB_ ; value
+	push R16
+	R16_ @0
+	out PORTB, R16
+	pop R16
+.endm
+
+.macro _PORTB; register
+	in @0, PORTB
+.endm
+
+.macro _PINB; register
+	in @0, PINB
+.endm
