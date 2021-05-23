@@ -1,0 +1,36 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega8"</DEVICE>
+ <WORKING_DIR>C:\Files\AVR\Assembly\Memory\Memory\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>..\..\..\common</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Files\AVR\Assembly\Memory\Memory\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m8def.inc</FILE>
+  <FILE>..\..\..\common\mymacros_registers.inc</FILE>
+  <FILE>..\..\..\common\mymacros_jump.inc</FILE>
+  <FILE>..\..\..\common\mymacros_memory.inc</FILE>
+  <FILE>..\..\..\common\mymacros_io.inc</FILE>
+  <FILE>..\..\..\common\mymacros_math.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Files\AVR\Assembly\Memory\Memory\Debug\Memory.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Memory.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Memory.map</FILE>
+  <FILE>Memory.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <MAIN><FILE>C:\Files\AVR\Assembly\Memory\Memory\main.asm</FILE><LINE>8</LINE></MAIN>
+  <cvar1><FILE>C:\Files\AVR\Assembly\Memory\Memory\main.asm</FILE><LINE>14</LINE></cvar1>
+  <var1><FILE>C:\Files\AVR\Assembly\Memory\Memory\main.asm</FILE><LINE>18</LINE></var1>
+  <var2><FILE>C:\Files\AVR\Assembly\Memory\Memory\main.asm</FILE><LINE>21</LINE></var2>
+ </LABELS>
+</ASSEMBLER_INFO>
