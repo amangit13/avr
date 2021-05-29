@@ -16,15 +16,15 @@
 IN @0,PB
 .endmacro
 
-.macro io.PB.PinOn;(bit)
+.macro io.PB.PinOn;(bit) 2 cycle
 SBI PORTB,@0
 .endmacro
 
-.macro io.PB.PinOff;(bit)
+.macro io.PB.PinOff;(bit)  2 cycle
 CBI PORTB,@0
 .endmacro
 
-.macro io.PB.togglePin;(bit)
+/*.macro io.PB.togglePin;(bit)
 	skip_next_if_PB_bit_set @0
 		rjmp _toggle_on
 	io.PB.PinOff @0
@@ -34,6 +34,10 @@ _toggle_on:
 
 _return1:
 .endmacro
+*/
+.macro io.PB.togglePin;(bit)
+	SBI PINB, @0
+.endm
 
 
 .macro skip_next_if_PB_bit_set;(bit)

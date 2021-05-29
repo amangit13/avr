@@ -1,33 +1,33 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.8</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\Debug</WORKING_DIR>
+ <WORKING_DIR>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\Debug</WORKING_DIR>
  <INCLUDE_PATH>
-  <DIR>..\..\..\common</DIR>
   <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>..\..\..\common</DIR>
   <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</SOURCE_FILE>
+ <SOURCE_FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m328Pdef.inc</FILE>
   <FILE>..\..\..\common\mymacros_registers.inc</FILE>
   <FILE>..\..\..\common\mymacros_jump.inc</FILE>
   <FILE>..\..\..\common\mymacros_memory.inc</FILE>
-  <FILE>..\..\..\common\mymacros_io.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\Debug\AtmegaBlink.obj</FILE>
+  <FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\Debug\AtmegaTimer.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
-  <FILE>AtmegaBlink.hex</FILE>
+  <FILE>AtmegaTimer.hex</FILE>
  </HEX_FILES>
  <OUTPUT_FILES>
-  <FILE>AtmegaBlink.map</FILE>
-  <FILE>AtmegaBlink.lss</FILE>
+  <FILE>AtmegaTimer.map</FILE>
+  <FILE>AtmegaTimer.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <MAIN><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>15</LINE></MAIN>
-  <MAIN_REPEAT><FILE>C:\Files\AVR\Assembly\AtmegaBlink\AtmegaBlink\main.asm</FILE><LINE>19</LINE></MAIN_REPEAT>
+  <start><FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\main.asm</FILE><LINE>12</LINE></start>
+  <setup_timer1_toggleA><FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\main.asm</FILE><LINE>31</LINE></setup_timer1_toggleA>
+  <loop><FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\main.asm</FILE><LINE>16</LINE></loop>
  </LABELS>
 </ASSEMBLER_INFO>

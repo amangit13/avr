@@ -138,8 +138,8 @@ ldi r31,@0
 .macro set_word_to_port; port, 16 bit val. Pb:Pn+1 = int
 	ldi R16, low(@1)
 	ldi R17, high(@1)
-	out @0, R16
-	out @0+1, R17
+	out TCNT1L, R16
+	out TCNT1H, R17
 .endm
 
 .macro register.setBit;(register, bit #)

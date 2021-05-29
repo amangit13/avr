@@ -38,4 +38,7 @@ rjmp @0
 	BRSH @2
 .endm
 
+.macro return
+	ret
+.endm
 

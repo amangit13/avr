@@ -27,7 +27,14 @@ LDS @0,@1
 
 
 ;---------------------- stack init -------------------------
-.macro init_m8_stack
+.macro memory.init_m_stack;
+	R16_ high(RAMEND)
+	OUT SPH,R16
+	R16_ low(RAMEND)
+	OUT SPL, R16
+.endm
+
+.macro init_m_stack
 	R16_ high(RAMEND)
 	OUT SPH,R16
 	R16_ low(RAMEND)
