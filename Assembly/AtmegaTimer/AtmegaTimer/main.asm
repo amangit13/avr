@@ -25,8 +25,6 @@ start:
 		intuitive to use
 			timer1.setMode(TogglePinA, frequency)
 			timer1.setMode(CallInterrupt, frequency, handler)
-
-
 	*/
 	setup_timer1_toggleA:
 		r16_ 0xff
