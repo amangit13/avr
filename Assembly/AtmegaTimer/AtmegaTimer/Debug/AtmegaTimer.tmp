@@ -27,7 +27,7 @@
  </OUTPUT_FILES>
  <LABELS>
   <start><FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\main.asm</FILE><LINE>12</LINE></start>
-  <setup_timer1_toggleA><FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\main.asm</FILE><LINE>31</LINE></setup_timer1_toggleA>
+  <setup_timer1_toggleA><FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\main.asm</FILE><LINE>29</LINE></setup_timer1_toggleA>
   <loop><FILE>C:\Files\AVR\Assembly\AtmegaTimer\AtmegaTimer\main.asm</FILE><LINE>16</LINE></loop>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -28,9 +28,10 @@ start:
 	*/
 	setup_timer1_toggleA:
 		r16_ 0xff
-		out DDRB, r16 ; // ping 15 is output pin for compareA1 PB1, compare B1 is PB2
+		out DDRB, r16 ; // pin 15 is output pin for OC1A
+						// pin 16 is output pin for OC1B
 
-
+		
 		// set OCR1A value to 0 to compare
 		r16_ 0x0
 		sts OCR1AH, r16
@@ -43,7 +44,7 @@ start:
 		r16_ 0x1
 		sts OCR1BL, R16
 
-		r16_ 0b01010000
+		r16_ 1<<COM1B0
 		sts TCCR1A, r16 // toggle oc1a & oc1b on compare
 	
 		//	       ctc  prescalar

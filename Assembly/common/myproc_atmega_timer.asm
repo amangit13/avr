@@ -12,7 +12,7 @@
 
 .macro stop_m_time0
 	R16_ 0
-	out TCCR0, R16
+	sts TCCR0, R16
 .endm
 
 .macro delay_m_timer0_msec
@@ -41,41 +41,41 @@
 ;------------------- Access Regiters Timer1.Counter, Timer1.Flags, etc ----------------
 ;timer1
 	.macro timer1.readCounter ; (reg:reg+1)
-		IN @0,TCNT1L
-		IN @1,TCNT1H
+		lds @0,TCNT1L
+		lds @1,TCNT1H
 	.endm
 
 	.macro timer1.readFlagReg ; register
-		in @0, TIFR
+		lds @0, TIFR
 	.endm
 
 	.macro timer1.writeFlagReg ; value
 		R16_ @0
-		out TIFR, R16
+		sts TIFR, R16
 	.endm
 
 	.macro timer1.writeControlRegA; value
 		R16_ @0
-		out TCCR1A, R16
+		sts TCCR1A, R16
 	.endm
 
 	.macro timer1.writeControlRegB; value
 		R16_ @0
-		out TCCR1B, R16
+		sts TCCR1B, R16
 	.endm
 
 	.macro timer1.readControlAReg; Reg
-		in @0,TCCR1A
+		lds @0,TCCR1A
 	.endm
 
 	.macro timer1.readControlBReg; reg
-		in @0, TCCR1B
+		lds @0, TCCR1B
 	.endm
 
 ;timer1.controlReg
 				.macro timer1.controlReg.setPrescalar; val
 					R16_ @0
-					out TCCR1B, R16
+					sts TCCR1B, R16
 				.endm
 
 ;---------------------------------------------------------------------------------------
