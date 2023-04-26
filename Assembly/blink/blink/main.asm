@@ -20,11 +20,10 @@
 
 RESET:
 	init_t13_stack
-	set_PB_out (0)
-	PB_off 0
+	io.PB.setPinMode 0, IO_OUTPUT
 
 	repeat:
-		toggle_PB 0
+		io.PB.togglePin 0
 		delay_at13_timer_msec
 	goto repeat
 goto RESET

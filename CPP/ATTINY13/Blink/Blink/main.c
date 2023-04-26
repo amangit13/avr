@@ -23,6 +23,9 @@ int main(void)
 	//setupCTC();
 	while (1)
 	{
-		sbyte(65);
+		PORTB = 0X00;
+		_delay_ms(100);
+		PORTB = 0xFF;
+		_delay_ms(100);
 	}
 }
