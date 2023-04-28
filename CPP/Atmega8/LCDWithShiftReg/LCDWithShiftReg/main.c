@@ -30,7 +30,7 @@
 #define CLK 1<<PORTD6
 #define SERIALPORT PORTD
 #define LATCH 1<<PORTD5
-
+#define dly 1
 void sendSerial (uint8_t data)
 {
 	for (int i=7; i>=0;i--)
@@ -53,19 +53,26 @@ void sendCommand4bit(uint8_t cmd)
 {
 
 //X X RS E d7 d6 d5 d4
+_delay_ms(dly);
 
 // reset everything
 sendSerial(0x00);
+_delay_ms(dly);
+
 
 // send high bits. Enable On
 sendSerial(0b00010000 | (0x0F & cmd>>4));
 
+_delay_ms(dly);
 // send high bits. Enable Off
 sendSerial(0b00000000 | (0x0F & cmd>>4));
+
+_delay_ms(dly);
 
 // send low bits. Enable On
 sendSerial(0b00010000 | (0x0F & cmd));
 
+_delay_ms(dly);
 // Send low bit, enable off
 sendSerial(0b00000000 | (0x0F & cmd));
 
@@ -76,18 +83,27 @@ sendSerial(0b00000000 | (0x0F & cmd));
 void sendData4bit(uint8_t data)
 {
 	//X X RS E d7 d6 d5 d4
+	_delay_ms(dly);
 	
 	// reset everything
 	sendSerial(0x00);
 
+	_delay_ms(dly);
+
 	// send high bits. Enable On
 	sendSerial(0b00110000 | (0x0F & data>>4));
+
+	_delay_ms(dly);
 
 	// send high bits. Enable Off
 	sendSerial(0b00100000 | (0x0F & data>>4));
 
+	_delay_ms(dly);
+
 	// send low bits. Enable On
 	sendSerial(0b00110000 | (0x0F & data));
+
+	_delay_ms(dly);
 
 	// Send low bit, enable off
 	sendSerial(0b00100000 | (0x0F & data));
@@ -121,9 +137,15 @@ int main(void)
 	DDRD = 0XFF;
 	PORTB = 0X00;
 	PORTD = 0X00;
-	
+	_delay_ms(dly);
 	initlcd();
+	_delay_ms(dly);
 	sendData4bit('A');
+	sendData4bit('A');
+	sendData4bit('A');
+	sendData4bit('M');
+	sendData4bit('a');
+	sendData4bit('n');
 	
 	
     while (1) 
